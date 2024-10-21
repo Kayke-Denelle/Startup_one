@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+#teste{
+    font-size: 55px;
+    font-weight: bold;
+}
+#teste2{
+    font-size: 44px;
+}
