@@ -4,17 +4,11 @@
 
 #teste{
     font-size: 55px;
-    font-weight: bold;
-    color: rgba(0, 173, 181, 1);
     
 }
 #teste2{
-    font-size: 44px;
+    font-size: 46px;
     color: black;
-}
-
-#navbar-background{
-    background-color: rgba(30, 19, 90, 1);
 }
 
 #navbar-logo{
@@ -26,7 +20,6 @@
 #header-texto1{
     font-size: 12px;
     padding-left: 10px;
-    background-color: rgb(255,250,250);
     width: 450px;
     border-radius: 15px;
 }
