@@ -1,2 +1,6 @@
 Rodar o Tailwind:
 npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
+
+Padrão Para Commits:
+Numero - Atualização - Data - Usuário
+0.0.1b - Cores - 22/10 20:42 - Otávio V. Apolonio
