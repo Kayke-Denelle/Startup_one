@@ -1,35 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-#teste{
-    font-size: 55px;
-    
-}
-#teste2{
-    font-size: 46px;
-    color: black;
-}
-
-#navbar-logo{
-    width: 37px;
-    height: 37px;
-    margin: 8px;
-}
-
-#header-texto1{
-    font-size: 12px;
-    padding-left: 10px;
-    width: 450px;
-    border-radius: 15px;
-}
-#header-texto1:hover{
-    background-color: #00ADB5;
-}
-
-#header-button{
-    background-color: #00ADB5;
-}
-#header-button:hover{
-    background-color:  rgba(30, 19, 90, 1);
-}
