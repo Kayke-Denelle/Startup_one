@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/src/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="./input.css">
+    <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
+    <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
+    <title>Volans</title>
+</head>
+<body class="bg-azul-1">
+
+    <!-- NAVBAR -->
+
+    <header>
+        <nav x-data="{open:false}" class="bg-azul-3 flex h-auto w-auto shadow-lg  justify-between md:h-16" id="navbar-background">
+            <div class="flex w-full justify-between ">
+                <div :class="open ? 'hidden':'flex' " class="flex px-6 w-1/2 items-center  text-white font-semibold md:w-1/5 md:px-1 md:flex md:items-center md:justify-center" x-transition:enter="transition ease-out duration-300">
+                    <img src="Img/LogoVolansWhiteNoBG 1.png" alt="Logo volans" id="navbar-logo">  
+                    <a href="">Volans</a>
+                </div>
+            <div  x-show="open" x-transition:enter="transition ease-in-out duration-300" class="flex flex-col w-full h-auto md:hidden ">
+                <div class="flex flex-col items-center justify-center gap-2 text-white">
+                    <a href="index.html">Pagina Inicial</a>
+                    <a href="Sobre.html">Sobre nós</a>
+                    <a href="servicos.html">Serviços</a>
+                    <button>Começe agora</button>
+                </div>
+            </div>
+            <div class="hidden w-3/5 items-center justify-evenly font-semibold md:flex text-white">
+                <a href="index.html">Pagina Inicial</a>
+                <a href="Sobre.html">Sobre nós</a>
+                <a href="servicos.html">Serviços</a>
+            </div>
+            <div class="hidden w-1/5 items-center justify-evenly font-semibold md:flex text-white">
+                <button>Começe agora</button>
+                
+            </div>
+            <button class="text-white w-10 h-10 relative focus:outline-none md:hidden" @click="open = !open">
+            <span class="sr-only">Abrir o menu principal</span>
+                <div class="block w-5 absolute left-1/2 top-1/2   transform  -translate-x-1/2 -translate-y-1/2">
+                    <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out" :class="{'rotate-45': open,' -translate-y-1.5': !open }"></span>
+                    <span aria-hidden="true" class="block absolute  h-0.5 w-5 bg-current   transform transition duration-500 ease-in-out" :class="{'opacity-0': open } "></span>
+                    <span aria-hidden="true" class="block absolute  h-0.5 w-5 bg-current transform  transition duration-500 ease-in-out" :class="{'-rotate-45': open, ' translate-y-1.5': !open}"></span>
+                </div>
+            </button>
+            </div>
+        </nav>
+    </header>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+    <!-- NAVBAR -->
+
+    <!-- component -->
+    <section class="relative  bg-azul-1">
+        <div class="relative pt-12 pb-32 flex content-center items-center justify-center min-h-screen-70">
+                <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
+                    background-image: url(Img/artepost_flashcardsestudos_11.jpg);
+                  ">
+                  <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
+                </div>
+                <div class="container relative mx-auto">
+                  <div class="items-center flex flex-wrap">
+                    <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+                      <div class="pr-12">
+                        <h1 class="text-white font-semibold text-5xl">
+                          Your story starts with us.
+                        </h1>
+                        <p class="mt-4 text-lg text-blueGray-200">
+                          This is a simple example of a Landing Page you can build using
+                          Notus JS. It features multiple CSS components based on the
+                          Tailwind CSS design system.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style="transform: translateZ(0px)">
+                  <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+                    <polygon class="text-azul-1 fill-current" points="2560 0 2560 100 0 100"></polygon>
+                  </svg>
+                </div>
+              </div>
+              <section class="pb-10 bg-azul-1 -mt-24">
+                <div class="container mx-auto px-4">
+                  <div class="flex flex-wrap">
+                    <div class="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
+                      <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                        <div class="px-4 py-5 flex-auto">
+                          <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
+                            <i class="fas fa-award"></i>
+                          </div>
+                          <h6 class="text-xl font-semibold">Awarded Agency</h6>
+                          <p class="mt-2 mb-4 text-blueGray-500">
+                            Divide details about your product or agency work into parts.
+                            A paragraph describing a feature will be enough.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="w-full md:w-4/12 px-4 text-center">
+                      <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                        <div class="px-4 py-5 flex-auto">
+                          <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-lightBlue-400">
+                            <i class="fas fa-retweet"></i>
+                          </div>
+                          <h6 class="text-xl font-semibold">Free Revisions</h6>
+                          <p class="mt-2 mb-4 text-blueGray-500">
+                            Keep you user engaged by providing meaningful information.
+                            Remember that by this time, the user is curious.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pt-6 w-full md:w-4/12 px-4 text-center">
+                      <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                        <div class="px-4 py-5 flex-auto">
+                          <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-emerald-400">
+                            <i class="fas fa-fingerprint"></i>
+                          </div>
+                          <h6 class="text-xl font-semibold">Verified Company</h6>
+                          <p class="mt-2 mb-4 text-blueGray-500">
+                            Write a few lines about each one. A paragraph describing a
+                            feature will be enough. Keep you user engaged!
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </section>
+</body>
+</html>
