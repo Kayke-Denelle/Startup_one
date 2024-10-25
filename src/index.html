@@ -21,20 +21,17 @@
                 </div>
             <div  x-show="open" x-transition:enter="transition ease-in-out duration-300" class="flex flex-col w-full h-auto md:hidden ">
                 <div class="flex flex-col items-center justify-center gap-2 text-white">
-                    <a href="index.html">Pagina Inicial</a>
                     <a href="Sobre.html">Sobre nós</a>
                     <a href="servicos.html">Serviços</a>
-                    <button>Login</button>
-                    <button>Sign Up</button>
+                    <a href="Login.html">Começe agora</a>
                 </div>
             </div>
-            <div class="hidden w-3/5 items-center justify-evenly font-semibold md:flex text-white">
-                <a href="index.html">Pagina Inicial</a>
-                <a href="Sobre.html">Sobre nós</a>
-                <a href="servicos.html">Serviços</a>
+            <div class="hidden w-auto gap-6 ml-6 items-center justify-evenly font-semibold md:flex text-white">
+                <a href="#sobre">Sobre nós</a>
+                <a href="#servicos">Serviços</a>
             </div>
-            <div class="hidden w-1/5 items-center justify-evenly font-semibold md:flex text-white">
-                <button>Começe agora</button>
+            <div class="hidden w-auto mr-16 items-center justify-evenly font-semibold md:flex text-white">
+                <a href="Login.html">Começe agora</a>
                 
             </div>
             <button class="text-white w-10 h-10 relative focus:outline-none md:hidden" @click="open = !open">
@@ -79,20 +76,20 @@
         </div>
 
 
-        <section class="relative pt-16 bg-azul-3">
+        <section class="relative pt-16 bg-azul-3" id="sobre">
             <div class="container mx-auto">
               <div class="flex flex-wrap items-center">
                 <div class="w-10/12 md:w-6/12 lg:w-4/12 px-12 md:px-4 mr-auto ml-auto -mt-78">
-                  <div class="relative flex flex-col min-w-0 break-words bg-azul-3 w-full mb-6 shadow-lg rounded-lg bg-azul-1">
-                    <img alt="FLashcard de papel" src="Img/artepost_flashcardsestudos_11.jpg" class="w-full align-middle rounded-t-lg">
+                  <div class="relative flex flex-col min-w-0 break-words bg-azul-1 w-full mb-6 shadow-lg rounded-lg bg-azul-1">
+                    <img alt="Flashcard de papel" src="Img/artepost_flashcardsestudos_11.jpg" class="w-full align-middle rounded-t-lg">
                     <blockquote class="relative p-8 mb-4">
                       <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 583 95" class="absolute left-0 w-full block h-95-px -top-94-px">
                         <polygon points="-30,95 583,95 583,65" class="text-azul-1 fill-current"></polygon>
                       </svg>
-                      <h4 class="text-xl font-bold text-white">
+                      <h4 class="text-xl font-bold text-azul-3">
                         Estude Menos, Aprenda Mais!
                       </h4>
-                      <p class="text-md font-light mt-2 text-white">
+                      <p class="text-md font-medium mt-2 text-azul-3">
                         Com o Volans você podera ter flashcards totalmente digitais na palma da sua mão, e estudar de forma inteligente com a técnica de repetição espaçada, que ajuda a fixar o conteúdo na memória de longo prazo. Com o Volans, você pode criar, organizar e revisar seus flashcards em qualquer lugar, maximizando o aprendizado e otimizando seu tempo de estudo.
                       </p>
                     </blockquote>
@@ -162,7 +159,7 @@
             </section>
 
 
-            <section class="relative  bg-azul-1">
+            <section class="relative  bg-azul-1" id="servicos">
                 <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
                         <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
                             background-image: url(Img/artepost_flashcardsestudos_11.jpg);
