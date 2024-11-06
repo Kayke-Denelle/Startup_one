@@ -31,7 +31,7 @@ const Login = () => {
         </div>
       </div>
       <div className="flex items-center justify-center h-screen">
-        <div className="w-fit bg-cor-4/70 px-14 py-14 shadow-md sm:rounded-3xl">
+        <div className="w-fit py-40 bg-cor-4/70 px-14 sm:py-14 shadow-md sm:rounded-3xl">
           <div className="flex flex-col items-center text-center mb-8 justify-center">
             <svg className="h-auto w-20 flex-none text-cor-0" version="1.1" viewBox="0 0 1080 1080" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path transform="translate(775,409)" d="m0 0h36l21 2 26 5 21 6 24 10 25 13 22 15 13 11 10 8 19 19 1 5 7-5h6l7 6 2 5-15 30-12 19-10 14-10 13-12 14-12 13-12 11-15 11-17 10-17 6-12 2-14-1-15-7-15-10-14-14-9-14-8-17-5-17-3-15-2-24 2-19 4-14 7-17 12-20 3-4-11 3-13 7-11 9-9 10-9 16-5 14-4 17-2 15-3 2-15-8-20-7-31-8-63-14-25-7-24-10-10-7v-3l26-15 18-10 26-13 30-13 31-11 28-8 31-6zm40 48m95 27-10 2-8 5-5 5-5 10-1 8 2 11 6 10 9 6 5 2 8 1 9-2 8-5 7-8 3-7 1-9-2-10-6-10-9-6-5-2z"/>
@@ -60,24 +60,22 @@ const Login = () => {
             </p>
           </div>
           <form onSubmit={handleSubmit} className="flex flex-col text-sm rounded-md">
-            <input className="bg-cor-4 mb-5 rounded-[4px] p-3 hover:outline-none focus:outline-none" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <input className="bg-cor-4 rounded-[4px] p-3 hover:outline-none focus:outline-none" type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)}/>
-            <button className="mt-5 w-full font-semibold rounded-3xl p-2 bg-gradient-to-r from-cor-2 bg-cor-1 text-cor-4 hover:bg-cor-3 scale-105 duration-300" type="submit">Entrar</button>
+            <input className="bg-cor-4 h-auto w-full mb-5 rounded-[4px] p-3 hover:outline-none focus:outline-none" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+            <input className="bg-cor-4 h-auto w-full sm:w-96 rounded-[4px] p-3 hover:outline-none focus:outline-none" type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <button className="mt-5 w-full font-semibold rounded-3xl p-2 bg-gradient-to-r from-cor-2 bg-cor-1 text-cor-4 hover:bg-cor-3 scale-105 transition ease-in-out duration-300" type="submit">Entrar</button>
             {error && <p className="text-red-500">{error}</p>}
           </form>
-          <div className="mt-5 flex justify-between text-sm text-gray-600">
-            <a href="/">Forgot password?</a>
+          <div className="mt-3 flex justify-between text-sm text-cor-0/70 hover:text-cor-1 transition ease-in-out duration-300">
+            <a href="/">Esqueceu a senha?</a>
           </div>
-          <div className="flex justify-center mt-5 text-sm">
-          <button type="button" onClick={handleRegisterRedirect} className="underline">
-              Não tem uma conta? registre-se aqui!!
-            </button>
+          <div className="flex justify-center mt-3 text-sm text-cor-0/70 hover:text-cor-1 transition ease-in-out duration-300">
+            <button type="button" onClick={handleRegisterRedirect}>Não tem uma conta? <spam class="font-bold">Registre-se</spam> aqui!</button>
           </div>
-          <div className="mt-5 flex justify-center gap-3">
-            <img alt="Volans Logo" className="w-12 h-12" />
-            <img className="h-7 grayscale cursor-pointer hover:grayscale-0 scale-105 duration-300" />
-            <img className="h-7 grayscale cursor-pointer hover:grayscale-0 scale-105 duration-300" />
-            <a className="bg-gray-400 h-7 w-7 rounded-3xl text-center grayscale cursor-pointer hover:grayscale-0 scale-105 duration-300">...</a>
+          <p class="flex justify-center mt-3 text-sm text-cor-0/70">Ou continuar com</p>
+          <div className="mt-3 flex justify-center gap-3">
+            <svg class="h-auto w-10 text-cor-4 hover:text-cor-1 transition ease-in-out duration-300" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
+              <path fill="#fbc02d" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#e53935" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4caf50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1565c0" d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+            </svg>
           </div>
         </div>
       </div>
