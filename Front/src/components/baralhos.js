@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import Sidebar from '../components/sidebar'; // Import the Sidebar component
 
 const DeckList = () => {
   const { token, logout } = useContext(AuthContext);
@@ -8,7 +9,7 @@ const DeckList = () => {
   const [newDeckName, setNewDeckName] = useState('');
   const navigate = useNavigate();
 
-  // Carregar baralhos do usuário
+  // Load user's decks
   useEffect(() => {
     if (!token) {
       navigate('/login');
@@ -25,7 +26,7 @@ const DeckList = () => {
     }
   }, [token, navigate]);
 
-  // Criar novo baralho
+  // Create new deck
   const handleCreateDeck = async () => {
     if (!newDeckName) return alert('Nome do baralho é obrigatório');
     
@@ -48,25 +49,44 @@ const DeckList = () => {
   };
 
   return (
-    <div>
-      <h2>Baralhos</h2>
-      <button onClick={logout}>Sair</button>
-      <div>
-        <input
-          type="text"
-          placeholder="Novo Baralho"
-          value={newDeckName}
-          onChange={(e) => setNewDeckName(e.target.value)}
-        />
-        <button onClick={handleCreateDeck}>Criar Baralho</button>
+    <div className="flex">
+      <Sidebar /> {/* Render the Sidebar component */}
+      <div className="flex-1 min-h-screen flex flex-col items-center bg-gray-100 p-5">
+        <h2 className="text-3xl font-bold mb-5">Baralhos</h2>
+        <button 
+          onClick={logout} 
+          className="mb-5 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"
+        >
+          Sair
+        </button>
+        <div className="mb-5 flex">
+          <input
+            type="text"
+            placeholder="Novo Baralho"
+            value={newDeckName}
+            onChange={(e) => setNewDeckName(e.target.value)}
+            className="border rounded-l-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button 
+            onClick={handleCreateDeck} 
+            className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300"
+          >
+            Criar Baralho
+          </button>
+        </div>
+        <ul className="w-full max-w-md">
+          {decks.map((deck) => (
+            <li key={deck._id} className="mb-2">
+              <Link 
+                to={`/cartas/${deck._id}`} 
+                className="block bg-white shadow-md rounded p-4 hover:bg-gray-200 transition duration-300"
+              >
+                {deck.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul>
-        {decks.map((deck) => (
-          <li key={deck._id}>
-            <Link to={`/cartas/${deck._id}`}>{deck.name}</Link>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };
