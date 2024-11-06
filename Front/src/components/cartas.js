@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { useNavigate, useParams } from 'react-router-dom';
-import Sidebar from '../components/sidebar'; // Import the Sidebar component
+import { useNavigate, useParams, Link } from 'react-router-dom';
 
 const FlashcardList = () => {
   const { token } = useContext(AuthContext);
@@ -12,6 +11,7 @@ const FlashcardList = () => {
   const navigate = useNavigate();
   const [flippedCardIndex, setFlippedCardIndex] = useState(null);
   const [editingCardIndex, setEditingCardIndex] = useState(null);
+  const [isAddingCard, setIsAddingCard] = useState(false); // State to manage the new card input visibility
 
   useEffect(() => {
     if (!token) {
@@ -31,7 +31,7 @@ const FlashcardList = () => {
 
   const handleAddCard = async () => {
     if (!question || !answer) return alert('Pergunta e resposta são obrigatórios');
-    
+
     const response = await fetch('http://localhost:5000/api/cartas', {
       method: 'POST',
       headers: {
@@ -46,6 +46,7 @@ const FlashcardList = () => {
       setCards((prevCards) => [...prevCards, data]);
       setQuestion('');
       setAnswer('');
+      setIsAddingCard(false); // Hide the input fields after adding
     } else {
       alert('Erro ao adicionar carta');
     }
@@ -61,7 +62,7 @@ const FlashcardList = () => {
 
   const handleUpdateCard = async () => {
     if (editingCardIndex === null) return;
-    
+
     const response = await fetch(`http://localhost:5000/api/cartas/${cards[editingCardIndex]._id}`, {
       method: 'PUT',
       headers: {
@@ -86,7 +87,7 @@ const FlashcardList = () => {
 
   const handleDeleteCard = async (index) => {
     const cardId = cards[index]._id;
-    const response = await fetch(`http://localhost:5000/api/cartas/${ cardId}`, {
+    const response = await fetch(`http://localhost:5000/api/cartas/${cardId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -106,31 +107,22 @@ const FlashcardList = () => {
 
   return (
     <div className="flex">
-      <Sidebar /> {/* Include the Sidebar component */}
+      <div className="bg-gray-800 text-white w-64 min-h-screen p-5 hidden md:block"> {/* Hide on small screens */}
+        <h2 className="text-2xl font-bold mb-5">Menu</h2>
+        <ul className="space-y-2">
+          <li>
+            <Link to="/dashboard" className="block p-2 rounded hover:bg-gray-700">Dashboard</Link>
+          </li>
+          <li>
+            <Link to="/baralhos" className="block p-2 rounded hover:bg-gray-700">Baralhos</Link>
+          </li>
+          <li>
+            <Link to="/" className="block p-2 rounded hover:bg-gray-700">Sair</Link>
+          </li>
+        </ul>
+      </div>
       <div className="flex-1 min-h-screen flex flex-col items-center bg-gray-100 p-5">
         <h2 className="text-3xl font-bold mb-5">Cartas do Baralho</h2>
-        <div className="mb-5 flex flex-col gap-2">
-          <input
-            type="text"
-            placeholder="Pergunta"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            className="border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            type="text"
-            placeholder="Resposta"
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-            className="border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button 
-            onClick={editingCardIndex !== null ? handleUpdateCard : handleAddCard} 
-            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
-          >
-            {editingCardIndex !== null ? 'Atualizar Carta' : 'Adicionar Carta'}
-          </button>
-        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {cards.map((card, index) => (
             <div key={card._id} className="relative perspective">
@@ -152,6 +144,52 @@ const FlashcardList = () => {
               </div>
             </div>
           ))}
+          {isAddingCard ? (
+            <div className="relative perspective">
+              <div className="card">
+                <div className="card-inner">
+                  <div className="card-front flex flex-col items-center justify-center bg-white shadow-lg rounded-lg p-4">
+                    <input
+                      type="text"
+                      placeholder="Pergunta"
+                      value={question}
+                      onChange={(e) => setQuestion(e.target.value)}
+                      className="border rounded-md p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Resposta"
+                      value={answer}
+                      onChange={(e) => setAnswer(e.target.value)}
+                      className="border rounded-md p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button 
+                      onClick={handleAddCard} 
+                      className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
+                    >
+                      Adicionar Carta
+                    </button>
+                    <button 
+                      onClick={() => setIsAddingCard(false)} 
+                      className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition duration-300 mt-2"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="relative perspective" onClick={() => setIsAddingCard(true)}>
+              <div className="card">
+                <div className="card-inner">
+                  <div className="card-front flex items-center justify-center bg-white text-white shadow-lg rounded-lg p-4">
+                    <strong className='text-black'>+</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <style jsx>{`
@@ -159,8 +197,8 @@ const FlashcardList = () => {
             perspective: 1000px;
           }
           .card {
-            width: 400px; /* Increased width */
-            height: 300px; /* Increased height */
+            width: 350px; 
+            height: 250px; 
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.6s;
