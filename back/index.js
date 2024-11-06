@@ -2,24 +2,28 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const authRoutes = require('./routes/authRoutes'); // A rota de autenticação
-const taskRoutes = require('./routes/taskRoutes');
-
-
 
 dotenv.config();
 
+const authRoutes = require('./routes/authRoutes');
+const deckRoutes = require('./routes/deckRoutes');
+const cardRoutes = require('./routes/cardsRoutes');
+
 const app = express();
-app.use(cors());
+
+// Middleware
 app.use(express.json());
+app.use(cors());
 
+// Routes
 app.use('/api/auth', authRoutes);
-app.use('/api', taskRoutes);
+app.use('/api/baralhos', deckRoutes);
+app.use('/api/cartas', cardRoutes);
 
-mongoose.connect(process.env.MONGO_URI, {
-}).then(() => console.log('MongoDB conectado'))
-  .catch((error) => console.log(error));
+// Conexão com MongoDB
+mongoose.connect(process.env.MONGO_URI, )
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.log('MongoDB connection error: ', err));
 
-app.listen(5000, () => {
-    console.log('Servidor rodando na porta 5000');
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
