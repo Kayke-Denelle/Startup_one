@@ -6,6 +6,7 @@ import Registro from './components/Register';
 import LandingPage from './components/landing-page';
 import Baralho from './components/baralhos';
 import Carta from './components/cartas';
+import Dashboard from './components/dashboard'
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/register" element={<Registro />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="/baralhos" element={<Baralho />} />

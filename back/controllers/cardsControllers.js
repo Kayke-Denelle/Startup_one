@@ -13,8 +13,14 @@ const createCard = async (req, res) => {
 };
 
 const getCards = async (req, res) => {
-  const cards = await Card.find({ deckId: req.params.deckId, userId: req.user.userId });
-  res.json(cards);
+  const { deckId } = req.params; // Ensure this is correctly capturing the URL parameter
+  try {
+    const cards = await Card.find({ deckId: deckId }); // Ensure deckId is a valid ObjectId
+    res.json(cards);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+  }
 };
 
 module.exports = { createCard, getCards };
