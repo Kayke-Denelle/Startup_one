@@ -66,16 +66,16 @@ const LandingPage = () => {
               <div className={`w-full md:block md:w-auto ${isMobileMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu">
                 <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                   <li>
-                    <a href="#about" className="scroll-smooth cursor-pointer block py-2 pr-4 pl-3 text-cor-4 border-b border-cor-1 hover:bg-cor-4 hover:text-cor-0 md:hover:bg-transparent md:border-0 md:hover:text-cor-1 md:p-0 transition ease-in-out">Sobre</a>
+                    <a href="#about" className="cursor-pointer block py-2 pr-4 pl-3 text-cor-4 border-b border-cor-1 hover:bg-cor-1 hover:text-cor-0 md:hover:bg-transparent md:border-0 md:hover:text-cor-1 md:p-0 transition ease-in-out">Sobre</a>
                   </li>
                   <li>
-                    <a href="#prices" className="block py-2 pr-4 pl-3 text-cor-4 border-b border-cor-1 hover:bg-cor-4 hover:text-cor-0 md:hover:bg-transparent md:border-0 md:hover:text-cor-1 md:p-0 transition ease-in-out">Preços</a>
+                    <a href="#prices" className="cursor-pointer block py-2 pr-4 pl-3 text-cor-4 border-b border-cor-1 hover:bg-cor-1 hover:text-cor-0 md:hover:bg-transparent md:border-0 md:hover:text-cor-1 md:p-0 transition ease-in-out duration-300">Preços</a>
                   </li>
                   <li>
-                    <Link to="/contact" className="block py-2 pr-4 pl-3 text-cor-4 border-b border-cor-1 hover:bg-cor-4 hover:text-cor-0 md:hover:bg-transparent md:border-0 md:hover:text-cor-1 md:p-0 transition ease-in-out">Contact</Link>
+                    <a href="#footer" className="cursor-pointer block py-2 pr-4 pl-3 text-cor-4 border-b border-cor-1 hover:bg-cor-1 hover:text-cor-0 md:hover:bg-transparent md:border-0 md:hover:text-cor-1 md:p-0 transition ease-in-out duration-300">Contato</a>
                   </li>
                   <li>
-                    <Link to="/login" className="block py-2 pr-4 pl-3 text-cor-4 border-b border-cor-1 hover:bg-cor-4 hover:text-cor-0 md:hover:bg-transparent md:border-0 md:hover:text-cor-1 md:p-0 transition ease-in-out">Login</Link>
+                    <Link to="/login" className="cursor-pointer block py-2 pr-4 pl-3 text-cor-4 border-b border-cor-1 hover:bg-cor-1 hover:text-cor-0 md:hover:bg-transparent md:border-0 md:hover:text-cor-1 md:p-0 transition ease-in-out duration-300">Login</Link>
                   </li>
                 </ul>
               </div>
@@ -83,7 +83,7 @@ const LandingPage = () => {
           </nav>
 
           <div class="relative flex items-center n justify-center overflow-hidden z-50">
-            <div class="relative mx-auto h-full px-4 mt-10 pb-20   md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
+            <div class="relative mx-auto h-full px-4 mt-10 pb-20 md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
               <div class="flex flex-col items-center justify-between lg:flex-row py-16">
                 <div class="relative hidden lg:mr-16 lg:block lg:w-1/2">  
                   <div class="abg-orange-400 mx-auto w-fit overflow-hidden rounded-[6rem] rounded-br-none rounded-tl-none">
@@ -113,15 +113,15 @@ const LandingPage = () => {
                 </div>
                 <div class="relative">
                   <div class="lg:max-w-7xl lg:pr-5 z-40">
-                    <p id="header-texto1" class="text-cor-4 flex w-fit px-2 py-2 uppercase rounded-md hover:bg-cor-2 transition ease-in-out">Comece agora mesmo sem nenhum custo inicial de assinatura.
+                    <p id="header-texto1" class="text-cor-4 flex w-fit px-2 py-2 uppercase rounded-md hover:bg-cor-2 transition ease-in-out duration-300">Comece agora mesmo sem nenhum custo inicial de assinatura.
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="#010000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                       </svg>
                     </p>
                     <h2 class="text-cor-4 text-5xl uppercase max-w-6xl font-light leading-snug text-g1 sm:text-6xl sm:leading-snug"><span class="text-cor-1 font-bold">Crie seus flashcards</span> e impulsione seus estudos</h2>
-                    <p class="text-base text-cor-4/70">Explore flashcards interativos para facilitar a memorização e retenção de conteúdos. Descubra uma maneira divertida e eficaz de estudar e potencializar seu conhecimento!</p>
+                    <p class="text-cor-4/70 mt-8 text-pretty text-lg font-medium sm:text-xl">Explore flashcards interativos para facilitar a memorização e retenção de conteúdos. Descubra uma maneira divertida e eficaz de estudar e potencializar seu conhecimento!</p>
                     <div class="mt-10 flex flex-col items-center md:flex-row">
-                      <a href="/" class="mb-3 inline-flex h-12 w-fit items-center justify-center rounded bg-cor-2 px-6 font-medium tracking-wide text-cor-4 shadow-md transition ease-in-out hover:bg-cor-3 focus:outline-none md:mr-4 md:mb-0 md:w-auto">Comece agora</a>
+                      <a href="/" class="mb-3 inline-flex h-12 w-fit items-center justify-center rounded bg-gradient-to-r from-cor-2 bg-cor-1 text-cor-4 px-6 font-medium tracking-wide shadow-md transition ease-in-out hover:bg-cor-3 scale-105 duration-300 focus:outline-none md:mr-4 md:mb-0 md:w-auto">Comece agora</a>
                     </div>
                   </div>
                 </div>
@@ -247,9 +247,9 @@ const LandingPage = () => {
         </div>
         
         <footer id="footer">
-          <div class="container px-6 py-8 mx-auto">
-            <div class="flex flex-col items-center text-center">
-              <Link to="/" className="flex items-center">
+          <div class="container flex flex-col mx-auto">
+            <div class="flex flex-col items-center w-full my-10">
+              <span class="mb-5">
                 <svg className="h-auto w-20 flex-none text-cor-4" version="1.1" viewBox="0 0 1080 1080" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path transform="translate(775,409)" d="m0 0h36l21 2 26 5 21 6 24 10 25 13 22 15 13 11 10 8 19 19 1 5 7-5h6l7 6 2 5-15 30-12 19-10 14-10 13-12 14-12 13-12 11-15 11-17 10-17 6-12 2-14-1-15-7-15-10-14-14-9-14-8-17-5-17-3-15-2-24 2-19 4-14 7-17 12-20 3-4-11 3-13 7-11 9-9 10-9 16-5 14-4 17-2 15-3 2-15-8-20-7-31-8-63-14-25-7-24-10-10-7v-3l26-15 18-10 26-13 30-13 31-11 28-8 31-6zm40 48m95 27-10 2-8 5-5 5-5 10-1 8 2 11 6 10 9 6 5 2 8 1 9-2 8-5 7-8 3-7 1-9-2-10-6-10-9-6-5-2z"/>
                   <path transform="translate(315,91)" d="m0 0 32 2 38 5 38 8 28 8 31 11 30 13 20 10 21 12 19 12 17 12 12 9 16 13 11 9 15 14 8 7 21 21 7 8 12 14 8 9 11 14 14 18 13 19 8 11 14 22 5 8v4l-13 2h-8l-14-19-11-14-9-11-18-20-11-12-9-9-8-7-12-11-11-9-15-12-14-10-27-18-22-13-28-15-28-13-30-12-22-8-36-11-44-11-9-3-7-10-6-8-11-12-7-7-17-13-3-3z"/>
@@ -272,23 +272,45 @@ const LandingPage = () => {
                   <path transform="translate(348,724)" d="m0 0h4l3 14 4 9-1 4-14 20-12 14-9 11-10 10-7 8-11 11-8 7-6 5-2-1 1-5 12-16 12-17 17-26 14-24 10-20z"/>
                   <path transform="translate(812,668)" d="m0 0 4 2 6 11 3 10 1 15-2 12-5 12-7 11-12 14-9 8-2 3h-3l1-6 7-15 7-22 6-28 4-26z"/>
                 </svg>
-              </Link>
-              <p class="max-w-md mx-auto mt-4 text-cor-4/70">Siga-nos nas redes sociais</p>
-              <div class="flex flex-col mt-4 sm:flex-row sm:items-center sm:justify-center">
-                <svg class="h-auto w-16 sm:w-24 text-sm tracking-wide capitalize transition-colors duration-300 transform rounded-md sm:mx-2 sm:order-2 sm:w-auto" version="1.1" viewBox="0 0 2048 1434" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                  <path class="text-cor-4" transform="translate(939)" d="m0 0h170l140 2 83 2 98 3 93 4 71 4 69 5 63 6 46 6 34 6 24 6 21 7 20 9 17 9 21 14 14 11 13 12 14 14 9 11 11 15 13 21 12 25 7 19 8 30 8 40 7 44 6 49 5 52 5 67 4 78 2 60 1 43v87l-2 77-4 86-5 73-5 53-6 51-7 46-7 36-9 36-10 27-12 24-12 19-10 13-11 13-10 11-8 7-10 9-16 12-21 13-15 8-25 10-23 7-28 6-39 6-54 6-71 6-82 5-85 4-82 3-117 3-130 2h-216l-128-2-119-3-107-4-96-5-59-4-58-5-54-6-44-7-27-6-30-10-20-9-21-12-17-12-11-9-10-9-7-6-7-8-10-11-14-19-12-20-12-25-8-22-10-40-8-44-7-49-6-55-5-61-4-65-3-67-2-77v-89l2-77 4-86 5-73 5-53 6-51 7-46 7-36 8-32 7-21 9-20 9-17 14-21 11-14 12-13 14-14 11-9 15-11 18-11 19-10 20-8 15-5 24-6 41-7 49-6 65-6 74-5 74-4 102-4 105-3 109-2z"/>
-                  <path class="text-cor-0" transform="translate(819,410)" d="m0 0 5 2 28 16 24 14 28 16 24 14 416 240 6 4v2l-18 10-24 14-28 16-26 15-24 14-26 15-28 16-24 14-331 191h-2z"/>
-                </svg>
-                <button class="w-full px-5 py-2 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md sm:mx-2 sm:order-2 sm:w-auto hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">Get started</button>
-              </div>  
-            </div>
-            <hr class="my-5 border-cor-4"/>
-            <div class="flex flex-col items-center sm:flex-row sm:justify-between">
-              <p class="flex text-sm text-cor-4/50">© 2024 Volans - Todos os direitos reservados.</p>
-              <div class="flex mt-3 -mx-2 sm:mt-0">
-                <a href="#about" className="flex items-center" class="mx-2 text-sm text-cor-4 transition ease-in-out font-semibold hover:text-cor-1" aria-label="Reddit">Sobre</a>
-                <a href="#prices" className="flex items-center" class="mx-2 text-sm text-cor-4 transition ease-in-out font-semibold hover:text-cor-1" aria-label="Reddit">Preços</a>
-                <a href="#cover" className="flex items-center" class="mx-2 text-sm text-cor-4 transition ease-in-out font-semibold hover:text-cor-1" aria-label="Reddit">Voltar para o topo</a>
+              </span>
+              <div class="flex flex-col items-center gap-6">
+                <div class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap">
+                  <Link to="/" class="font-semibold text-cor-4 hover:text-cor-1 transition ease-in-out duration-300">About</Link>
+                  <Link to="/" class="font-semibold text-cor-4 hover:text-cor-1 transition ease-in-out duration-300">Features</Link>
+                  <Link to="/" class="font-semibold text-cor-4 hover:text-cor-1 transition ease-in-out duration-300">Blog</Link>
+                  <Link to="/" class="font-semibold text-cor-4 hover:text-cor-1 transition ease-in-out duration-300">Resources</Link>
+                  <Link to="/" class="font-semibold text-cor-4 hover:text-cor-1 transition ease-in-out duration-300">Partners</Link>
+                  <Link to="/" class="font-semibold text-cor-4 hover:text-cor-1 transition ease-in-out duration-300">Help</Link>
+                  <Link to="/" class="font-semibold text-cor-4 hover:text-cor-1 transition ease-in-out duration-300">Terms</Link>
+                </div>
+                <div class="flex items-center gap-2 sm:gap-8">
+                  <Link to="/">
+                    <svg class="h-auto w-10 text-cor-4 hover:text-cor-1 transition ease-in-out duration-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 24 24">
+                      <path d="M12,2C6.477,2,2,6.477,2,12c0,5.013,3.693,9.153,8.505,9.876V14.65H8.031v-2.629h2.474v-1.749 c0-2.896,1.411-4.167,3.818-4.167c1.153,0,1.762,0.085,2.051,0.124v2.294h-1.642c-1.022,0-1.379,0.969-1.379,2.061v1.437h2.995 l-0.406,2.629h-2.588v7.247C18.235,21.236,22,17.062,22,12C22,6.477,17.523,2,12,2z"></path>
+                    </svg>
+                  </Link>
+                  <Link to="/">
+                    <svg class="h-auto w-10 text-cor-4 hover:text-cor-1 transition ease-in-out duration-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">
+                      <path d="M 5.9199219 6 L 20.582031 27.375 L 6.2304688 44 L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 L 44 44 L 28.681641 21.669922 L 42.199219 6 L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 L 5.9199219 6 z M 9.7167969 8 L 16.880859 8 L 40.203125 42 L 33.039062 42 L 9.7167969 8 z"></path>
+                    </svg>
+                  </Link>
+                  <Link to="/">
+                    <svg class="h-auto w-10 text-cor-4 hover:text-cor-1 transition ease-in-out duration-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 30 30">
+                      <path d="M15,3C8.373,3,3,8.373,3,15c0,5.623,3.872,10.328,9.092,11.63C12.036,26.468,12,26.28,12,26.047v-2.051 c-0.487,0-1.303,0-1.508,0c-0.821,0-1.551-0.353-1.905-1.009c-0.393-0.729-0.461-1.844-1.435-2.526 c-0.289-0.227-0.069-0.486,0.264-0.451c0.615,0.174,1.125,0.596,1.605,1.222c0.478,0.627,0.703,0.769,1.596,0.769 c0.433,0,1.081-0.025,1.691-0.121c0.328-0.833,0.895-1.6,1.588-1.962c-3.996-0.411-5.903-2.399-5.903-5.098 c0-1.162,0.495-2.286,1.336-3.233C9.053,10.647,8.706,8.73,9.435,8c1.798,0,2.885,1.166,3.146,1.481C13.477,9.174,14.461,9,15.495,9 c1.036,0,2.024,0.174,2.922,0.483C18.675,9.17,19.763,8,21.565,8c0.732,0.731,0.381,2.656,0.102,3.594 c0.836,0.945,1.328,2.066,1.328,3.226c0,2.697-1.904,4.684-5.894,5.097C18.199,20.49,19,22.1,19,23.313v2.734 c0,0.104-0.023,0.179-0.035,0.268C23.641,24.676,27,20.236,27,15C27,8.373,21.627,3,15,3z"></path>
+                    </svg>
+                  </Link>
+                  <Link to="/">
+                    <svg class="h-auto w-10 text-cor-4 hover:text-cor-1 transition ease-in-out duration-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">
+                      <path d="M 44.898438 14.5 C 44.5 12.300781 42.601563 10.699219 40.398438 10.199219 C 37.101563 9.5 31 9 24.398438 9 C 17.800781 9 11.601563 9.5 8.300781 10.199219 C 6.101563 10.699219 4.199219 12.199219 3.800781 14.5 C 3.398438 17 3 20.5 3 25 C 3 29.5 3.398438 33 3.898438 35.5 C 4.300781 37.699219 6.199219 39.300781 8.398438 39.800781 C 11.898438 40.5 17.898438 41 24.5 41 C 31.101563 41 37.101563 40.5 40.601563 39.800781 C 42.800781 39.300781 44.699219 37.800781 45.101563 35.5 C 45.5 33 46 29.398438 46.101563 25 C 45.898438 20.5 45.398438 17 44.898438 14.5 Z M 19 32 L 19 18 L 31.199219 25 Z"></path>
+                    </svg>
+                  </Link>
+                  <Link to="/">
+                    <svg class="h-auto w-10 text-cor-4 hover:text-cor-1 transition ease-in-out duration-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">
+                      <path d="M 16 3 C 8.8324839 3 3 8.8324839 3 16 L 3 34 C 3 41.167516 8.8324839 47 16 47 L 34 47 C 41.167516 47 47 41.167516 47 34 L 47 16 C 47 8.8324839 41.167516 3 34 3 L 16 3 z M 16 5 L 34 5 C 40.086484 5 45 9.9135161 45 16 L 45 34 C 45 40.086484 40.086484 45 34 45 L 16 45 C 9.9135161 45 5 40.086484 5 34 L 5 16 C 5 9.9135161 9.9135161 5 16 5 z M 37 11 A 2 2 0 0 0 35 13 A 2 2 0 0 0 37 15 A 2 2 0 0 0 39 13 A 2 2 0 0 0 37 11 z M 25 14 C 18.936712 14 14 18.936712 14 25 C 14 31.063288 18.936712 36 25 36 C 31.063288 36 36 31.063288 36 25 C 36 18.936712 31.063288 14 25 14 z M 25 16 C 29.982407 16 34 20.017593 34 25 C 34 29.982407 29.982407 34 25 34 C 20.017593 34 16 29.982407 16 25 C 16 20.017593 20.017593 16 25 16 z"></path>
+                    </svg>
+                  </Link>
+                </div>
+                <p class="text-base font-normal leading-7 text-center text-cor-4/70">© 2023 Retainix. All rights reserved.</p>
               </div>
             </div>
           </div>
