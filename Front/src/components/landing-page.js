@@ -121,7 +121,7 @@ const LandingPage = () => {
                     <h2 class="text-cor-4 text-5xl uppercase max-w-6xl font-light leading-snug text-g1 sm:text-6xl sm:leading-snug"><span class="text-cor-1 font-bold">Crie seus flashcards</span> e impulsione seus estudos</h2>
                     <p class="text-cor-4/70 mt-8 text-pretty text-lg font-medium sm:text-xl">Explore flashcards interativos para facilitar a memorização e retenção de conteúdos. Descubra uma maneira divertida e eficaz de estudar e potencializar seu conhecimento!</p>
                     <div class="mt-10 flex flex-col items-center md:flex-row">
-                      <a href="/" class="mb-3 inline-flex h-12 w-fit items-center justify-center rounded bg-gradient-to-r from-cor-2 bg-cor-1 text-cor-4 px-6 font-medium tracking-wide shadow-md transition ease-in-out hover:bg-cor-3 scale-105 duration-300 focus:outline-none md:mr-4 md:mb-0 md:w-auto">Comece agora</a>
+                      <a href="/Login" class="mb-3 inline-flex h-12 w-fit items-center justify-center rounded bg-gradient-to-r from-cor-2 bg-cor-1 text-cor-4 px-6 font-medium tracking-wide shadow-md transition ease-in-out hover:bg-cor-3 scale-105 duration-300 focus:outline-none md:mr-4 md:mb-0 md:w-auto">Comece agora</a>
                     </div>
                   </div>
                 </div>
@@ -205,7 +205,7 @@ const LandingPage = () => {
                     Limite Diário de Revisão
                   </li>
                 </ul>
-                <button className="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-cor-2 ring-1 ring-inset ring-cor-2 hover:ring-cor-1 hover:text-cor-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cor-4 sm:mt-10 transition ease-in-out">Comece agora</button>
+                <Link to="/Login" className="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-cor-2 ring-1 ring-inset ring-cor-2 hover:ring-cor-1 hover:text-cor-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cor-4 sm:mt-10 transition ease-in-out">Comece agora</Link>
               </div>
               <div className="relative rounded-3xl bg-cor-4/70 p-8 shadow-2xl ring-1 ring-cor-4/10 sm:p-10">
                 <h3 id="tier-enterprise" className="text-base font-semibold leading-7 text-cor-1">Plano Premium</h3>
@@ -240,7 +240,7 @@ const LandingPage = () => {
                     Suporte em até 24h
                   </li>
                 </ul>
-                <button className="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-cor-1 ring-1 ring-inset ring-cor-1 hover:ring-cor-3 hover:text-cor-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:cor-0 sm:mt-10 transition ease-in-out">Comece agora</button>
+                <Link to="/Login" className="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-cor-1 ring-1 ring-inset ring-cor-1 hover:ring-cor-3 hover:text-cor-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:cor-0 sm:mt-10 transition ease-in-out">Comece agora</Link>
               </div>
             </div>
           </section>

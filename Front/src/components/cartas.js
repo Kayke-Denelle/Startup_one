@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+import Sidebar from '../components/sidebar';
 
 const FlashcardList = () => {
   const { token } = useContext(AuthContext);
@@ -107,34 +108,7 @@ const FlashcardList = () => {
 
   return (
     <div className="flex">
-
-<div className="bg-gray-800 text-white w-64 min-h-screen p-5 hidden sm:hidden md:hidden lg:block xl:block">
-        <h2 className="text-2xl font-bold mb-5">Menu</h2>
-        <ul className="space-y-2">
-          <li>
-            <Link to="/dashboard" className="block p-2 rounded hover:bg-gray-700">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/baralhos" className="block p-2 rounded hover:bg-gray-700">Baralhos</Link>
-          </li>
-          <li>
-            <Link to="/" className="block p-2 rounded hover:bg-gray-700">Sair</Link>
-          </li>
-        </ul>
-      </div>
-
-      {/* Navbar - fixed at the top */}
-      <nav className="bg-gray-800 text-white w-full fixed lg:hidden xl:hidden top-0 left-0 z-10 p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Link to="/dashboard" className="text-xl font-semibold hover:bg-gray-700 px-4 py-2 rounded">Dashboard</Link>
-            <Link to="/baralhos" className="text-xl font-semibold hover:bg-gray-700 px-4 py-2 rounded">Baralhos</Link>
-          </div>
-          <div className="flex items-center">
-            <Link to="/" className="text-xl font-semibold hover:bg-gray-700 px-4 py-2 rounded">Sair</Link>
-          </div>
-        </div>
-      </nav>
+      <Sidebar/>
 
       {/* Main content area - Add padding-top to account for fixed navbar */}
       <div className="pt-20 flex-1 min-h-screen flex flex-col items-center bg-gray-100 p-5">

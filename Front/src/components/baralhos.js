@@ -48,10 +48,12 @@ const DeckList = () => {
     }
   };
 
-  return (
+  return (  
+    <body class="bg-cor-4 relative isolate overflow-hidden transition ease-in-out duration-75">
     <div className="flex">
-      <Sidebar /> {/* Render the Sidebar component */}
-      <div className="flex-1 min-h-screen flex flex-col items-center bg-gray-100 p-5">
+      <Sidebar/> {/* Render the Sidebar component */}
+      
+      <div className="flex-1 min-h-screen flex flex-col items-center p-5">
         <h2 className="text-3xl font-bold mb-5">Baralhos</h2>
         <button 
           onClick={logout} 
@@ -88,6 +90,7 @@ const DeckList = () => {
         </ul>
       </div>
     </div>
+  </body>
   );
 };
 
