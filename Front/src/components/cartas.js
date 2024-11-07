@@ -19,7 +19,7 @@ const FlashcardList = () => {
       navigate('/login');
     } else {
       const fetchCards = async () => {
-        const response = await fetch(`http://localhost:5000/api/cartas/${deckId}`, {
+        const response = await fetch(`https://volans-api-production.up.railway.app/api/cartas/${deckId}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await response.json();
@@ -33,7 +33,7 @@ const FlashcardList = () => {
   const handleAddCard = async () => {
     if (!question || !answer) return alert('Pergunta e resposta são obrigatórios');
   
-    const response = await fetch('http://localhost:5000/api/cartas', {
+    const response = await fetch('https://volans-api-production.up.railway.app/api/cartas', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -64,7 +64,7 @@ const FlashcardList = () => {
   const handleUpdateCard = async () => {
     if (editingCardIndex === null) return;
 
-    const response = await fetch(`http://localhost:5000/api/cartas/${cards[editingCardIndex]._id}`, {
+    const response = await fetch(`https://volans-api-production.up.railway.app/api/cartas/${cards[editingCardIndex]._id}`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -93,7 +93,7 @@ const FlashcardList = () => {
     const confirmDelete = window.confirm('Tem certeza que deseja excluir esta carta?');
     if (!confirmDelete) return;
 
-    const response = await fetch(`http://localhost:5000/api/cartas/${cardId}`, {
+    const response = await fetch(`https://volans-api-production.up.railway.app/api/cartas/${cardId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,

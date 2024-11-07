@@ -15,7 +15,7 @@ const DeckList = () => {
       navigate('/login');
     } else {
       const fetchDecks = async () => {
-        const response = await fetch('http://localhost:5000/api/baralhos', {
+        const response = await fetch('https://volans-api-production.up.railway.app/api/baralhos', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await response.json();
@@ -35,7 +35,7 @@ const DeckList = () => {
   const handleCreateDeck = async () => {
     if (!newDeckName) return alert('Nome do baralho é obrigatório');
     
-    const response = await fetch('http://localhost:5000/api/baralhos', {
+    const response = await fetch('https://volans-api-production.up.railway.app/api/baralhos', {
       method: 'POST',
       headers: { 
         'Authorization': `Bearer ${token}`,

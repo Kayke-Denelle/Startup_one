@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const response = await axios.post('https://volans-api-production.up.railway.app/api/auth/login', { email, password });
       setToken(response.data.token);
       localStorage.setItem('token', response.data.token);
       setError(null);
