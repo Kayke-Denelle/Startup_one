@@ -121,8 +121,11 @@ const FlashcardList = () => {
           </li>
         </ul>
       </div>
+
       <div className="flex-1 min-h-screen flex flex-col items-center bg-gray-100 p-5">
         <h2 className="text-3xl font-bold mb-5">Cartas do Baralho</h2>
+        
+        {/* Grid layout for flashcards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {cards.map((card, index) => (
             <div key={card._id} className="relative perspective">
@@ -144,6 +147,8 @@ const FlashcardList = () => {
               </div>
             </div>
           ))}
+
+          {/* Add card button or form */}
           {isAddingCard ? (
             <div className="relative perspective">
               <div className="card">
@@ -183,8 +188,8 @@ const FlashcardList = () => {
             <div className="relative perspective" onClick={() => setIsAddingCard(true)}>
               <div className="card">
                 <div className="card-inner">
-                  <div className="card-front flex items-center justify-center bg-white text-white shadow-lg rounded-lg p-4">
-                    <strong className='text-black'>+</strong>
+                  <div className="card-front flex items-center justify-center bg-white shadow-lg rounded-lg p-4">
+                    <strong className="text-black">+</strong>
                   </div>
                 </div>
               </div>
