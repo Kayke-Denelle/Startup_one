@@ -22,5 +22,34 @@ const getCards = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+const updateCard = async (req, res) => {
+  const { cardId } = req.params;
+  const { question, answer } = req.body;
 
-module.exports = { createCard, getCards };
+  try {
+    const card = await Card.findByIdAndUpdate(cardId, { question, answer }, { new: true });
+    if (!card) {
+      return res.status(404).json({ message: 'Cartão não encontrado' });
+    }
+    res.status(200).json(card);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+const deleteCard = async (req, res) => {
+  const { cardId } = req.params;
+
+  try {
+    const card = await Card.findByIdAndDelete(cardId);
+    if (!card) {
+      return res.status(404).json({ message: 'Cartão não encontrado' });
+    }
+    res.status(204).send(); // No content
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+module.exports = { createCard, getCards, deleteCard, updateCard };

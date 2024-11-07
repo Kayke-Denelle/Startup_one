@@ -19,10 +19,15 @@ const DeckList = () => {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await response.json();
-        setDecks(data);
+        if (Array.isArray(data)) {
+          setDecks(data);
+        } else {
+          console.error('Expected an array but got:', data);
+          setDecks([]); // Set to empty array if not an array
+        }
       };
 
-      fetchDecks();
+    fetchDecks(); 
     }
   }, [token, navigate]);
 

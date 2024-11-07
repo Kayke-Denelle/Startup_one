@@ -1,5 +1,5 @@
 const express = require('express');
-const { createCard, getCards } = require('../controllers/cardsControllers');
+const { createCard, getCards, updateCard, deleteCard } = require('../controllers/cardsControllers');
 const auth = require('../midleware/auth');
 const router = express.Router();
 
@@ -9,13 +9,13 @@ router.post('/', auth, createCard);
 // Rota para obter todos os cartões de um deck específico (GET)
 router.get('/:deckId', auth, getCards);  // Rota para pegar todos os cartões de um deck
 
-// Rota para obter um cartão específico (GET)
+
 // Rota para obter um cartão específico
 router.get('/:deckId/cartas/:cardId', auth, async (req, res) => {
-    const { cardId } = req.params;  // Captura o cardId da URL
+    const { cardId } = req.params;  
   
     try {
-      const card = await card.findById(cardId);  // Corrigido para 'Card'
+      const card = await card.findById(cardId); 
       if (!card) {
         return res.status(404).json({ message: 'Cartão não encontrado' });
       }
@@ -24,6 +24,12 @@ router.get('/:deckId/cartas/:cardId', auth, async (req, res) => {
       res.status(400).json({ message: error.message });
     }
   });
+
+  // Rota para atualizar um cartão específico (PUT)
+router.put('/:cardId', auth, updateCard);
+
+// Rota para excluir um cartão específico (DELETE)
+router.delete('/:cardId', auth, deleteCard);
   
 
 module.exports = router;
