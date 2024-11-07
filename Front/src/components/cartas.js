@@ -107,7 +107,8 @@ const FlashcardList = () => {
 
   return (
     <div className="flex">
-      <div className="bg-gray-800 text-white w-64 min-h-screen p-5 hidden md:block"> {/* Hide on small screens */}
+
+<div className="bg-gray-800 text-white w-64 min-h-screen p-5 hidden sm:hidden md:hidden lg:block xl:block">
         <h2 className="text-2xl font-bold mb-5">Menu</h2>
         <ul className="space-y-2">
           <li>
@@ -122,11 +123,25 @@ const FlashcardList = () => {
         </ul>
       </div>
 
-      <div className="flex-1 min-h-screen flex flex-col items-center bg-gray-100 p-5">
+      {/* Navbar - fixed at the top */}
+      <nav className="bg-gray-800 text-white w-full fixed lg:hidden xl:hidden top-0 left-0 z-10 p-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <Link to="/dashboard" className="text-xl font-semibold hover:bg-gray-700 px-4 py-2 rounded">Dashboard</Link>
+            <Link to="/baralhos" className="text-xl font-semibold hover:bg-gray-700 px-4 py-2 rounded">Baralhos</Link>
+          </div>
+          <div className="flex items-center">
+            <Link to="/" className="text-xl font-semibold hover:bg-gray-700 px-4 py-2 rounded">Sair</Link>
+          </div>
+        </div>
+      </nav>
+
+      {/* Main content area - Add padding-top to account for fixed navbar */}
+      <div className="pt-20 flex-1 min-h-screen flex flex-col items-center bg-gray-100 p-5">
         <h2 className="text-3xl font-bold mb-5">Cartas do Baralho</h2>
         
         {/* Grid layout for flashcards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 mp:grid-cols-2 xl:grid-cols-3 gap-4">
           {cards.map((card, index) => (
             <div key={card._id} className="relative perspective">
               <div className={`card ${flippedCardIndex === index ? 'flipped' : ''}`} onClick={() => handleCardClick(index)}>
@@ -195,15 +210,13 @@ const FlashcardList = () => {
               </div>
             </div>
           )}
-        </div>
-
-        <style jsx>{`
+          <style jsx>{`
           .perspective {
             perspective: 1000px;
           }
           .card {
-            width: 350px; 
-            height: 250px; 
+            width: 325px; 
+            height: 225px; 
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.6s;
@@ -235,6 +248,7 @@ const FlashcardList = () => {
             transform: rotateY(180deg);
           }
         `}</style>
+        </div>
       </div>
     </div>
   );

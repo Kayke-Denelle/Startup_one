@@ -4,8 +4,12 @@ module.exports =
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme:
   {
-    extend:
+
+    extend: 
     {
+      screens: {
+        'mp': '1200px',
+      },
       colors: 
       {
         cor:
