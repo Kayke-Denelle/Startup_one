@@ -2,65 +2,88 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const Atividade = () => {
+const Activity = () => {
   const { deckId } = useParams();
-  const [cartas, setCartas] = useState([]);
-  const [indiceAtual, setIndiceAtual] = useState(0);
-  const [dificuldade, setDificuldade] = useState('');
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [cards, setCards] = useState([]);
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [difficulty, setDifficulty] = useState('');
 
   useEffect(() => {
-    const fetchCartas = async () => {
-      const response = await fetch(`https://volans-api-production.up.railway.app/api/cartas/${deckId}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      const data = await response.json();
-      setCartas(data);
+    const fetchCards = async () => {
+      try {
+        const response = await axios.get(`https://volans-api-production.up.railway.app/api/cartas/${deckId}`);
+        setCards(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar cartas:', error);
+      }
     };
 
-    fetchCartas();
-  }, [deckId, token]);
+    fetchCards();
+  }, [deckId]);
 
-  const handleSalvarAtividade = async () => {
-    if (dificuldade && cartas[indiceAtual]) {
+  const handleNextCard = () => {
+    if (currentCardIndex < cards.length - 1) {
+      setCurrentCardIndex(currentCardIndex + 1);
+    } else {
+      alert('Você completou todas as cartas!');
+    }
+  };
+
+  const handleSaveActivity = async () => {
+    if (difficulty && cards[currentCardIndex]) {
       const atividadeData = {
-        userId: token.userId,
-        cartaId: cartas[indiceAtual]._id,
+        userId: 'user-id-placeholder', // Substitua pelo ID do usuário real
+        cartaId: cards[currentCardIndex]._id,
         dificuldade
       };
-  
+
       try {
         const response = await axios.post('https://volans-api-production.up.railway.app/api/atividades', atividadeData, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-  
+
         if (response.status === 201) {
-          setDificuldade('');
-          setIndiceAtual(indiceAtual + 1);
+          setDifficulty('');
+          handleNextCard();
         } else {
           console.error('Erro ao salvar a atividade:', response.data);
         }
       } catch (error) {
         console.error('Erro ao salvar a atividade:', error);
       }
+    } else {
+      alert('Por favor, selecione a dificuldade antes de continuar.');
     }
   };
 
-  if (indiceAtual >= cartas.length) {
-    return <h2>Atividade concluída!</h2>;
-  }
-
   return (
-    <div>
-      <h2>{cartas[indiceAtual]?.question}</h2>
-      <div>
-        <button onClick={() => setDificuldade('facil')}>Fácil</button>
-        <button onClick={() => setDificuldade('medio')}>Médio</button>
-        <button onClick={() => setDificuldade('dificil')}>Difícil</button>
-      </div>
-      <button onClick={handleSalvarAtividade}>Salvar Atividade</button>
+    <div className="flex flex-col items-center p-5">
+      <h2 className="text-3xl font-bold mb-5">Atividade - {cards.length > 0 ? cards[currentCardIndex].name : 'Carregando...'}</h2>
+      {cards.length > 0 && (
+        <div className="mb-5">
+          <p>{cards[currentCardIndex].description}</p>
+          <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} className="mt-2 border rounded p-2">
+            <option value="">Selecione a dificuldade</option>
+            <option value="fácil">Fácil</option>
+            <option value="médio">Médio</option>
+            <option value="difícil">Difícil</option>
+          </select>
+        </div>
+      )}
+      <button 
+        onClick={handleSaveActivity} 
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
+      >
+        Salvar Atividade
+      </button>
+      <button 
+        onClick={handleNextCard} 
+        className="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300"
+      >
+        Próxima Carta
+      </button>
     </div>
   );
 };
 
-export default Atividade;
+export default Activity;

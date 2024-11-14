@@ -53,19 +53,20 @@ const DeckList = () => {
     }
   };
 
+  // Start activity
   const handleStartActivity = (deckId) => {
     navigate(`/atividade/${deckId}`); // Navigate to the activity page
   };
 
   return (  
     <div className="flex">
-      <Sidebar/>
+      <Sidebar/> {/* Render the Sidebar component */}
       
       <div className="flex-1 min-h-screen flex flex-col items-center p-5">
         <h2 className="text-3xl font-bold mb-5">Baralhos</h2>
         <button 
           onClick={logout} 
-          className="mb-5 bg-red-500 text-white px-4 py-2 rounded hover:bg -red-600 transition duration-300"
+          className="mb-5 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"
         >
           Sair
         </button>
