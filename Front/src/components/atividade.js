@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
+import Sidebar from '../components/sidebar';
 
 const ReviewPage = () => {
   const { token } = useContext(AuthContext);
@@ -45,7 +46,7 @@ const ReviewPage = () => {
 
     if (currentCardIndex < cards.length - 1) {
       setCurrentCardIndex(currentCardIndex + 1);
-      setIsFlipped(false);
+      setIsFlipped(false); // Redefine aqui para garantir que a próxima carta comece com a pergunta
     } else {
       evaluatePerformance();
     }
@@ -74,48 +75,63 @@ const ReviewPage = () => {
 
   const card = cards[currentCardIndex];
 
+  // Função para alternar o estado do flip da carta
+  const toggleFlip = () => {
+    setIsFlipped(!isFlipped);
+  };
+
+  
+
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 bg-gray-100">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold mb-4">Revisão do Baralho</h2>
-        {cards.length > 0 && card ? (
-          <div className="relative">
-            <div 
-              className={`card w-72 h-96 bg-white shadow-lg rounded-lg p-4 transform transition-all duration-500 ${isFlipped ? 'rotateY-180' : ''}`}
-              onClick={() => setIsFlipped(!isFlipped)}
-            >
-              <div className={`front ${isFlipped ? 'hidden' : 'block'}`}>
-                <h3 className="font-semibold text-xl mb-2">Pergunta:</h3>
-                <p>{card.question}</p>
-              </div>
-              <div className={`back ${isFlipped ? 'block' : 'hidden'}`}>
-                <h3 className="font-semibold text-xl mb-2">Resposta:</h3>
-                <p>{card.answer}</p>
-              </div>
-            </div>
-            <div className="absolute top-1/2 left-0 right-0 flex justify-between px-4 transform -translate-y-1/2">
-              <button 
-                onClick={() => setCurrentCardIndex(Math.max(currentCardIndex - 1, 0))}
-                className="bg-gray-300 p-2 rounded-full hover:bg-gray-400"
+    <div className="flex min-h-screen bg-gray-100">
+      <Sidebar />
+      <div className="flex-grow flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Revisão do Baralho</h2>
+          {cards.length > 0 && card ? (
+            <div className="relative">
+              {/* Cartão */}
+              <div
+                className={`card w-72 h-96 bg-white shadow-lg rounded-lg p-4 transform transition-all duration-500 ${isFlipped ? 'rotateY-180' : ''}`}
+                onClick={toggleFlip}
               >
-                &#8592;
-              </button>
-              <button 
-                onClick={() => setCurrentCardIndex(Math.min(currentCardIndex + 1, cards.length - 1))}
-                className="bg-gray-300 p-2 rounded-full hover:bg-gray-400"
-              >
-                &#8594;
-              </button>
+                <div className={`front ${isFlipped ? 'hidden' : 'block'}`}>
+                  <h3 className="font-semibold text-xl mb-2">Pergunta:</h3>
+                  <p>{card.question}</p>
+                </div>
+                <div className={`back ${isFlipped ? 'block' : 'hidden'}`}>
+                  <h3 className="font-semibold text-xl mb-2">Resposta:</h3>
+                  <p>{card.answer}</p>
+                </div>
+              </div>
+
+              {/* Navegação das setas */}
+              <div className="absolute top-1/2 left-0 right-0 flex justify-between px-4 transform -translate-y-1/2">
+                <button
+                  onClick={toggleFlip}
+                  className="bg-gray-300 p-2 rounded-full hover:bg-gray-400"
+                >
+                  &#8592;
+                </button>
+                <button
+                  onClick={toggleFlip}
+                  className="bg-gray-300 p-2 rounded-full hover:bg-gray-400"
+                >
+                  &#8594;
+                </button>
+              </div>
+
+              {/* Botões de dificuldade */}
+              <div className="mt-4 flex justify-center space-x-4">
+                <button onClick={() => handleDifficulty('easy')} className="bg-green-500 text-white py-2 px-4 rounded">Fácil</button>
+                <button onClick={() => handleDifficulty('medium')} className="bg-yellow-500 text-white py-2 px-4 rounded">Médio</button>
+                <button onClick={() => handleDifficulty('hard')} className="bg-red-500 text-white py-2 px-4 rounded">Difícil</button>
+              </div>
             </div>
-            <div className="mt-4 flex justify-center space-x-4">
-              <button onClick={() => handleDifficulty('easy')} className="bg-green-500 text-white py-2 px-4 rounded">Fácil</button>
-              <button onClick={() => handleDifficulty('medium')} className="bg-yellow-500 text-white py-2 px-4 rounded">Médio</button>
-              <button onClick={() => handleDifficulty('hard')} className="bg-red-500 text-white py-2 px-4 rounded">Difícil</button>
-            </div>
-          </div>
-        ) : (
-          <p>Carregando cartões ou nenhum cartão disponível para revisão.</p>
-        )}
+          ) : (
+            <p>Carregando cartões ou nenhum cartão disponível para revisão.</p>
+          )}
+        </div>
       </div>
     </div>
   );
