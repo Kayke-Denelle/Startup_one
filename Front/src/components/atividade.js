@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -81,9 +81,9 @@ const ReviewPage = () => {
       <h2>Revisão do Baralho</h2>
       <div>
         <h3>Pergunta:</h3>
-        <p>{card.question}</p>
+        <p>{cards.question}</p>
         <h3>Resposta:</h3>
-        <p>{card.answer}</p>
+        <p>{cards.answer}</p>
       </div>
       <div>
         <button onClick={() => handleDifficulty('easy')}>Fácil</button>
@@ -94,4 +94,4 @@ const ReviewPage = () => {
   );
 };
 
-export default FlashcardReview;
+export default ReviewPage;
