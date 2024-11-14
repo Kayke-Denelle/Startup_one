@@ -15,7 +15,7 @@ const DeckList = () => {
       navigate('/login');
     } else {
       const fetchDecks = async () => {
-        const response = await fetch('https://startup-one-b8r7.vercel.app/api/baralhos', {
+        const response = await fetch('https://volans-api-production.up.railway.app/api/baralhos', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await response.json();
@@ -35,7 +35,7 @@ const DeckList = () => {
   const handleCreateDeck = async () => {
     if (!newDeckName) return alert('Nome do baralho é obrigatório');
     
-    const response = await fetch('https://startup-one-b8r7.vercel.app/api/baralhos', {
+    const response = await fetch('https://volans-api-production.up.railway.app/api/baralhos', {
       method: 'POST',
       headers: { 
         'Authorization': `Bearer ${token}`,
@@ -59,7 +59,7 @@ const DeckList = () => {
 
   return (  
     <div className="flex">
-      <Sidebar/> {/* Render the Sidebar component */}
+      <Sidebar/>
       
       <div className="flex-1 min-h-screen flex flex-col items-center p-5">
         <h2 className="text-3xl font-bold mb-5">Baralhos</h2>

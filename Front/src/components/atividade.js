@@ -11,7 +11,7 @@ const Atividade = () => {
 
   useEffect(() => {
     const fetchCartas = async () => {
-      const response = await fetch(`https://startup-one-b8r7.vercel.app/api/cartas/${deckId}`, {
+      const response = await fetch(`https://volans-api-production.up.railway.app/api/cartas/${deckId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -29,7 +29,7 @@ const Atividade = () => {
         dificuldade
       };
 
-      await axios.post('https://startup-one-b8r7.vercel.app/api/atividades', atividadeData, {
+      await axios.post('https://volans-api-production.up.railway.app/api/atividades', atividadeData, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
