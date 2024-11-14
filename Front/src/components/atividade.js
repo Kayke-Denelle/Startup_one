@@ -24,17 +24,25 @@ const Atividade = () => {
   const handleSalvarAtividade = async () => {
     if (dificuldade && cartas[indiceAtual]) {
       const atividadeData = {
-        userId: 'user-id-placeholder', // Substitua pelo ID do usuário real
+        userId: token.userId,
         cartaId: cartas[indiceAtual]._id,
         dificuldade
       };
-
-      await axios.post('https://volans-api-production.up.railway.app/api/atividades', atividadeData, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-
-      setDificuldade('');
-      setIndiceAtual(indiceAtual + 1);
+  
+      try {
+        const response = await axios.post('https://volans-api-production.up.railway.app/api/atividades', atividadeData, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+  
+        if (response.status === 201) {
+          setDificuldade('');
+          setIndiceAtual(indiceAtual + 1);
+        } else {
+          console.error('Erro ao salvar a atividade:', response.data);
+        }
+      } catch (error) {
+        console.error('Erro ao salvar a atividade:', error);
+      }
     }
   };
 
