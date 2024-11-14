@@ -7,9 +7,9 @@ const ReviewPage = () => {
   const [cards, setCards] = useState([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [reviewResults, setReviewResults] = useState({ easy: 0, medium: 0, hard: 0 });
+  const [isFlipped, setIsFlipped] = useState(false); // Controla o estado do flip da carta
   const { deckId } = useParams();
   const navigate = useNavigate();
-  const [isFlipped, setIsFlipped] = useState(false); // Estado para controlar a rotação da carta
 
   useEffect(() => {
     if (!token) {
@@ -49,8 +49,9 @@ const ReviewPage = () => {
     // Próximo cartão ou término da revisão
     if (currentCardIndex < cards.length - 1) {
       setCurrentCardIndex(currentCardIndex + 1);
-      setIsFlipped(false); // Resetar a rotação ao mudar de cartão
+      setIsFlipped(false); // Reseta o flip para a frente da carta
     } else {
+      // Chamamos a função para avaliar o desempenho
       evaluatePerformance();
     }
   };
@@ -79,39 +80,45 @@ const ReviewPage = () => {
   const card = cards[currentCardIndex];
 
   return (
-    <div className="flex flex-col items-center p-6">
+    <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Revisão do Baralho</h2>
-      {cards.length > 0 && cards[currentCardIndex] ? (
-        <div className="relative w-72 h-48 perspective">
-          <div className={`card w-full h-full transition-transform duration-500 ${isFlipped ? 'rotate-y-180' : ''}`}>
-            <div className="card-front absolute w-full h-full bg-white shadow-lg rounded-lg p-4 flex flex-col justify-center items-center backface-hidden">
-              <h3 className="text-lg font-semibold">Pergunta:</h3>
-              <p className="text-center">{card.question}</p>
+      {cards.length > 0 && card ? (
+        <div className="relative">
+          <div 
+            className={`card w-72 h-96 bg-white shadow-lg rounded-lg p-4 transform transition-all duration-500 ${isFlipped ? 'rotateY-180' : ''}`}
+            onClick={() => setIsFlipped(!isFlipped)} // Gira a carta ao clicar
+          >
+            <div className={`front ${isFlipped ? 'hidden' : 'block'}`}>
+              <h3 className="font-semibold text-xl mb-2">Pergunta:</h3>
+              <p>{card.question}</p>
             </div>
-            <div className="card-back absolute w-full h-full bg-gray-200 shadow-lg rounded-lg p-4 flex flex-col justify-center items-center backface-hidden rotate-y-180">
-              <h3 className="text-lg font-semibold">Resposta:</h3>
-              <p className="text-center">{card.answer}</p>
+            <div className={`back ${isFlipped ? 'block' : 'hidden'}`}>
+              <h3 className="font-semibold text-xl mb-2">Resposta:</h3>
+              <p>{card.answer}</p>
             </div>
           </div>
-          <div className="absolute top-1/2 left-0 transform -translate-y-1/2">
-            <button onClick={() => setIsFlipped(!isFlipped)} className="bg-blue-500 text-white p-2 rounded-l-lg">
-              Virar
+          <div className="absolute top-1/2 left-0 right-0 flex justify-between px-4 transform -translate-y-1/2">
+            <button 
+              onClick={() => setCurrentCardIndex(Math.max(currentCardIndex - 1, 0))}
+              className="bg-gray-300 p-2 rounded-full hover:bg-gray-400"
+            >
+              &#8592; {/* Seta para a esquerda */}
+            </button>
+            <button 
+              onClick={() => setCurrentCardIndex(Math.min(currentCardIndex + 1, cards.length - 1))}
+              className="bg-gray-300 p-2 rounded-full hover:bg-gray-400"
+            >
+              &#8594; {/* Seta para a direita */}
             </button>
           </div>
-          <div className="absolute top-1/2 right-0 transform -translate-y-1/2">
-            <button onClick={() => handleDifficulty('easy')} className="bg-green-500 text-white p-2 rounded-lg mx-1">
-              Fácil
-            </button>
-            <button onClick={() => handleDifficulty('medium')} className="bg-yellow-500 text-white p-2 rounded-lg mx-1">
-              Médio
-            </button>
-            <button onClick={() => handleDifficulty('hard')} className="bg-red-500 text-white p-2 rounded-lg mx-1">
-              Difícil
-            </button>
+          <div className="mt-4 flex justify-between">
+            <button onClick={() => handleDifficulty('easy')} className="bg-green-500 text-white py-2 px-4 rounded">Fácil</button>
+            <button onClick={() => handleDifficulty('medium')} className="bg-yellow-500 text-white py-2 px-4 rounded">Médio</button>
+            <button onClick={() => handleDifficulty('hard')} className="bg-red-500 text-white py-2 px-4 rounded">Difícil</button>
           </div>
         </div>
       ) : (
-        <p>Carregando cartas...</p>
+        <p>Carregando cartões ou nenhum cartão disponível para revisão.</p>
       )}
     </div>
   );
