@@ -70,20 +70,37 @@ const DeckList = () => {
         >
           Sair
         </button>
-        <div>
-      <h2>Baralhos</h2>
-      <ul>
-        {decks.map((deck) => (
-          <li key={deck._id}>
-            <a href={`/cartas/${deck._id}`}>{deck.name}</a>
-            <Link to={`/revisao/${deck._id}`}>
+        <div className="mb-5 flex">
+          <input
+            type="text"
+            placeholder="Novo Baralho"
+            value={newDeckName}
+            onChange={(e) => setNewDeckName(e.target.value)}
+            className="border rounded-l-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button 
+            onClick={handleCreateDeck} 
+            className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300"
+          >
+            Criar Baralho
+          </button>
+        </div>
+        <ul className="w-full max-w-md">
+          {decks.map((deck) => (
+            <li key={deck._id} className="mb-2">
+              <Link 
+                to={`/cartas/${deck._id}`} 
+                className="block bg-white shadow-md rounded p-4 hover:bg-gray-200 transition duration-300"
+              >
+                {deck.name}
+              </Link>
+              <Link to={`/revisao/${deck._id}`}>
               <button>Revisar</button>
             </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-    </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
