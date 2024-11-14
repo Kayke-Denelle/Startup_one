@@ -80,10 +80,10 @@ const ReviewPage = () => {
     <div>
       <h2>Revisão do Baralho</h2>
       <div>
-        <h3>Pergunta:</h3>
-        <p>{cards.question}</p>
-        <h3>Resposta:</h3>
-        <p>{cards.answer}</p>
+      <h3>Pergunta:</h3>
+      <p>{cards[currentCardIndex].question}</p>
+      <h3>Resposta:</h3>
+      <p>{cards[currentCardIndex].answer}</p>
       </div>
       <div>
         <button onClick={() => handleDifficulty('easy')}>Fácil</button>
