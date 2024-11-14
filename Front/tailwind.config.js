@@ -7,7 +7,12 @@ module.exports =
 
     extend: 
     {
-      screens: {
+      fontFamily:
+      {
+        "title": ['Geist Mono', 'sans-serif']
+      },
+      screens:
+      {
         'mp': '1200px',
       },
       colors: 

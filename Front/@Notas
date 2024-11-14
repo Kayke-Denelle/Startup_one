@@ -1,0 +1,6 @@
+<img src={require('')} class="max-w-full h-auto mx-auto rounded-full bg-gray-50 grayscale" alt="title image"/>
+
+Para depois:
+<li>
+                    <Link to="" className="cursor-pointer block py-2 pr-4 pl-3 text-cor-4 border-b border-cor-1 hover:bg-cor-1 hover:text-cor-0 md:bg-cor-4/30 md:rounded-md md:px-5 md:py-1 md:hover:bg-transparent md:border-0 md:hover:text-cor-4 md:hover:bg-cor-2 md:p-0 transition ease-in-out duration-300">Documentação</Link>
+                  </li>
