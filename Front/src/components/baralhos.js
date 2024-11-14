@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import Sidebar from '../components/sidebar'; // Import the Sidebar component
+import Sidebar from '../components/sidebar';
 
 const DeckList = () => {
   const { token, logout } = useContext(AuthContext);
@@ -15,7 +15,7 @@ const DeckList = () => {
       navigate('/login');
     } else {
       const fetchDecks = async () => {
-        const response = await fetch('https://volans-api-production.up.railway.app/api/baralhos', {
+        const response = await fetch('https://startup-one-b8r7.vercel.app/api/baralhos', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await response.json();
@@ -27,7 +27,7 @@ const DeckList = () => {
         }
       };
 
-    fetchDecks(); 
+      fetchDecks(); 
     }
   }, [token, navigate]);
 
@@ -35,7 +35,7 @@ const DeckList = () => {
   const handleCreateDeck = async () => {
     if (!newDeckName) return alert('Nome do baralho é obrigatório');
     
-    const response = await fetch('https://volans-api-production.up.railway.app/api/baralhos', {
+    const response = await fetch('https://startup-one-b8r7.vercel.app/api/baralhos', {
       method: 'POST',
       headers: { 
         'Authorization': `Bearer ${token}`,
@@ -53,8 +53,11 @@ const DeckList = () => {
     }
   };
 
+  const handleStartActivity = (deckId) => {
+    navigate(`/atividade/${deckId}`); // Navigate to the activity page
+  };
+
   return (  
-    <body class="bg-cor-4 relative isolate overflow-hidden transition ease-in-out duration-75">
     <div className="flex">
       <Sidebar/> {/* Render the Sidebar component */}
       
@@ -62,7 +65,7 @@ const DeckList = () => {
         <h2 className="text-3xl font-bold mb-5">Baralhos</h2>
         <button 
           onClick={logout} 
-          className="mb-5 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"
+          className="mb-5 bg-red-500 text-white px-4 py-2 rounded hover:bg -red-600 transition duration-300"
         >
           Sair
         </button>
@@ -90,12 +93,17 @@ const DeckList = () => {
               >
                 {deck.name}
               </Link>
+              <button 
+                onClick={() => handleStartActivity(deck._id)} 
+                className="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300"
+              >
+                Realizar Atividade
+              </button>
             </li>
           ))}
         </ul>
       </div>
     </div>
-  </body>
   );
 };
 
