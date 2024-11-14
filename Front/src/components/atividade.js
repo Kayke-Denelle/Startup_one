@@ -9,6 +9,7 @@ const ReviewPage = () => {
   const [reviewResults, setReviewResults] = useState({ easy: 0, medium: 0, hard: 0 });
   const { deckId } = useParams();
   const navigate = useNavigate();
+  const [isFlipped, setIsFlipped] = useState(false); // Estado para controlar a rotação da carta
 
   useEffect(() => {
     if (!token) {
@@ -48,13 +49,12 @@ const ReviewPage = () => {
     // Próximo cartão ou término da revisão
     if (currentCardIndex < cards.length - 1) {
       setCurrentCardIndex(currentCardIndex + 1);
+      setIsFlipped(false); // Resetar a rotação ao mudar de cartão
     } else {
-      // Chamamos a função para avaliar o desempenho
       evaluatePerformance();
     }
   };
 
-  // Função para avaliar o desempenho
   const evaluatePerformance = () => {
     const { easy, medium, hard } = reviewResults;
     const totalCards = easy + medium + hard;
@@ -75,27 +75,45 @@ const ReviewPage = () => {
     alert(message);
     navigate('/baralhos'); // Redirecionar para a página de baralhos
   };
+
   const card = cards[currentCardIndex];
 
   return (
-    <div>
-    <h2>Revisão do Baralho</h2>
-    {cards.length > 0 && cards[currentCardIndex] ? (
-      <div>
-        <h3>Pergunta:</h3>
-        <p>{cards[currentCardIndex].question}</p>
-        <h3>Resposta:</h3>
-        <p>{cards[currentCardIndex].answer}</p>
-        <div>
-          <button onClick={() => handleDifficulty('easy')}>Fácil</button>
-          <button onClick={() => handleDifficulty('medium')}>Médio</button>
-          <button onClick={() => handleDifficulty('hard')}>Difícil</button>
+    <div className="flex flex-col items-center p-6">
+      <h2 className="text-2xl font-bold mb-4">Revisão do Baralho</h2>
+      {cards.length > 0 && cards[currentCardIndex] ? (
+        <div className="relative w-72 h-48 perspective">
+          <div className={`card w-full h-full transition-transform duration-500 ${isFlipped ? 'rotate-y-180' : ''}`}>
+            <div className="card-front absolute w-full h-full bg-white shadow-lg rounded-lg p-4 flex flex-col justify-center items-center backface-hidden">
+              <h3 className="text-lg font-semibold">Pergunta:</h3>
+              <p className="text-center">{card.question}</p>
+            </div>
+            <div className="card-back absolute w-full h-full bg-gray-200 shadow-lg rounded-lg p-4 flex flex-col justify-center items-center backface-hidden rotate-y-180">
+              <h3 className="text-lg font-semibold">Resposta:</h3>
+              <p className="text-center">{card.answer}</p>
+            </div>
+          </div>
+          <div className="absolute top-1/2 left-0 transform -translate-y-1/2">
+            <button onClick={() => setIsFlipped(!isFlipped)} className="bg-blue-500 text-white p-2 rounded-l-lg">
+              Virar
+            </button>
+          </div>
+          <div className="absolute top-1/2 right-0 transform -translate-y-1/2">
+            <button onClick={() => handleDifficulty('easy')} className="bg-green-500 text-white p-2 rounded-lg mx-1">
+              Fácil
+            </button>
+            <button onClick={() => handleDifficulty('medium')} className="bg-yellow-500 text-white p-2 rounded-lg mx-1">
+              Médio
+            </button>
+            <button onClick={() => handleDifficulty('hard')} className="bg-red-500 text-white p-2 rounded-lg mx-1">
+              Difícil
+            </button>
+          </div>
         </div>
-      </div>
-    ) : (
-      <p>Carregando cartões ou nenhum cartão disponível para revisão.</p>
-    )}
-  </div>
+      ) : (
+        <p>Carregando cartas...</p>
+      )}
+    </div>
   );
 };
 
