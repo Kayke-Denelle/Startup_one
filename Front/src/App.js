@@ -7,7 +7,7 @@ import LandingPage from './components/landing-page';
 import Baralho from './components/baralhos';
 import Carta from './components/cartas';
 import Dashboard from './components/dashboard'
-import Atividade from './components/atividade';
+import Revisão from './components/atividade';
 
 const App = () => {
   return (
@@ -20,7 +20,7 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/baralhos" element={<Baralho />} />
           <Route path="/cartas/:deckId" element={<Carta />} />
-          <Route path="/atividade/:deckId" element={<Atividade />} />
+          <Route path="/revisao/:deckId" element={<Revisão />} />
           
         </Routes>
       </Router>
