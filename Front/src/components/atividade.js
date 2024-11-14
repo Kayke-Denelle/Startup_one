@@ -36,7 +36,7 @@ const ReviewPage = () => {
     }));
 
     // Atualize o banco de dados com a dificuldade selecionada
-    await fetch(`http://localhost:5000/api/cartas/${card._id}/difficulty`, {
+    await fetch(`https://volans-api-production.up.railway.app/api/cartas/${card._id}/difficulty`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${token}`,
