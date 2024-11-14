@@ -5,8 +5,9 @@ import axios from 'axios';
 const Activity = () => {
   const { deckId } = useParams();
   const [cards, setCards] = useState([]);
+  const { token } = useContext(AuthContext);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [difficulty, setDifficulty] = useState('');
+  const [dificuldade, setDifficulty] = useState('');
 
   useEffect(() => {
     const fetchCards = async () => {
@@ -30,9 +31,9 @@ const Activity = () => {
   };
 
   const handleSaveActivity = async () => {
-    if (difficulty && cards[currentCardIndex]) {
+    if (dificuldade && cards[currentCardIndex]) {
       const atividadeData = {
-        userId: 'user-id-placeholder', // Substitua pelo ID do usuário real
+        userId: token, // Substitua pelo ID do usuário real
         cartaId: cards[currentCardIndex]._id,
         dificuldade
       };
