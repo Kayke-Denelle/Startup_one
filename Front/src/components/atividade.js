@@ -75,15 +75,16 @@ const ReviewPage = () => {
     alert(message);
     navigate('/baralhos'); // Redirecionar para a página de baralhos
   };
+  const card = cards[currentCardIndex];
 
   return (
     <div>
       <h2>Revisão do Baralho</h2>
       <div>
-      <h3>Pergunta:</h3>
-      <p>{cards[currentCardIndex].question}</p>
-      <h3>Resposta:</h3>
-      <p>{cards[currentCardIndex].answer}</p>
+        <h3>Pergunta:</h3>
+        <p>{card.question}</p>
+        <h3>Resposta:</h3>
+        <p>{card.answer}</p>
       </div>
       <div>
         <button onClick={() => handleDifficulty('easy')}>Fácil</button>
