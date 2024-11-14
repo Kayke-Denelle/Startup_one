@@ -79,19 +79,23 @@ const ReviewPage = () => {
 
   return (
     <div>
-      <h2>Revisão do Baralho</h2>
+    <h2>Revisão do Baralho</h2>
+    {cards.length > 0 && cards[currentCardIndex] ? (
       <div>
         <h3>Pergunta:</h3>
-        <p>{card.question}</p>
+        <p>{cards[currentCardIndex].question}</p>
         <h3>Resposta:</h3>
-        <p>{card.answer}</p>
+        <p>{cards[currentCardIndex].answer}</p>
+        <div>
+          <button onClick={() => handleDifficulty('easy')}>Fácil</button>
+          <button onClick={() => handleDifficulty('medium')}>Médio</button>
+          <button onClick={() => handleDifficulty('hard')}>Difícil</button>
+        </div>
       </div>
-      <div>
-        <button onClick={() => handleDifficulty('easy')}>Fácil</button>
-        <button onClick={() => handleDifficulty('medium')}>Médio</button>
-        <button onClick={() => handleDifficulty('hard')}>Difícil</button>
-      </div>
-    </div>
+    ) : (
+      <p>Carregando cartões ou nenhum cartão disponível para revisão.</p>
+    )}
+  </div>
   );
 };
 
