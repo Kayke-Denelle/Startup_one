@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 const Activity = () => {
   const { deckId } = useParams();
@@ -63,7 +64,7 @@ const Activity = () => {
       {cards.length > 0 && (
         <div className="mb-5">
           <p>{cards[currentCardIndex].description}</p>
-          <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} className="mt-2 border rounded p-2">
+          <select value={dificuldade} onChange={(e) => setDifficulty(e.target.value)} className="mt-2 border rounded p-2">
             <option value="">Selecione a dificuldade</option>
             <option value="fácil">Fácil</option>
             <option value="médio">Médio</option>
