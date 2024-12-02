@@ -85,39 +85,6 @@ const ReviewPage = () => {
     navigate('/baralhos');
   };
 
-  const saveReviewResults = async () => {
-    const { easy, medium, hard } = reviewResults;
-    const decodedToken = jwtDecode(token); // Decodificando o token para obter o userId
-    const userId = decodedToken.userId;  // Obtendo o userId a partir do token
-
-    try {
-      const response = await fetch('https://volans-api-production.up.railway.app/api/revisions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId, // Passando o userId para a API
-          deckId, // Passando o deckId (ID do baralho)
-          easyCount: easy,
-          mediumCount: medium,
-          hardCount: hard,
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Revisão salva com sucesso:', data);
-      } else {
-        const errorData = await response.json();
-        console.error('Erro ao salvar revisão:', errorData);
-      }
-    } catch (error) {
-      console.error('Erro ao enviar dados para o servidor:', error);
-    }
-  };
-
   const card = cards[currentCardIndex];
 
   const toggleFlip = () => {
