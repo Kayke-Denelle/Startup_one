@@ -4,9 +4,9 @@ import jwtDecode from 'jwt-decode'; // Certifique-se de que este pacote está in
 import { AuthProvider } from './context/AuthContext';
 import Login from './components/Login';
 import Registro from './components/Register';
-import LandingPage from './components/LandingPage';
-import Baralho from './components/Baralhos';
-import Carta from './components/Cartas';
+import LandingPage from './components/landing-page';
+import Baralho from './components/baralhos';
+import Carta from './components/cartas';
 import Dashboard from './components/dashboard';
 import Revisao from './components/atividade';
 
