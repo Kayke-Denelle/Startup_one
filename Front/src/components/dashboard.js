@@ -1,54 +1,64 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
-import { Chart, BarController, BarElement, CategoryScale, LinearScale } from 'chart.js';
+// components/Dashboard.js
+import React, { useEffect, useState } from 'react';
+import { Bar } from 'react-chartjs-2';
+import axios from 'axios';
 
-
-
-const Dashboard = () => {
-  const { token } = useContext(AuthContext);
-  const [revisionData, setRevisionData] = useState([]);
+export default function Dashboard({ userId }) {
+  const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
-    const fetchRevisions = async () => {
-      const response = await fetch('https://volans-api-production.up.railway.app/api/revisions?userId=USER_ID', {
-        headers: { 'Authorization': `Bearer ${token}` },
-      });
-      const data = await response.json();
-      setRevisionData(data);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://volans-api-production.up.railway.app/api/revisions/weekly-summary?userId=${userId}`
+        );
+
+        const data = response.data;
+
+        // Prepara os dados para o gráfico
+        const labels = data.map((entry) => entry._id);
+        const counts = data.map((entry) => entry.count);
+
+        setChartData({
+          labels,
+          datasets: [
+            {
+              label: 'Revisões por Dia',
+              data: counts,
+              backgroundColor: 'rgba(54, 162, 235, 0.6)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1,
+            },
+          ],
+        });
+      } catch (error) {
+        console.error('Erro ao buscar dados para o gráfico:', error);
+      }
     };
 
-    fetchRevisions();
-  }, [token]);
+    fetchData();
+  }, [userId]);
 
-  const chartData = {
-    labels: revisionData.map(r => new Date(r.date).toLocaleDateString()),
-    datasets: [
-      {
-        label: 'Fácil',
-        data: revisionData.map(r => r.easyCount),
-        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-      },
-      {
-        label: 'Médio',
-        data: revisionData.map(r => r.mediumCount),
-        backgroundColor: 'rgba(255, 206, 86, 0.6)',
-      },
-      {
-        label: 'Difícil',
-        data: revisionData.map(r => r.hardCount),
-        backgroundColor: 'rgba(255, 99, 132, 0.6)',
-      },
-    ],
-  };
+  if (!chartData) return <p>Carregando gráfico...</p>;
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-2xl font-bold mb-4">Seu Progresso</h1>
-        <Chart type="bar" data={chartData} />
-      </div>
+    <div>
+      <h2>Resumo Semanal</h2>
+      <Bar
+        data={chartData}
+        options={{
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Revisões Realizadas na Última Semana',
+            },
+          },
+        }}
+      />
     </div>
   );
-};
-
-export default Dashboard;
+}
