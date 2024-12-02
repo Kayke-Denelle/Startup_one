@@ -119,7 +119,7 @@ const LandingPage = () => {
                   </div>
                   <div class="relative">
                     <div class="lg:max-w-5xl lg:pr-5 z-40 md:px-10">
-                      <Link to="/Login" id="header-texto1" class="group text-cor-4 text-sm sm:text-base flex w-fit px-2 py-2 uppercase rounded-md hover:bg-cor-2 transition-all ease-in-out duration-300">Comece agora mesmo sem nenhum custo inicial de assinatura.
+                      <Link to="/Login" id="header-texto1" class="group text-cor-4 text-sm sm:text-base flex w-fit px-2 py-2 uppercase rounded-md hover:bg-cor-2 hover:-translate-x-1 transition-all ease-in-out duration-300">Comece agora mesmo sem nenhum custo inicial de assinatura.
                         <svg class="text-cor-4 md:ml-2 w-7 group-hover:md:w-3 md:w-0 h-auto transition-all ease-in-out duration-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
                       </Link>
                       <h2 class="text-cor-4 font-title text-4xl sm:text-5xl font-light uppercase tracking-tighter max-w-6xl leading-snug text-g1 sm:leading-snug">Crie seus flashcards</h2>
