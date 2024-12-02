@@ -1,64 +1,76 @@
-// components/Dashboard.js
-import React, { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { Line } from 'react-chartjs-2';
+import Chart from 'chart.js/auto';
 
-export default function Dashboard({ userId }) {
-  const [chartData, setChartData] = useState(null);
+const Dashboard = ({ userId }) => {
+  const [revisionDates, setRevisionDates] = useState([]);
+
+  // Função para buscar as revisões
+  const fetchRevisionData = async () => {
+    const token = localStorage.getItem('token');
+    
+    try {
+      const response = await fetch(`https://volans-api-production.up.railway.app/api/revisions?userId=${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setRevisionDates(data);
+      } else {
+        const errorData = await response.json();
+        console.error('Erro ao buscar dados para o gráfico:', errorData);
+      }
+    } catch (error) {
+      console.error('Erro ao buscar dados da revisão:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://volans-api-production.up.railway.app/api/revisions/weekly-summary?userId=${userId}`
-        );
-
-        const data = response.data;
-
-        // Prepara os dados para o gráfico
-        const labels = data.map((entry) => entry._id);
-        const counts = data.map((entry) => entry.count);
-
-        setChartData({
-          labels,
-          datasets: [
-            {
-              label: 'Revisões por Dia',
-              data: counts,
-              backgroundColor: 'rgba(54, 162, 235, 0.6)',
-              borderColor: 'rgba(54, 162, 235, 1)',
-              borderWidth: 1,
-            },
-          ],
-        });
-      } catch (error) {
-        console.error('Erro ao buscar dados para o gráfico:', error);
-      }
-    };
-
-    fetchData();
+    if (userId) {
+      fetchRevisionData();
+    }
   }, [userId]);
 
-  if (!chartData) return <p>Carregando gráfico...</p>;
+  // Preparando os dados para o gráfico
+  const getChartData = () => {
+    const labels = []; // Array para armazenar as datas das revisões
+    const counts = []; // Array para armazenar as contagens de revisões
+
+    const currentDate = new Date();
+
+    // Percorrendo as datas de revisão e contando as revisões por dia
+    revisionDates.forEach(revisions => {
+      revisions.forEach(date => {
+        const day = new Date(date);
+        if (currentDate.getDate() === day.getDate()) {
+          counts.push(1);
+          labels.push(day.toLocaleDateString());
+        }
+      });
+    });
+
+    return {
+      labels,
+      datasets: [
+        {
+          label: 'Revisões por Data',
+          data: counts,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          fill: false,
+        },
+      ],
+    };
+  };
 
   return (
     <div>
-      <h2>Resumo Semanal</h2>
-      <Bar
-        data={chartData}
-        options={{
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'top',
-            },
-            title: {
-              display: true,
-              text: 'Revisões Realizadas na Última Semana',
-            },
-          },
-        }}
-      />
+      <h2>Gráfico de Revisões</h2>
+      <Line data={getChartData()} />
     </div>
   );
-}
+};
+
+export default Dashboard;

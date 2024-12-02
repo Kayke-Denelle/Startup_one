@@ -89,28 +89,34 @@ const ReviewPage = () => {
 
   const saveReviewResults = async () => {
     const { easy, medium, hard } = reviewResults;
+    const token = localStorage.getItem('token');
+    const userId = decodedToken.userId; // Supondo que o token foi decodificado corretamente
   
     try {
-      // Decodificar o token para obter o userId
-      const decodedToken = jwtDecode(token);
-      const userId = decodedToken.userId; // Certifique-se de que o campo no payload seja `userId`
-  
-      await fetch('https://volans-api-production.up.railway.app/api/revisions', {
+      const response = await fetch('https://volans-api-production.up.railway.app/api/revisions', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userId, // Agora o userId correto é enviado
-          deckId,
+          userId, // Passando o userId para a API
+          deckId, // Passando o deckId (ID do baralho)
           easyCount: easy,
           mediumCount: medium,
           hardCount: hard,
         }),
       });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Revisão salva com sucesso:', data);
+      } else {
+        const errorData = await response.json();
+        console.error('Erro ao salvar revisão:', errorData);
+      }
     } catch (error) {
-      console.error('Erro ao salvar resultados da revisão:', error);
+      console.error('Erro ao enviar dados para o servidor:', error);
     }
   };
 
