@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import jwtDecode from 'jwt-decode';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/sidebar';
+
+const jwtDecode = require('jwt-decode');
 
 const ReviewPage = () => {
   const { token } = useContext(AuthContext);
