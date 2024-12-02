@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import jwtDecode from 'jwt-decode';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/sidebar';
@@ -87,8 +88,12 @@ const ReviewPage = () => {
 
   const saveReviewResults = async () => {
     const { easy, medium, hard } = reviewResults;
-
+  
     try {
+      // Decodificar o token para obter o userId
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken.userId; // Certifique-se de que o campo no payload seja `userId`
+  
       await fetch('https://volans-api-production.up.railway.app/api/revisions', {
         method: 'POST',
         headers: {
@@ -96,7 +101,8 @@ const ReviewPage = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          deckId, // O ID do baralho será salvo
+          userId, // Agora o userId correto é enviado
+          deckId,
           easyCount: easy,
           mediumCount: medium,
           hardCount: hard,
