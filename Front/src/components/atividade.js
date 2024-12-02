@@ -17,11 +17,15 @@ const ReviewPage = () => {
       navigate('/login');
     } else {
       const fetchCards = async () => {
-        const response = await fetch(`https://volans-api-production.up.railway.app/api/cartas/${deckId}`, {
-          headers: { 'Authorization': `Bearer ${token}` },
-        });
-        const data = await response.json();
-        setCards(data);
+        try {
+          const response = await fetch(`https://volans-api-production.up.railway.app/api/cartas/${deckId}`, {
+            headers: { 'Authorization': `Bearer ${token}` },
+          });
+          const data = await response.json();
+          setCards(data);
+        } catch (error) {
+          console.error('Erro ao carregar as cartas:', error);
+        }
       };
 
       fetchCards();
@@ -30,34 +34,42 @@ const ReviewPage = () => {
 
   const handleDifficulty = async (difficulty) => {
     const card = cards[currentCardIndex];
-    setReviewResults(prevResults => ({
+    setReviewResults((prevResults) => ({
       ...prevResults,
       [difficulty]: prevResults[difficulty] + 1,
     }));
 
-    await fetch(`https://volans-api-production.up.railway.app/api/cartas/${card._id}/difficulty`, {
-      method: 'PATCH',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ difficulty }),
-    });
+    try {
+      await fetch(`https://volans-api-production.up.railway.app/api/cartas/${card._id}/difficulty`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ difficulty }),
+      });
+    } catch (error) {
+      console.error('Erro ao salvar a dificuldade:', error);
+    }
 
     if (currentCardIndex < cards.length - 1) {
-      setCurrentCardIndex(currentCardIndex + 1);
-      setIsFlipped(false); // Redefine aqui para garantir que a próxima carta comece com a pergunta
+      setCurrentCardIndex((prevIndex) => prevIndex + 1);
+      setIsFlipped(false); // Reinicia para mostrar a pergunta no próximo cartão
     } else {
-      evaluatePerformance();
+      await evaluatePerformance();
     }
   };
 
-  const evaluatePerformance = () => {
+  const evaluatePerformance = async () => {
     const { easy, medium, hard } = reviewResults;
     const totalCards = easy + medium + hard;
 
     if (totalCards === 0) return;
 
+    // Salva os resultados no backend
+    await saveReviewResults();
+
+    // Avaliação do desempenho
     const hardPercentage = (hard / totalCards) * 100;
     let message = '';
 
@@ -73,14 +85,33 @@ const ReviewPage = () => {
     navigate('/baralhos');
   };
 
+  const saveReviewResults = async () => {
+    const { easy, medium, hard } = reviewResults;
+
+    try {
+      await fetch('https://volans-api-production.up.railway.app/api/revisions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          deckId, // O ID do baralho será salvo
+          easyCount: easy,
+          mediumCount: medium,
+          hardCount: hard,
+        }),
+      });
+    } catch (error) {
+      console.error('Erro ao salvar resultados da revisão:', error);
+    }
+  };
+
   const card = cards[currentCardIndex];
 
-  // Função para alternar o estado do flip da carta
   const toggleFlip = () => {
     setIsFlipped(!isFlipped);
   };
-
-  
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -92,7 +123,9 @@ const ReviewPage = () => {
             <div className="relative">
               {/* Cartão */}
               <div
-                className={`card w-72 h-96 bg-white shadow-lg rounded-lg p-4 transform transition-all duration-500 ${isFlipped ? 'rotateY-180' : ''}`}
+                className={`card w-72 h-96 bg-white shadow-lg rounded-lg p-4 transform transition-transform duration-500 ${
+                  isFlipped ? 'rotate-y-180' : ''
+                }`}
                 onClick={toggleFlip}
               >
                 <div className={`front ${isFlipped ? 'hidden' : 'block'}`}>
@@ -105,7 +138,7 @@ const ReviewPage = () => {
                 </div>
               </div>
 
-              {/* Navegação das setas */}
+              {/* Navegação */}
               <div className="absolute top-1/2 left-0 right-0 flex justify-between px-4 transform -translate-y-1/2">
                 <button
                   onClick={toggleFlip}
@@ -123,9 +156,15 @@ const ReviewPage = () => {
 
               {/* Botões de dificuldade */}
               <div className="mt-4 flex justify-center space-x-4">
-                <button onClick={() => handleDifficulty('easy')} className="bg-green-500 text-white py-2 px-4 rounded">Fácil</button>
-                <button onClick={() => handleDifficulty('medium')} className="bg-yellow-500 text-white py-2 px-4 rounded">Médio</button>
-                <button onClick={() => handleDifficulty('hard')} className="bg-red-500 text-white py-2 px-4 rounded">Difícil</button>
+                <button onClick={() => handleDifficulty('easy')} className="bg-green-500 text-white py-2 px-4 rounded">
+                  Fácil
+                </button>
+                <button onClick={() => handleDifficulty('medium')} className="bg-yellow-500 text-white py-2 px-4 rounded">
+                  Médio
+                </button>
+                <button onClick={() => handleDifficulty('hard')} className="bg-red-500 text-white py-2 px-4 rounded">
+                  Difícil
+                </button>
               </div>
             </div>
           ) : (
