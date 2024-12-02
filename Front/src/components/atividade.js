@@ -8,7 +8,7 @@ const ReviewPage = () => {
   const { token } = useContext(AuthContext); // Obtendo o token do contexto
   const [cards, setCards] = useState([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [reviewResults, setReviewResults] = useState({ easy: 0, medium: 0, hard: 0 });
+  const [setReviewResults] = useState({ easy: 0, medium: 0, hard: 0 });
   const [isFlipped, setIsFlipped] = useState(false);
   const { deckId } = useParams();
   const navigate = useNavigate();
