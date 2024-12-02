@@ -34,32 +34,21 @@ const ReviewPage = () => {
   }, [deckId, token, navigate]);
 
   const handleDifficulty = async (difficulty) => {
-    const card = cards[currentCardIndex];
-    setReviewResults((prevResults) => ({
-      ...prevResults,
-      [difficulty]: prevResults[difficulty] + 1,
-    }));
-
+    // Lógica de revisão (já existente)
+  
     try {
-      await fetch(`https://volans-api-production.up.railway.app/api/cartas/${card._id}/difficulty`, {
+      await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}/revisao`, {
         method: 'PATCH',
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ difficulty }),
       });
     } catch (error) {
-      console.error('Erro ao salvar a dificuldade:', error);
-    }
-
-    if (currentCardIndex < cards.length - 1) {
-      setCurrentCardIndex((prevIndex) => prevIndex + 1);
-      setIsFlipped(false); // Reinicia para mostrar a pergunta no próximo cartão
-    } else {
-      await evaluatePerformance();
+      console.error('Erro ao salvar revisão no baralho:', error);
     }
   };
+  
 
   const evaluatePerformance = async () => {
     const { easy, medium, hard } = reviewResults;

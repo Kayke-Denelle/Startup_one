@@ -1,74 +1,49 @@
-import { useState, useEffect } from 'react';
-import { Line } from 'react-chartjs-2';
-import Chart from 'chart.js/auto';
+import React, { useEffect, useState } from 'react';
+import Chart from 'chart.js/auto'; // Ou outro pacote gráfico de sua escolha
 
-const Dashboard = ({ userId }) => {
-  const [revisionDates, setRevisionDates] = useState([]);
-
-  // Função para buscar as revisões
-  const fetchRevisionData = async () => {
-    const token = localStorage.getItem('token');
-    
-    try {
-      const response = await fetch(`https://volans-api-production.up.railway.app/api/revisions?userId=${userId}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setRevisionDates(data);
-      } else {
-        const errorData = await response.json();
-        console.error('Erro ao buscar dados para o gráfico:', errorData);
-      }
-    } catch (error) {
-      console.error('Erro ao buscar dados da revisão:', error);
-    }
-  };
+const Dashboard = ({ deckId }) => {
+  const [reviewData, setReviewData] = useState([]);
 
   useEffect(() => {
-    if (userId) {
-      fetchRevisionData();
-    }
-  }, [userId]);
-
-  // Preparando os dados para o gráfico
-  const getChartData = () => {
-    const labels = []; // Array para armazenar as datas das revisões
-    const counts = []; // Array para armazenar as contagens de revisões
-
-    const currentDate = new Date();
-
-    // Percorrendo as datas de revisão e contando as revisões por dia
-    revisionDates.forEach(revisions => {
-      revisions.forEach(date => {
-        const day = new Date(date);
-        if (currentDate.getDate() === day.getDate()) {
-          counts.push(1);
-          labels.push(day.toLocaleDateString());
-        }
-      });
-    });
-
-    return {
-      labels,
-      datasets: [
-        {
-          label: 'Revisões por Data',
-          data: counts,
-          borderColor: 'rgba(75, 192, 192, 1)',
-          fill: false,
-        },
-      ],
+    const fetchReviewData = async () => {
+      try {
+        const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}/revisoes`);
+        const data = await response.json();
+        setReviewData(data.reviews);
+      } catch (error) {
+        console.error('Erro ao buscar dados para o gráfico:', error);
+      }
     };
-  };
+
+    fetchReviewData();
+  }, [deckId]);
+
+  // Dados para o gráfico
+  const labels = reviewData.map((entry) => entry.date);
+  const counts = reviewData.map((entry) => entry.count);
 
   return (
     <div>
-      <h2>Gráfico de Revisões</h2>
-      <Line data={getChartData()} />
+      <h2>Revisões da Semana</h2>
+      <canvas id="reviewChart"></canvas>
+      <script>
+        {`
+          const ctx = document.getElementById('reviewChart').getContext('2d');
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ${JSON.stringify(labels)},
+              datasets: [{
+                label: 'Revisões',
+                data: ${JSON.stringify(counts)},
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+              }],
+            },
+          });
+        `}
+      </script>
     </div>
   );
 };
