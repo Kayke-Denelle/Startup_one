@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import jwtDecode from 'jwt-decode'; // Certifique-se de que este pacote está instalado
+import { decode as jwtDecode } from 'jwt-decode'; // Importação corrigida
 import { AuthProvider } from './context/AuthContext';
 import Login from './components/Login';
 import Registro from './components/Register';
