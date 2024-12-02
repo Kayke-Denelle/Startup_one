@@ -60,30 +60,9 @@ const ReviewPage = () => {
     }
   };
 
-  const evaluatePerformance = async () => {
-    const { easy, medium, hard } = reviewResults;
-    const totalCards = easy + medium + hard;
+  
 
-    if (totalCards === 0) return;
-
-    // Salva os resultados no backend
-    await saveReviewResults();
-
-    // Avaliação do desempenho
-    const hardPercentage = (hard / totalCards) * 100;
-    let message = '';
-
-    if (hardPercentage > 50) {
-      message = 'Você está com dificuldades. Recomenda-se estudar mais.';
-    } else if (hardPercentage > 20) {
-      message = 'Você está com alguma dificuldade. Continue revisando para melhorar.';
-    } else {
-      message = 'Ótimo trabalho! Você está indo muito bem na revisão.';
-    }
-
-    alert(message);
-    navigate('/baralhos');
-  };
+  
 
   const card = cards[currentCardIndex];
 
