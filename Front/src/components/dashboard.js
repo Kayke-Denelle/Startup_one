@@ -3,7 +3,6 @@ import { AuthContext } from '../context/AuthContext';
 import { Chart } from 'react-chartjs-2';
 import { Chart, BarController, BarElement, CategoryScale, LinearScale } from 'chart.js';
 
-Chart.register(BarController, BarElement, CategoryScale, LinearScale);
 
 
 const Dashboard = () => {
