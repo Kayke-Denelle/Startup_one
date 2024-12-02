@@ -216,7 +216,7 @@ const LandingPage = () => {
                 </div>
                 <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
-                    imagem
+                    imagema
                   </div>
                   <div class="text-center">
                     <p class="text-xl text-gray-700 font-bold mb-2">Dany Bailey</p>
