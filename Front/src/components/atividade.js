@@ -2,11 +2,10 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/sidebar';
-
-const jwtDecode = require('jwt-decode');
+import jwtDecode from 'jwt-decode';  // Certifique-se de que o jwt-decode está sendo importado corretamente
 
 const ReviewPage = () => {
-  const { token } = useContext(AuthContext);
+  const { token } = useContext(AuthContext); // Obtendo o token do contexto
   const [cards, setCards] = useState([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [reviewResults, setReviewResults] = useState({ easy: 0, medium: 0, hard: 0 });
@@ -89,9 +88,9 @@ const ReviewPage = () => {
 
   const saveReviewResults = async () => {
     const { easy, medium, hard } = reviewResults;
-    const token = localStorage.getItem('token');
-    const userId = decodedToken.userId; // Supondo que o token foi decodificado corretamente
-  
+    const decodedToken = jwtDecode(token); // Decodificando o token para obter o userId
+    const userId = decodedToken.userId;  // Obtendo o userId a partir do token
+
     try {
       const response = await fetch('https://volans-api-production.up.railway.app/api/revisions', {
         method: 'POST',
@@ -107,7 +106,7 @@ const ReviewPage = () => {
           hardCount: hard,
         }),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         console.log('Revisão salva com sucesso:', data);
