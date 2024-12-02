@@ -88,7 +88,7 @@ const LandingPage = () => {
               </div>
             </nav>
 
-            <div class="relative flex items-center n justify-center overflow-hidden z-50 md:py-10">
+            <div class="relative h-screen w-screen flex items-center n justify-center overflow-hidden z-50 md:py-10">
               <div class="relative mx-auto h-full px-4 mt-10 pb-20 md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
                 <div class="flex flex-col items-center justify-between lg:flex-row">
                   <div class="relative hidden lg:mr-16 lg:block lg:w-1/2">
@@ -187,7 +187,7 @@ const LandingPage = () => {
                 <h2 class="text-cor-4 font-title text-4xl sm:text-5xl font-light uppercase max-w-6xl leading-snug text-g1 sm:leading-snug">Conheça nossa <span class="text-cor-1 font-bold"> equipe</span></h2>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
                     imagem
                   </div>
@@ -196,7 +196,7 @@ const LandingPage = () => {
                     <p class="text-base text-gray-400 font-normal">Software Engineer</p>
                   </div>
                 </div>
-                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
                     imagem
                   </div>
@@ -205,7 +205,7 @@ const LandingPage = () => {
                     <p class="text-base text-gray-400 font-normal">Graphic Designer</p>
                   </div>
                 </div>
-                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
                     imagem
                   </div>
