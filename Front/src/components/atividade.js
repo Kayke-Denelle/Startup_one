@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/sidebar';
-import jwtDecode from 'jwt-decode';  // Certifique-se de que o jwt-decode está sendo importado corretamente
+import {jwtDecode} from 'jwt-decode';  // Certifique-se de que o jwt-decode está sendo importado corretamente
 
 const ReviewPage = () => {
   const { token } = useContext(AuthContext); // Obtendo o token do contexto
