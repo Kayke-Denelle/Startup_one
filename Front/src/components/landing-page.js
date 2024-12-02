@@ -88,8 +88,8 @@ const LandingPage = () => {
               </div>
             </nav>
 
-            <div class="relative h-screen w-screen flex items-center n justify-center overflow-hidden z-50 md:py-10">
-              <div class="relative mx-auto h-full px-4 mt-10 pb-20 md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
+            <div class="relative h-screen w-screen flex items-center justify-center overflow-hidden z-50 md:py-10">
+              <div class="relative h-screen w-screen mx-auto h-full px-4 mt-10 pb-20 md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
                 <div class="flex flex-col items-center justify-between lg:flex-row">
                   <div class="relative hidden lg:mr-16 lg:block lg:w-1/2">
                     <div class="abg-orange-400 mx-auto w-fit overflow-hidden rounded-[6rem] rounded-br-none rounded-tl-none">
