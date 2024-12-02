@@ -8,7 +8,7 @@ const ReviewPage = () => {
   const { token } = useContext(AuthContext); // Obtendo o token do contexto
   const [cards, setCards] = useState([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [setReviewResults] = useState({ easy: 0, medium: 0, hard: 0 });
+  const [reviewResults, setReviewResults] = useState({ easy: 0, medium: 0, hard: 0 });
   const [isFlipped, setIsFlipped] = useState(false);
   const { deckId } = useParams();
   const navigate = useNavigate();
@@ -32,28 +32,6 @@ const ReviewPage = () => {
       fetchCards();
     }
   }, [deckId, token, navigate]);
-
-  const evaluatePerformance = async () => {
-    const { easy, medium, hard } = reviewResults;
-    const totalCards = easy + medium + hard;
-  
-    if (totalCards === 0) return; // Não faz sentido avaliar sem dados
-  
-    // Avaliação do desempenho
-    const hardPercentage = (hard / totalCards) * 100;
-    let message = '';
-  
-    if (hardPercentage > 50) {
-      message = 'Você está com dificuldades. Recomenda-se estudar mais.';
-    } else if (hardPercentage > 20) {
-      message = 'Você está com alguma dificuldade. Continue revisando para melhorar.';
-    } else {
-      message = 'Ótimo trabalho! Você está indo muito bem na revisão.';
-    }
-  
-    alert(message);
-    navigate('/baralhos');  // Navega de volta para a página de baralhos ou qualquer outra página
-  };
 
   const handleDifficulty = async (difficulty) => {
     const card = cards[currentCardIndex];
@@ -82,9 +60,62 @@ const ReviewPage = () => {
     }
   };
 
-  
+  const evaluatePerformance = async () => {
+    const { easy, medium, hard } = reviewResults;
+    const totalCards = easy + medium + hard;
 
-  
+    if (totalCards === 0) return;
+
+    // Salva os resultados no backend
+    await saveReviewResults();
+
+    // Avaliação do desempenho
+    const hardPercentage = (hard / totalCards) * 100;
+    let message = '';
+
+    if (hardPercentage > 50) {
+      message = 'Você está com dificuldades. Recomenda-se estudar mais.';
+    } else if (hardPercentage > 20) {
+      message = 'Você está com alguma dificuldade. Continue revisando para melhorar.';
+    } else {
+      message = 'Ótimo trabalho! Você está indo muito bem na revisão.';
+    }
+
+    alert(message);
+    navigate('/baralhos');
+  };
+
+  const saveReviewResults = async () => {
+    const { easy, medium, hard } = reviewResults;
+    const decodedToken = jwtDecode(token); // Decodificando o token para obter o userId
+    const userId = decodedToken.userId;  // Obtendo o userId a partir do token
+
+    try {
+      const response = await fetch('https://volans-api-production.up.railway.app/api/revisions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId,
+          easyCount: easy,
+          mediumCount: medium,
+          hardCount: hard,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Revisão salva com sucesso:', data);
+      } else {
+        const errorData = await response.json();
+        console.error('Erro ao salvar revisão:', errorData);
+      }
+    } catch (error) {
+      console.error('Erro ao enviar dados para o servidor:', error);
+    }
+  };
 
   const card = cards[currentCardIndex];
 
