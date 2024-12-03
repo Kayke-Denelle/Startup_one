@@ -90,11 +90,9 @@ const MonthlyReviewChart = () => {
     responsive: true,
     scales: {
       x: {
+        // Mostrar os meses corretamente como labels
         ticks: {
-          callback: function(value) {
-            // Exibir os meses com a abreviação
-            return value;
-          }
+          autoSkip: false, // Não ocultar ticks automaticamente
         },
       },
       y: {
