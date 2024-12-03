@@ -8,7 +8,7 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 const MonthlyReviewChart = () => {
   const { token, userId } = useContext(AuthContext);
-  const [monthlyData, setMonthlyData] = useState([]);
+  const [monthlyData, setMonthlyData] = useState({ months: [], counts: [] });
 
   useEffect(() => {
     const fetchMonthlyReviews = async () => {
@@ -24,13 +24,19 @@ const MonthlyReviewChart = () => {
           const reviewsPerMonth = data.reviewsPerMonth;
 
           // Agrupar as revisões por mês
-          const months = [];
-          const counts = [];
+          const monthlyCounts = {};
 
           reviewsPerMonth.forEach((item) => {
-            months.push(`${item.month} ${item.year}`);
-            counts.push(item.count);
+            const monthYear = `${item.month} ${item.year}`;
+            if (!monthlyCounts[monthYear]) {
+              monthlyCounts[monthYear] = 0;
+            }
+            monthlyCounts[monthYear] += item.count; // Soma as contagens para o mesmo mês
           });
+
+          // Transformar o objeto em arrays para o gráfico
+          const months = Object.keys(monthlyCounts);
+          const counts = Object.values(monthlyCounts);
 
           setMonthlyData({ months, counts });
         }
