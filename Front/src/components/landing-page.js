@@ -187,13 +187,16 @@ const LandingPage = () => {
                 <h2 class="text-cor-4 font-title text-4xl sm:text-5xl font-light uppercase max-w-6xl leading-snug text-g1 sm:leading-snug">Conheça nossa <span class="text-cor-1 font-bold"> equipe</span></h2>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="group w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
                     <img class="rounded-full w-28 h-28" src={require('../Img/TeamImg/carlos.jpg')}/>
                   </div>
                   <div class="text-center">
                     <p class="text-xl text-cor-4 font-bold mb-2">Carlos Eduardo Duarte Torres</p>
-                    <p class="text-base text-cor-4/70 font-normal">Engenheiro de Testes e Analista de Requisitos</p>
+                    <ul class="group-hover:-translate-y-6 text-base text-cor-4/70 font-normal">
+                      <li>Engenheiro de Testes</li>
+                      <li>Analista de Requisitos</li>
+                    </ul>
                   </div>
                 </div>
                 <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
