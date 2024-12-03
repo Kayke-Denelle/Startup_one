@@ -6,6 +6,8 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 // Registrar os componentes necessários para gráficos de barras
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
+const MONTHS_ABBREVIATIONS = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+
 const MonthlyReviewChart = () => {
   const { token, userId } = useContext(AuthContext);
   const [monthlyData, setMonthlyData] = useState({ months: [], counts: [] });
@@ -27,7 +29,7 @@ const MonthlyReviewChart = () => {
           const monthlyCounts = {};
 
           reviewsPerMonth.forEach((item) => {
-            const monthYear = `${item.month} ${item.year}`;
+            const monthYear = `${item.year}-${item.month}`; // Formato: "2023-1"
             if (!monthlyCounts[monthYear]) {
               monthlyCounts[monthYear] = 0;
             }
@@ -35,7 +37,11 @@ const MonthlyReviewChart = () => {
           });
 
           // Transformar o objeto em arrays para o gráfico
-          const months = Object.keys(monthlyCounts);
+          const months = Object.keys(monthlyCounts).map((key) => {
+            const [year, month] = key.split("-");
+            return `${MONTHS_ABBREVIATIONS[month - 1]} ${year}`; // Mapeia o número do mês para a abreviação
+          });
+
           const counts = Object.values(monthlyCounts);
 
           setMonthlyData({ months, counts });
@@ -66,6 +72,12 @@ const MonthlyReviewChart = () => {
     scales: {
       y: {
         beginAtZero: true,
+      },
+      x: {
+        title: {
+          display: true,
+          text: 'Meses',
+        },
       },
     },
   };
