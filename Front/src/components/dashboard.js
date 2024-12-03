@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js'; // Import registerables
 import { AuthContext } from '../context/AuthContext';
+
+// Register all necessary components
+Chart.register(...registerables);
 
 const ReviewChart = ({ deckId }) => {
   const { token } = useContext(AuthContext);
