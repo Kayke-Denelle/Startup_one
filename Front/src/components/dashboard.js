@@ -6,21 +6,14 @@ import { AuthContext } from '../context/AuthContext';
 // Registrar os componentes do Chart.js
 Chart.register(...registerables);
 
-const ReviewChart = ({ deckId }) => {
+const ReviewChart = () => {
   const { token, userId } = useContext(AuthContext);
   const [reviewData, setReviewData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchReviewCounts = async () => {
-      if (!deckId) {
-        console.error('deckId não foi fornecido.');
-        setError('Baralho não identificado. Verifique a configuração.');
-        setIsLoading(false);
-        return;
-      }
-
+    const fetchAllReviews = async () => {
       try {
         const response = await fetch(
           `https://volans-api-production.up.railway.app/api/usuarios/${userId}/revisoes`,
@@ -31,24 +24,37 @@ const ReviewChart = ({ deckId }) => {
 
         if (!response.ok) {
           const errorText = await response.text();
-          console.error(`Erro ao buscar dados: ${response.statusText}`, errorText);
+          console.error('Erro ao buscar dados de revisão:', response.statusText, errorText);
           setError('Não foi possível carregar os dados de revisão.');
-          setIsLoading(false);
           return;
         }
 
         const data = await response.json();
-        setReviewData(data.reviews);
-      } catch (fetchError) {
-        console.error('Erro de rede ao buscar dados:', fetchError);
+
+        // Consolidar os dados de revisão por data
+        const consolidatedData = data.reviews.reduce((acc, review) => {
+          const { date, count } = review;
+          acc[date] = (acc[date] || 0) + count;
+          return acc;
+        }, {});
+
+        // Formatar para um array compatível com o gráfico
+        const formattedData = Object.entries(consolidatedData).map(([date, count]) => ({
+          date,
+          count,
+        }));
+
+        setReviewData(formattedData);
+      } catch (error) {
+        console.error('Erro de rede ao buscar dados:', error);
         setError('Erro ao carregar dados. Por favor, tente novamente mais tarde.');
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchReviewCounts();
-  }, [deckId, token]);
+    fetchAllReviews();
+  }, [token, userId]);
 
   const chartData = {
     labels: reviewData.map(item => item.date),
@@ -81,7 +87,7 @@ const ReviewChart = ({ deckId }) => {
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Contagem de Revisões na Semana</h2>
+      <h2 className="text-2xl font-bold mb-4">Revisões Consolidada de Todos os Baralhos</h2>
       {isLoading ? (
         <p>Carregando dados...</p>
       ) : error ? (
