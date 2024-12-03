@@ -192,8 +192,8 @@ const LandingPage = () => {
                     imagem
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-gray-700 font-bold mb-2">Carlos Eduardo Duarte Torres</p>
-                    <p class="text-base text-gray-400 font-normal">Software Engineer</p>
+                    <p class="text-xl text-cor-0 font-bold mb-2">Carlos Eduardo Duarte Torres</p>
+                    <p class="text-base text-cor-1/70 font-normal">Engenheiro de Testes e Analista de Requisitos</p>
                   </div>
                 </div>
                 <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
@@ -201,8 +201,8 @@ const LandingPage = () => {
                     imagem
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-gray-700 font-bold mb-2">Eduardo de Araújo Rey</p>
-                    <p class="text-base text-gray-400 font-normal">Graphic Designer</p>
+                    <p class="text-xl text-cor-0 font-bold mb-2">Eduardo de Araújo Rey</p>
+                    <p class="text-base text-cor-1/70 font-normal">Analista de Suporte e Manutenção e Especialista em Instalação e Deploy</p>
                   </div>
                 </div>
                 <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
@@ -210,8 +210,8 @@ const LandingPage = () => {
                     imagem
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-gray-700 font-bold mb-2">Giovanni Aparecido Gasperini</p>
-                    <p class="text-base text-gray-400 font-normal">Dev Ops</p>
+                    <p class="text-xl text-cor-0 font-bold mb-2">Giovanni Aparecido Gasperini</p>
+                    <p class="text-base text-cor-1/70 font-normal">Desenvolvedor Front-end e  Consultor de Usabilidade</p>
                   </div>
                 </div>
                 <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
@@ -219,8 +219,8 @@ const LandingPage = () => {
                     imagema
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-gray-700 font-bold mb-2">Kayke Denelle da Silva</p>
-                    <p class="text-base text-gray-400 font-normal">Software Engineer</p>
+                    <p class="text-xl text-cor-0 font-bold mb-2">Kayke Denelle da Silva</p>
+                    <p class="text-base text-cor-1/70 font-normal">Desenvolvedor Back-end e Analista de Viabilidade</p>
                   </div>
                 </div>
                 <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
@@ -228,8 +228,8 @@ const LandingPage = () => {
                     imagem
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-gray-700 font-bold mb-2">Leonardo De Lima Sousa</p>
-                    <p class="text-base text-gray-400 font-normal">Graphic Designer</p>
+                    <p class="text-xl text-cor-0 font-bold mb-2">Leonardo De Lima Sousa</p>
+                    <p class="text-base text-cor-1/70 font-normal">Gestor do Projeto, Scrum Master e Analista de Business Intelligence (BI)</p>
                   </div>
                 </div>
                 <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
@@ -237,8 +237,8 @@ const LandingPage = () => {
                     imagem
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-gray-700 font-bold mb-2">Otávio Vitalino Apolonio</p>
-                    <p class="text-base text-gray-400 font-normal">Dev Ops</p>
+                    <p class="text-xl text-cor-0 font-bold mb-2">Otávio Vitalino Apolonio</p>
+                    <p class="text-base text-cor-1/70 font-normal">Desenvolvedor Front-end e Designer</p>
                   </div>
                 </div>
               </div>
