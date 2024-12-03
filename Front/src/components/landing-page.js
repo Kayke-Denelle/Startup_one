@@ -210,7 +210,7 @@ const LandingPage = () => {
                 </div>
                 <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
-                    imagem
+                    <img class="rounded-full w-28 h-28" src={require('../Img/TeamImg/giovanni.jpeg')}/>
                   </div>
                   <div class="text-center">
                     <p class="text-xl text-cor-4 font-bold mb-2">Giovanni Aparecido Gasperini</p>
