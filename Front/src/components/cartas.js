@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import Sidebar from '../components/sidebar';
+import Sidebar from './sidebar';
 
 const FlashcardList = () => {
   const { token } = useContext(AuthContext);
