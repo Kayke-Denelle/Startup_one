@@ -23,11 +23,10 @@ const MonthlyReviewChart = () => {
           const data = await response.json();
           const reviewsPerMonth = data.reviewsPerMonth;
 
-          // Organize os dados para o gráfico
+          // Agrupar as revisões por mês
           const months = [];
           const counts = [];
-          
-          // Agrupar as revisões por mês
+
           reviewsPerMonth.forEach((item) => {
             months.push(`${item.month} ${item.year}`);
             counts.push(item.count);
@@ -44,11 +43,11 @@ const MonthlyReviewChart = () => {
   }, [token, userId]);
 
   const data = {
-    labels: monthlyData.months,
+    labels: monthlyData.months, // Mês e ano
     datasets: [
       {
-        label: 'Revisões por Mês',
-        data: monthlyData.counts,
+        label: 'Revisões Mensais',
+        data: monthlyData.counts, // Contagem de revisões por mês
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
@@ -56,10 +55,19 @@ const MonthlyReviewChart = () => {
     ],
   };
 
+  const options = {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
+
   return (
     <div className="chart-container">
       <h2>Revisões Mensais</h2>
-      <Bar data={data} />
+      <Bar data={data} options={options} />
     </div>
   );
 };
