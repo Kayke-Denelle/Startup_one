@@ -192,7 +192,7 @@ const LandingPage = () => {
                     imagem
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-gray-700 font-bold mb-2">Dany Bailey</p>
+                    <p class="text-xl text-gray-700 font-bold mb-2">Carlos Eduardo Duarte Torres</p>
                     <p class="text-base text-gray-400 font-normal">Software Engineer</p>
                   </div>
                 </div>
@@ -201,7 +201,7 @@ const LandingPage = () => {
                     imagem
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-gray-700 font-bold mb-2">Lucy Carter</p>
+                    <p class="text-xl text-gray-700 font-bold mb-2">Eduardo de Araújo Rey</p>
                     <p class="text-base text-gray-400 font-normal">Graphic Designer</p>
                   </div>
                 </div>
@@ -210,7 +210,7 @@ const LandingPage = () => {
                     imagem
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-gray-700 font-bold mb-2">Jade Bradley</p>
+                    <p class="text-xl text-gray-700 font-bold mb-2">Giovanni Aparecido Gasperini</p>
                     <p class="text-base text-gray-400 font-normal">Dev Ops</p>
                   </div>
                 </div>
@@ -219,7 +219,7 @@ const LandingPage = () => {
                     imagema
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-gray-700 font-bold mb-2">Dany Bailey</p>
+                    <p class="text-xl text-gray-700 font-bold mb-2">Kayke Denelle da Silva</p>
                     <p class="text-base text-gray-400 font-normal">Software Engineer</p>
                   </div>
                 </div>
@@ -228,7 +228,7 @@ const LandingPage = () => {
                     imagem
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-gray-700 font-bold mb-2">Lucy Carter</p>
+                    <p class="text-xl text-gray-700 font-bold mb-2">Leonardo De Lima Sousa</p>
                     <p class="text-base text-gray-400 font-normal">Graphic Designer</p>
                   </div>
                 </div>
@@ -237,7 +237,7 @@ const LandingPage = () => {
                     imagem
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-gray-700 font-bold mb-2">Jade Bradley</p>
+                    <p class="text-xl text-gray-700 font-bold mb-2">Otávio Vitalino Apolonio</p>
                     <p class="text-base text-gray-400 font-normal">Dev Ops</p>
                   </div>
                 </div>
