@@ -34,9 +34,34 @@ const MonthlyReviewChart = () => {
             monthlyCounts[monthYear] += item.count; // Soma as contagens para o mesmo mês
           });
 
-          // Transformar o objeto em arrays para o gráfico
-          const months = Object.keys(monthlyCounts);
-          const counts = Object.values(monthlyCounts);
+          // Definir todos os meses do ano
+          const allMonths = [
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+          ];
+
+          const months = [];
+          const counts = [];
+
+          // Preencher os meses do ano
+          allMonths.forEach((month) => {
+            let found = false;
+
+            // Verificar se o mês está presente nos dados
+            for (let item of reviewsPerMonth) {
+              if (item.month.substring(0, 3) === month) {
+                months.push(`${month} ${item.year}`);
+                counts.push(item.count);
+                found = true;
+                break;
+              }
+            }
+
+            // Se o mês não foi encontrado, adicionar como 0
+            if (!found) {
+              months.push(`${month} ${new Date().getFullYear()}`); // Usa o ano atual
+              counts.push(0);
+            }
+          });
 
           setMonthlyData({ months, counts });
         }
@@ -49,12 +74,7 @@ const MonthlyReviewChart = () => {
   }, [token, userId]);
 
   const data = {
-    labels: monthlyData.months.map(monthYear => {
-      // Extrair o mês e transformar para abreviação
-      const [month, year] = monthYear.split(" ");
-      const abbreviatedMonth = month.substring(0, 3); // Pega os 3 primeiros caracteres do mês
-      return `${abbreviatedMonth} ${year}`; // Retorna "Jan 2024", "Fev 2024", etc.
-    }),
+    labels: monthlyData.months, // Mês e ano
     datasets: [
       {
         label: 'Revisões Mensais',
@@ -72,8 +92,8 @@ const MonthlyReviewChart = () => {
       x: {
         ticks: {
           callback: function(value) {
-            // Personalizar a exibição dos meses no eixo X
-            return value; // Já estamos fazendo isso diretamente nos labels, não precisa de mais ajustes
+            // Exibir os meses com a abreviação
+            return value;
           }
         },
       },
