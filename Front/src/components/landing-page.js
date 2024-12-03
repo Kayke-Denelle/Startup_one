@@ -88,8 +88,8 @@ const LandingPage = () => {
               </div>
             </nav>
 
-            <div class="relative h-screen w-screen flex items-center justify-center overflow-hidden z-50 md:py-10">
-              <div class="relative h-screen w-screen flex items-center justify-normal mx-auto px-4 pb-20 md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
+            <div class="relative h-screen w-screen flex items-center justify-center overflow-hidden z-50">
+              <div class="relative h-screen w-screen flex items-center justify-normal mx-auto px-4 mt-10 pb-20 md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
                 <div class="flex flex-col items-center justify-between lg:flex-row">
                   <div class="relative hidden lg:mr-16 lg:block lg:w-1/2">
                     <div class="abg-orange-400 mx-auto w-fit overflow-hidden rounded-[6rem] rounded-br-none rounded-tl-none">
@@ -117,7 +117,7 @@ const LandingPage = () => {
                       </svg>
                     </div>
                   </div>
-                  <div class="relative">
+                  <div class="relative ">
                     <div class="lg:max-w-5xl lg:pr-5 z-40 md:px-10">
                       <Link to="/Login" id="header-texto1" class="group text-cor-4 text-sm sm:text-base flex w-fit px-2 py-2 uppercase rounded-md hover:bg-cor-2 hover:-translate-x-1 transition-all ease-in-out duration-300">Comece agora mesmo sem nenhum custo inicial de assinatura.
                         <svg class="text-cor-4 md:ml-2 w-7 group-hover:md:w-3 md:w-0 h-auto transition-all ease-in-out duration-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
