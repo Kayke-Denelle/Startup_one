@@ -1,38 +1,49 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Chart, registerables } from 'chart.js'; // Import registerables
+import { Chart, registerables } from 'chart.js';
 import { AuthContext } from '../context/AuthContext';
 
-// Register all necessary components
+// Registrar os componentes do Chart.js
 Chart.register(...registerables);
 
 const ReviewChart = ({ deckId }) => {
   const { token } = useContext(AuthContext);
   const [reviewData, setReviewData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchReviewCounts = async () => {
       if (!deckId) {
-        console.error('deckId is undefined');
-        return; // Exit if deckId is not defined
+        console.error('deckId não foi fornecido.');
+        setError('Baralho não identificado. Verifique a configuração.');
+        setIsLoading(false);
+        return;
       }
 
       try {
-        const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}/revisoes`, {
-          headers: { 'Authorization': `Bearer ${token}` },
-        });
+        const response = await fetch(
+          `https://volans-api-production.up.railway.app/api/baralhos/${deckId}/revisoes`,
+          {
+            headers: { 'Authorization': `Bearer ${token}` },
+          }
+        );
 
-        // Check if the response is okay
         if (!response.ok) {
-          const errorText = await response.text(); // Get the response as text
-          console.error('Failed to fetch review counts:', response.statusText, errorText); // Log the response text
+          const errorText = await response.text();
+          console.error(`Erro ao buscar dados: ${response.statusText}`, errorText);
+          setError('Não foi possível carregar os dados de revisão.');
+          setIsLoading(false);
           return;
         }
 
         const data = await response.json();
         setReviewData(data.reviews);
-      } catch (error) {
-        console.error('Error fetching review counts:', error);
+      } catch (fetchError) {
+        console.error('Erro de rede ao buscar dados:', fetchError);
+        setError('Erro ao carregar dados. Por favor, tente novamente mais tarde.');
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -45,17 +56,41 @@ const ReviewChart = ({ deckId }) => {
       {
         label: 'Revisões na Semana',
         data: reviewData.map(item => item.count),
-        backgroundColor: 'rgba(75, 192, 192, 0.6)', // Fixed the spacing issue here
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
       },
     ],
   };
 
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: true, position: 'top' },
+    },
+    scales: {
+      x: { grid: { display: false } },
+      y: {
+        beginAtZero: true,
+        grid: { display: true },
+        ticks: { stepSize: 1 },
+      },
+    },
+  };
+
   return (
-    <div>
+    <div className="p-4 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Contagem de Revisões na Semana</h2>
-      <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
+      {isLoading ? (
+        <p>Carregando dados...</p>
+      ) : error ? (
+        <p className="text-red-500">{error}</p>
+      ) : (
+        <div style={{ height: '400px' }}>
+          <Bar data={chartData} options={chartOptions} />
+        </div>
+      )}
     </div>
   );
 };
