@@ -4,10 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/sidebar';
 import ReviewChart from '../components/dashboard'; // Import the ReviewChart component
 
-
-
 const ReviewPage = () => {
-  const { token } = useContext(AuthContext);
+  const { token, userId } = useContext(AuthContext); // Certifique-se de que userId está disponível no contexto
   const [cards, setCards] = useState([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [reviewResults, setReviewResults] = useState({ easy: 0, medium: 0, hard: 0 });
@@ -31,12 +29,35 @@ const ReviewPage = () => {
     }
   }, [deckId, token, navigate]);
 
+  // Função para registrar a revisão
+  const registerReview = async (difficulty) => {
+    try {
+      const response = await fetch('https://volans-api-production.up.railway.app/api/revisoes', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId, difficulty }),
+      });
+
+      if (!response.ok) {
+        console.error('Erro ao registrar revisão');
+      }
+    } catch (error) {
+      console.error('Erro de rede ao registrar revisão:', error);
+    }
+  };
+
   const handleDifficulty = async (difficulty) => {
     const card = cards[currentCardIndex];
     setReviewResults(prevResults => ({
       ...prevResults,
       [difficulty]: prevResults[difficulty] + 1,
     }));
+
+    // Registrar a revisão no banco de dados
+    await registerReview(difficulty);
 
     await fetch(`https://volans-api-production.up.railway.app/api/cartas/${card._id}/difficulty`, {
       method: 'PATCH',
