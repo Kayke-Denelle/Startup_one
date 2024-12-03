@@ -1,51 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import Chart from 'chart.js/auto'; // Ou outro pacote gráfico de sua escolha
+import React, { useEffect, useState, useContext } from 'react';
+import { Bar } from 'react-chartjs-2';
+import { AuthContext } from '../context/AuthContext';
 
-const Dashboard = ({ deckId }) => {
+const ReviewChart = ({ deckId }) => {
+  const { token } = useContext(AuthContext);
   const [reviewData, setReviewData] = useState([]);
 
   useEffect(() => {
-    const fetchReviewData = async () => {
-      try {
-        const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}/revisoes`);
-        const data = await response.json();
-        setReviewData(data.reviews);
-      } catch (error) {
-        console.error('Erro ao buscar dados para o gráfico:', error);
-      }
+    const fetchReviewCounts = async () => {
+      const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}/revisoes`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+      const data = await response.json();
+      setReviewData(data.reviews);
     };
 
-    fetchReviewData();
-  }, [deckId]);
+    fetchReviewCounts();
+  }, [deckId, token]);
 
-  // Dados para o gráfico
-  const labels = reviewData.map((entry) => entry.date);
-  const counts = reviewData.map((entry) => entry.count);
+  const chartData = {
+    labels: reviewData.map(item => item.date),
+    datasets: [
+      {
+        label: 'Revisões na Semana',
+        data: reviewData.map(item => item.count),
+        backgroundColor: 'rgba (75, 192, 192, 0.6)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+      },
+    ],
+  };
 
   return (
     <div>
-      <h2>Revisões da Semana</h2>
-      <canvas id="reviewChart"></canvas>
-      <script>
-        {`
-          const ctx = document.getElementById('reviewChart').getContext('2d');
-          new Chart(ctx, {
-            type: 'bar',
-            data: {
-              labels: ${JSON.stringify(labels)},
-              datasets: [{
-                label: 'Revisões',
-                data: ${JSON.stringify(counts)},
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
-              }],
-            },
-          });
-        `}
-      </script>
+      <h2 className="text-2xl font-bold mb-4">Contagem de Revisões na Semana</h2>
+      <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
     </div>
   );
 };
 
-export default Dashboard;
+export default ReviewChart;
