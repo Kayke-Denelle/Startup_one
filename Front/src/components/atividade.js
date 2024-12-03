@@ -132,8 +132,6 @@ const ReviewPage = () => {
           ) : (
             <p>Carregando cartões ou nenhum cartão disponível para revisão.</p>
           )}
-          {/* Integrar o gráfico de revisão */}
-          <ReviewChart deckId={deckId} />
         </div>
       </div>
     </div>
