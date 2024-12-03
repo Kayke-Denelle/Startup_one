@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 
-// Registrar os componentes necessários
-ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement);
+// Registrar os componentes necessários para gráficos de barras
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 const MonthlyReviewChart = () => {
   const { token, userId } = useContext(AuthContext);
@@ -49,10 +49,9 @@ const MonthlyReviewChart = () => {
       {
         label: 'Revisões por Mês',
         data: monthlyData.counts,
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
         borderColor: 'rgba(75, 192, 192, 1)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        fill: true,
-        tension: 0.4,
+        borderWidth: 1,
       },
     ],
   };
@@ -60,7 +59,7 @@ const MonthlyReviewChart = () => {
   return (
     <div className="chart-container">
       <h2>Revisões Mensais</h2>
-      <Line data={data} />
+      <Bar data={data} />
     </div>
   );
 };
