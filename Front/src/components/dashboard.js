@@ -23,15 +23,20 @@ const MonthlyReviewChart = () => {
           const data = await response.json();
           const reviewsPerMonth = data.reviewsPerMonth;
 
-          // Agrupar as revisões por mês
+          // Agrupar as revisões por mês e ano, sem somar os valores entre os anos
           const monthlyCounts = {};
 
           reviewsPerMonth.forEach((item) => {
-            const monthYear = `${item.month} ${item.year}`;
+            const month = item.month.substring(0, 3); // Extrair o nome do mês (primeiros 3 caracteres)
+            const year = item.year; // Ano
+
+            const monthYear = `${month} ${year}`; // Criar chave única para o mês e ano (Ex: "Jan 2023")
+
+            // Se o mês/ano já existe, adiciona as revisões, senão cria um novo
             if (!monthlyCounts[monthYear]) {
               monthlyCounts[monthYear] = 0;
             }
-            monthlyCounts[monthYear] += item.count; // Soma as contagens para o mesmo mês
+            monthlyCounts[monthYear] += item.count; // Soma as revisões do mesmo mês e ano
           });
 
           // Definir todos os meses do ano
@@ -42,15 +47,15 @@ const MonthlyReviewChart = () => {
           const months = [];
           const counts = [];
 
-          // Preencher os meses do ano
+          // Preencher os meses do ano, caso não haja revisões para algum mês, vai inserir 0
           allMonths.forEach((month) => {
             let found = false;
 
             // Verificar se o mês está presente nos dados
-            for (let item of reviewsPerMonth) {
-              if (item.month.substring(0, 3) === month) {
-                months.push(`${month} ${item.year}`);
-                counts.push(item.count);
+            for (let item of Object.keys(monthlyCounts)) {
+              if (item.startsWith(month)) { // Verifica se o mês corresponde à chave
+                months.push(item);
+                counts.push(monthlyCounts[item]);
                 found = true;
                 break;
               }
@@ -74,7 +79,7 @@ const MonthlyReviewChart = () => {
   }, [token, userId]);
 
   const data = {
-    labels: monthlyData.months, // Mês e ano
+    labels: monthlyData.months, // Mês e ano (jan, fev, etc.)
     datasets: [
       {
         label: 'Revisões Mensais',
@@ -90,13 +95,12 @@ const MonthlyReviewChart = () => {
     responsive: true,
     scales: {
       x: {
-        // Mostrar os meses corretamente como labels
         ticks: {
-          autoSkip: false, // Não ocultar ticks automaticamente
+          autoSkip: false, // Não esconder ticks automaticamente
         },
       },
       y: {
-        beginAtZero: true,
+        beginAtZero: true, // Começa o gráfico no valor zero
       },
     },
   };
