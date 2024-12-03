@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
+import Sidebar from '../components/sidebar'; // Supondo que você tenha um Sidebar componente
 
 // Registrar os componentes necessários para gráficos de barras
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
@@ -106,9 +107,14 @@ const MonthlyReviewChart = () => {
   };
 
   return (
-    <div className="chart-container">
-      <h2>Revisões Mensais</h2>
-      <Bar data={data} options={options} />
+    <div className="flex flex-col lg:flex-row w-full min-h-screen bg-gray-100">
+      <Sidebar className="lg:w-1/4 p-4 bg-white shadow-md" /> {/* Sidebar com Tailwind CSS */}
+      <div className="flex-1 p-6">
+        <h2 className="text-3xl font-semibold text-gray-800 mb-4">Revisões Mensais</h2>
+        <div className="bg-white shadow-lg rounded-lg p-4">
+          <Bar data={data} options={options} />
+        </div>
+      </div>
     </div>
   );
 };
