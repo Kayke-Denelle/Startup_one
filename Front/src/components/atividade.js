@@ -28,9 +28,16 @@ const ReviewPage = () => {
     }
   }, [deckId, token, navigate]);
 
-  // Função para registrar a revisão
-  const registerReview = async (difficulty) => {
+  // Função para registrar a revisão (registro do número de revisões)
+  const registerReview = async () => {
     try {
+      const totalReviews = reviewResults.easy + reviewResults.medium + reviewResults.hard;
+
+      if (totalReviews === 0) {
+        alert("Você precisa revisar pelo menos uma carta antes de finalizar.");
+        return;
+      }
+
       const response = await fetch('https://volans-api-production.up.railway.app/api/revisoes', {
         method: 'POST',
         headers: {
@@ -42,35 +49,27 @@ const ReviewPage = () => {
 
       if (!response.ok) {
         console.error('Erro ao registrar revisão');
+      } else {
+        alert('Revisão registrada com sucesso!');
+        navigate('/baralhos');
       }
     } catch (error) {
       console.error('Erro de rede ao registrar revisão:', error);
     }
   };
 
-  const handleDifficulty = async (difficulty) => {
+  const handleDifficulty = (difficulty) => {
     const card = cards[currentCardIndex];
     setReviewResults(prevResults => ({
       ...prevResults,
       [difficulty]: prevResults[difficulty] + 1,
     }));
 
-    // Registrar a revisão no banco de dados
-    await registerReview(difficulty);
-
-    await fetch(`https://volans-api-production.up.railway.app/api/cartas/${card._id}/difficulty`, {
-      method: 'PATCH',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ difficulty }),
-    });
-
     if (currentCardIndex < cards.length - 1) {
       setCurrentCardIndex(currentCardIndex + 1);
       setIsFlipped(false); // Redefine aqui para garantir que a próxima carta comece com a pergunta
     } else {
+      // Quando chegar ao final, exibe a performance
       evaluatePerformance();
     }
   };
@@ -93,7 +92,6 @@ const ReviewPage = () => {
     }
 
     alert(message);
-    navigate('/baralhos');
   };
 
   const card = cards[currentCardIndex];
@@ -152,6 +150,16 @@ const ReviewPage = () => {
           ) : (
             <p>Carregando cartões ou nenhum cartão disponível para revisão.</p>
           )}
+
+          {/* Botão de finalizar revisão */}
+          <div className="mt-8">
+            <button
+              onClick={registerReview}
+              className="bg-blue-500 text-white py-2 px-4 rounded"
+            >
+              Finalizar Revisão
+            </button>
+          </div>
         </div>
       </div>
     </div>
