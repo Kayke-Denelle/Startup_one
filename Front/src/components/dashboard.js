@@ -6,8 +6,6 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 // Registrar os componentes necessários para gráficos de barras
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
-const MONTHS_ABBREVIATIONS = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-
 const MonthlyReviewChart = () => {
   const { token, userId } = useContext(AuthContext);
   const [monthlyData, setMonthlyData] = useState({ months: [], counts: [] });
@@ -29,7 +27,7 @@ const MonthlyReviewChart = () => {
           const monthlyCounts = {};
 
           reviewsPerMonth.forEach((item) => {
-            const monthYear = `${item.year}-${item.month}`; // Formato: "2023-1"
+            const monthYear = `${item.month} ${item.year}`;
             if (!monthlyCounts[monthYear]) {
               monthlyCounts[monthYear] = 0;
             }
@@ -37,11 +35,7 @@ const MonthlyReviewChart = () => {
           });
 
           // Transformar o objeto em arrays para o gráfico
-          const months = Object.keys(monthlyCounts).map((key) => {
-            const [year, month] = key.split("-");
-            return `${MONTHS_ABBREVIATIONS[month - 1]} ${year}`; // Mapeia o número do mês para a abreviação
-          });
-
+          const months = Object.keys(monthlyCounts);
           const counts = Object.values(monthlyCounts);
 
           setMonthlyData({ months, counts });
@@ -55,7 +49,12 @@ const MonthlyReviewChart = () => {
   }, [token, userId]);
 
   const data = {
-    labels: monthlyData.months, // Mês e ano
+    labels: monthlyData.months.map(monthYear => {
+      // Extrair o mês e transformar para abreviação
+      const [month, year] = monthYear.split(" ");
+      const abbreviatedMonth = month.substring(0, 3); // Pega os 3 primeiros caracteres do mês
+      return `${abbreviatedMonth} ${year}`; // Retorna "Jan 2024", "Fev 2024", etc.
+    }),
     datasets: [
       {
         label: 'Revisões Mensais',
@@ -70,14 +69,16 @@ const MonthlyReviewChart = () => {
   const options = {
     responsive: true,
     scales: {
+      x: {
+        ticks: {
+          callback: function(value) {
+            // Personalizar a exibição dos meses no eixo X
+            return value; // Já estamos fazendo isso diretamente nos labels, não precisa de mais ajustes
+          }
+        },
+      },
       y: {
         beginAtZero: true,
-      },
-      x: {
-        title: {
-          display: true,
-          text: 'Meses',
-        },
       },
     },
   };
