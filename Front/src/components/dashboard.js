@@ -7,7 +7,7 @@ import { AuthContext } from '../context/AuthContext';
 Chart.register(...registerables);
 
 const ReviewChart = ({ deckId }) => {
-  const { token } = useContext(AuthContext);
+  const { token, userId } = useContext(AuthContext);
   const [reviewData, setReviewData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ const ReviewChart = ({ deckId }) => {
 
       try {
         const response = await fetch(
-          `https://volans-api-production.up.railway.app/api/baralhos/${deckId}/revisoes`,
+          `https://volans-api-production.up.railway.app/api/usuarios/${userId}/revisoes`,
           {
             headers: { 'Authorization': `Bearer ${token}` },
           }
