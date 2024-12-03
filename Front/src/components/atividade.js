@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/sidebar';
-import ReviewChart from '../components/dashboard'; // Import the ReviewChart component
 
 const ReviewPage = () => {
   const { token, userId } = useContext(AuthContext); // Certifique-se de que userId está disponível no contexto
@@ -38,7 +37,7 @@ const ReviewPage = () => {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId, difficulty }),
+        body: JSON.stringify({ userId }),
       });
 
       if (!response.ok) {
