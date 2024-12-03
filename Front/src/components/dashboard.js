@@ -8,7 +8,7 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 const MonthlyReviewChart = () => {
   const { token, userId } = useContext(AuthContext);
-  const [monthlyData, setMonthlyData] = useState({ months: [], counts: [] });
+  const [monthlyData, setMonthlyData] = useState([]);
 
   useEffect(() => {
     const fetchMonthlyReviews = async () => {
@@ -23,9 +23,14 @@ const MonthlyReviewChart = () => {
           const data = await response.json();
           const reviewsPerMonth = data.reviewsPerMonth;
 
-          // Formatando as informações para meses e contagem
-          const months = reviewsPerMonth.map(item => `${item.month}/${item.year}`);
-          const counts = reviewsPerMonth.map(item => item.count);
+          // Agrupar as revisões por mês
+          const months = [];
+          const counts = [];
+
+          reviewsPerMonth.forEach((item) => {
+            months.push(`${item.month} ${item.year}`);
+            counts.push(item.count);
+          });
 
           setMonthlyData({ months, counts });
         }
@@ -38,7 +43,7 @@ const MonthlyReviewChart = () => {
   }, [token, userId]);
 
   const data = {
-    labels: monthlyData.months, // Mês/Ano
+    labels: monthlyData.months, // Mês e ano
     datasets: [
       {
         label: 'Revisões Mensais',
@@ -55,9 +60,6 @@ const MonthlyReviewChart = () => {
     scales: {
       y: {
         beginAtZero: true,
-        ticks: {
-          stepSize: 1, // Ajuste do passo para o eixo Y
-        },
       },
     },
   };
