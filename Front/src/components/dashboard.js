@@ -1,54 +1,67 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { Bar } from 'react-chartjs-2';
-import { Chart, registerables } from 'chart.js';
+import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale } from 'chart.js';
 
-// Registrar componentes do Chart.js
-Chart.register(...registerables);
+ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale);
 
-const Dashboard = () => {
+const MonthlyReviewChart = () => {
   const { token, userId } = useContext(AuthContext);
-  const [reviewCount, setReviewCount] = useState(0);
-  const [error, setError] = useState(null);
+  const [monthlyData, setMonthlyData] = useState([]);
 
   useEffect(() => {
-    const fetchReviews = async () => {
+    const fetchMonthlyReviews = async () => {
       try {
-        const response = await fetch(
-          `https://volans-api-production.up.railway.app/api/revisoes/${userId}`,
-          {
-            headers: { 'Authorization': `Bearer ${token}` },
-          }
-        );
+        const response = await fetch(`https://volans-api-production.up.railway.app/api/revisoes/${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
 
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error('Erro ao buscar dados de revisão:', errorText);
-          setError('Não foi possível carregar os dados de revisão.');
-          return;
+        if (response.ok) {
+          const data = await response.json();
+          const reviewsPerMonth = data.reviewsPerMonth;
+
+          // Organize os dados para o gráfico
+          const months = [];
+          const counts = [];
+          
+          // Agrupar as revisões por mês
+          reviewsPerMonth.forEach((item) => {
+            months.push(`${item.month} ${item.year}`);
+            counts.push(item.count);
+          });
+
+          setMonthlyData({ months, counts });
         }
-
-        const data = await response.json();
-        setReviewCount(data.reviews);
-      } catch (err) {
-        console.error('Erro ao buscar dados de revisão:', err);
-        setError('Erro ao carregar dados. Tente novamente mais tarde.');
+      } catch (error) {
+        console.error('Erro ao buscar revisões mensais:', error);
       }
     };
 
-    fetchReviews();
-  }, [userId, token]);
+    fetchMonthlyReviews();
+  }, [token, userId]);
+
+  const data = {
+    labels: monthlyData.months,
+    datasets: [
+      {
+        label: 'Revisões por Mês',
+        data: monthlyData.counts,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        fill: true,
+        tension: 0.4,
+      },
+    ],
+  };
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Revisões Realizadas</h2>
-      {error ? (
-        <p className="text-red-500">{error}</p>
-      ) : (
-        <p>Total de Revisões: {reviewCount}</p>
-      )}
+    <div className="chart-container">
+      <h2>Revisões Mensais</h2>
+      <Line data={data} />
     </div>
   );
 };
 
-export default Dashboard;
+export default MonthlyReviewChart;
