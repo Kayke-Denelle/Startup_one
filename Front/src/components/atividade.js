@@ -2,10 +2,9 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/sidebar';
-import {jwtDecode} from 'jwt-decode';  // Certifique-se de que o jwt-decode está sendo importado corretamente
 
 const ReviewPage = () => {
-  const { token } = useContext(AuthContext); // Obtendo o token do contexto
+  const { token, userId } = useContext(AuthContext); // Certifique-se de que userId está disponível no contexto
   const [cards, setCards] = useState([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [reviewResults, setReviewResults] = useState({ easy: 0, medium: 0, hard: 0 });
@@ -18,48 +17,69 @@ const ReviewPage = () => {
       navigate('/login');
     } else {
       const fetchCards = async () => {
-        try {
-          const response = await fetch(`https://volans-api-production.up.railway.app/api/cartas/${deckId}`, {
-            headers: { 'Authorization': `Bearer ${token}` },
-          });
-          const data = await response.json();
-          setCards(data);
-        } catch (error) {
-          console.error('Erro ao carregar as cartas:', error);
-        }
+        const response = await fetch(`https://volans-api-production.up.railway.app/api/cartas/${deckId}`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        const data = await response.json();
+        setCards(data);
       };
 
       fetchCards();
     }
   }, [deckId, token, navigate]);
 
-  const handleDifficulty = async (difficulty) => {
-    // Lógica de revisão (já existente)
-  
+  // Função para registrar a revisão (registro do número de revisões)
+  const registerReview = async () => {
     try {
-      await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}/revisao`, {
-        method: 'PATCH',
+      const totalReviews = reviewResults.easy + reviewResults.medium + reviewResults.hard;
+
+      if (totalReviews === 0) {
+        alert("Você precisa revisar pelo menos uma carta antes de finalizar.");
+        return;
+      }
+
+      const response = await fetch('https://volans-api-production.up.railway.app/api/revisoes', {
+        method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ userId }),
       });
+
+      if (!response.ok) {
+        console.error('Erro ao registrar revisão');
+      } else {
+        alert('Revisão registrada com sucesso!');
+        navigate('/baralhos');
+      }
     } catch (error) {
-      console.error('Erro ao salvar revisão no baralho:', error);
+      console.error('Erro de rede ao registrar revisão:', error);
     }
   };
-  
 
-  const evaluatePerformance = async () => {
+  const handleDifficulty = (difficulty) => {
+    const card = cards[currentCardIndex];
+    setReviewResults(prevResults => ({
+      ...prevResults,
+      [difficulty]: prevResults[difficulty] + 1,
+    }));
+
+    if (currentCardIndex < cards.length - 1) {
+      setCurrentCardIndex(currentCardIndex + 1);
+      setIsFlipped(false); // Redefine aqui para garantir que a próxima carta comece com a pergunta
+    } else {
+      // Quando chegar ao final, exibe a performance
+      evaluatePerformance();
+    }
+  };
+
+  const evaluatePerformance = () => {
     const { easy, medium, hard } = reviewResults;
     const totalCards = easy + medium + hard;
 
     if (totalCards === 0) return;
 
-    // Salva os resultados no backend
-    await saveReviewResults();
-
-    // Avaliação do desempenho
     const hardPercentage = (hard / totalCards) * 100;
     let message = '';
 
@@ -72,44 +92,11 @@ const ReviewPage = () => {
     }
 
     alert(message);
-    navigate('/baralhos');
-  };
-
-  const saveReviewResults = async () => {
-    const { easy, medium, hard } = reviewResults;
-    const decodedToken = jwtDecode(token); // Decodificando o token para obter o userId
-    const userId = decodedToken.userId;  // Obtendo o userId a partir do token
-
-    try {
-      const response = await fetch('https://volans-api-production.up.railway.app/api/revisions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId, // Passando o userId para a API
-          deckId, // Passando o deckId (ID do baralho)
-          easyCount: easy,
-          mediumCount: medium,
-          hardCount: hard,
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Revisão salva com sucesso:', data);
-      } else {
-        const errorData = await response.json();
-        console.error('Erro ao salvar revisão:', errorData);
-      }
-    } catch (error) {
-      console.error('Erro ao enviar dados para o servidor:', error);
-    }
   };
 
   const card = cards[currentCardIndex];
 
+  // Função para alternar o estado do flip da carta
   const toggleFlip = () => {
     setIsFlipped(!isFlipped);
   };
@@ -124,9 +111,7 @@ const ReviewPage = () => {
             <div className="relative">
               {/* Cartão */}
               <div
-                className={`card w-72 h-96 bg-white shadow-lg rounded-lg p-4 transform transition-transform duration-500 ${
-                  isFlipped ? 'rotate-y-180' : ''
-                }`}
+                className={`card w-72 h-96 bg-white shadow-lg rounded-lg p-4 transform transition-all duration-500 ${isFlipped ? 'rotateY-180' : ''}`}
                 onClick={toggleFlip}
               >
                 <div className={`front ${isFlipped ? 'hidden' : 'block'}`}>
@@ -139,7 +124,7 @@ const ReviewPage = () => {
                 </div>
               </div>
 
-              {/* Navegação */}
+              {/* Navegação das setas */}
               <div className="absolute top-1/2 left-0 right-0 flex justify-between px-4 transform -translate-y-1/2">
                 <button
                   onClick={toggleFlip}
@@ -157,20 +142,24 @@ const ReviewPage = () => {
 
               {/* Botões de dificuldade */}
               <div className="mt-4 flex justify-center space-x-4">
-                <button onClick={() => handleDifficulty('easy')} className="bg-green-500 text-white py-2 px-4 rounded">
-                  Fácil
-                </button>
-                <button onClick={() => handleDifficulty('medium')} className="bg-yellow-500 text-white py-2 px-4 rounded">
-                  Médio
-                </button>
-                <button onClick={() => handleDifficulty('hard')} className="bg-red-500 text-white py-2 px-4 rounded">
-                  Difícil
-                </button>
+                <button onClick={() => handleDifficulty('easy')} className="bg-green-500 text-white py-2 px-4 rounded">Fácil</button>
+                <button onClick={() => handleDifficulty('medium')} className="bg-yellow-500 text-white py-2 px-4 rounded">Médio</button>
+                <button onClick={() => handleDifficulty('hard')} className="bg-red-500 text-white py-2 px-4 rounded">Difícil</button>
               </div>
             </div>
           ) : (
             <p>Carregando cartões ou nenhum cartão disponível para revisão.</p>
           )}
+
+          {/* Botão de finalizar revisão */}
+          <div className="mt-8">
+            <button
+              onClick={registerReview}
+              className="bg-blue-500 text-white py-2 px-4 rounded"
+            >
+              Finalizar Revisão
+            </button>
+          </div>
         </div>
       </div>
     </div>
