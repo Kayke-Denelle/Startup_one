@@ -54,7 +54,7 @@ const LandingPage = () => {
                     <path transform="translate(348,724)" d="m0 0h4l3 14 4 9-1 4-14 20-12 14-9 11-10 10-7 8-11 11-8 7-6 5-2-1 1-5 12-16 12-17 17-26 14-24 10-20z" />
                     <path transform="translate(812,668)" d="m0 0 4 2 6 11 3 10 1 15-2 12-5 12-7 11-12 14-9 8-2 3h-3l1-6 7-15 7-22 6-28 4-26z" />
                   </svg>
-                  <span className="ps-2 self-center text-xl font-semibold whitespace-nowrap dark:text-cor-4">Volans</span>
+                  <span className="text-cor-4 ps-2 self-center text-xl font-semibold whitespace-nowrap">Volans</span>
                 </Link>
                 <div className="flex items-center md:hidden">
                   <button
