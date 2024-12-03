@@ -189,7 +189,7 @@ const LandingPage = () => {
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
-                    <img class="rounded-full w-10 h-10" src={require('../Img/TeamImg/carlos.jpg')}/>
+                    <img class="rounded-full w-20 h-20" src={require('../Img/TeamImg/carlos.jpg')}/>
                   </div>
                   <div class="text-center">
                     <p class="text-xl text-cor-0 font-bold mb-2">Carlos Eduardo Duarte Torres</p>
@@ -198,7 +198,7 @@ const LandingPage = () => {
                 </div>
                 <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
-                    <img class="rounded-full w-10 h-10" src={require('../Img/TeamImg/eduardo.jpg')}/>
+                    <img class="rounded-full w-20 h-20" src={require('../Img/TeamImg/eduardo.jpg')}/>
                   </div>
                   <div class="text-center">
                     <p class="text-xl text-cor-0 font-bold mb-2">Eduardo de Araújo Rey</p>
@@ -216,7 +216,7 @@ const LandingPage = () => {
                 </div>
                 <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
-                    <img class="rounded-full w-10 h-10" src={require('../Img/TeamImg/kayke.jpg')}/>
+                    <img class="rounded-full w-20 h-20" src={require('../Img/TeamImg/kayke.jpg')}/>
                   </div>
                   <div class="text-center">
                     <p class="text-xl text-cor-0 font-bold mb-2">Kayke Denelle da Silva</p>
@@ -225,7 +225,7 @@ const LandingPage = () => {
                 </div>
                 <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
-                    <img class="rounded-full w-10 h-10" src={require('../Img/TeamImg/leonardo.jpg')}/>
+                    <img class="rounded-full w-20 h-20" src={require('../Img/TeamImg/leonardo.jpg')}/>
                   </div>
                   <div class="text-center">
                     <p class="text-xl text-cor-0 font-bold mb-2">Leonardo De Lima Sousa</p>
@@ -234,7 +234,7 @@ const LandingPage = () => {
                 </div>
                 <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
-                    <img class="rounded-full w-10 h-10" src={require('../Img/TeamImg/otavio.png')}/>
+                    <img class="rounded-full w-20 h-20" src={require('../Img/TeamImg/otavio.png')}/>
                   </div>
                   <div class="text-center">
                     <p class="text-xl text-cor-0 font-bold mb-2">Otávio Vitalino Apolonio</p>
