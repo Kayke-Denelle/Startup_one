@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
-import Sidebar from '../components/sidebar'; // Supondo que você tenha um Sidebar componente
+import Sidebar from './sidebar'; // Supondo que você tenha um Sidebar componente
 
 // Registrar os componentes necessários para gráficos de barras
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
