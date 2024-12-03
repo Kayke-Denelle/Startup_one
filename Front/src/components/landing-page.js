@@ -187,57 +187,57 @@ const LandingPage = () => {
                 <h2 class="text-cor-4 font-title text-4xl sm:text-5xl font-light uppercase max-w-6xl leading-snug text-g1 sm:leading-snug">Conheça nossa <span class="text-cor-1 font-bold"> equipe</span></h2>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
-                    <img class="rounded-full w-20 h-20" src={require('../Img/TeamImg/carlos.jpg')}/>
+                    <img class="rounded-full w-28 h-28" src={require('../Img/TeamImg/carlos.jpg')}/>
                   </div>
                   <div class="text-center">
                     <p class="text-xl text-cor-0 font-bold mb-2">Carlos Eduardo Duarte Torres</p>
                     <p class="text-base text-cor-1/70 font-normal">Engenheiro de Testes e Analista de Requisitos</p>
                   </div>
                 </div>
-                <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
-                    <img class="rounded-full w-20 h-20" src={require('../Img/TeamImg/eduardo.jpg')}/>
+                    <img class="rounded-full w-28 h-28" src={require('../Img/TeamImg/eduardo.jpg')}/>
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-cor-0 font-bold mb-2">Eduardo de Araújo Rey</p>
+                    <p class="text-xl text-cor-4 font-bold mb-2">Eduardo de Araújo Rey</p>
                     <p class="text-base text-cor-1/70 font-normal">Analista de Suporte e Manutenção e Especialista em Instalação e Deploy</p>
                   </div>
                 </div>
-                <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
                     imagem
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-cor-0 font-bold mb-2">Giovanni Aparecido Gasperini</p>
+                    <p class="text-xl text-cor-4 font-bold mb-2">Giovanni Aparecido Gasperini</p>
                     <p class="text-base text-cor-1/70 font-normal">Desenvolvedor Front-end e  Consultor de Usabilidade</p>
                   </div>
                 </div>
-                <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
-                    <img class="rounded-full w-20 h-20" src={require('../Img/TeamImg/kayke.jpg')}/>
+                    <img class="rounded-full w-28 h-28" src={require('../Img/TeamImg/kayke.jpg')}/>
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-cor-0 font-bold mb-2">Kayke Denelle da Silva</p>
+                    <p class="text-xl text-cor-4 font-bold mb-2">Kayke Denelle da Silva</p>
                     <p class="text-base text-cor-1/70 font-normal">Desenvolvedor Back-end e Analista de Viabilidade</p>
                   </div>
                 </div>
-                <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
-                    <img class="rounded-full w-20 h-20" src={require('../Img/TeamImg/leonardo.jpg')}/>
+                    <img class="rounded-full w-28 h-28" src={require('../Img/TeamImg/leonardo.jpg')}/>
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-cor-0 font-bold mb-2">Leonardo De Lima Sousa</p>
+                    <p class="text-xl text-cor-4 font-bold mb-2">Leonardo De Lima Sousa</p>
                     <p class="text-base text-cor-1/70 font-normal">Gestor do Projeto, Scrum Master e Analista de Business Intelligence (BI)</p>
                   </div>
                 </div>
-                <div class="w-full bg-cor-4/70 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
-                    <img class="rounded-full w-20 h-20" src={require('../Img/TeamImg/otavio.png')}/>
+                    <img class="rounded-full w-28 h-28" src={require('../Img/TeamImg/otavio.png')}/>
                   </div>
                   <div class="text-center">
-                    <p class="text-xl text-cor-0 font-bold mb-2">Otávio Vitalino Apolonio</p>
+                    <p class="text-xl text-cor-4 font-bold mb-2">Otávio Vitalino Apolonio</p>
                     <p class="text-base text-cor-1/70 font-normal">Desenvolvedor Front-end e Designer</p>
                   </div>
                 </div>
