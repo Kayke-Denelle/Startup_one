@@ -193,7 +193,7 @@ const LandingPage = () => {
                   </div>
                   <div class="text-center">
                     <p class="text-xl text-cor-4 font-bold mb-2">Carlos Eduardo Duarte Torres</p>
-                    <ul class="w-0 group-hover:w-auto text-base text-cor-4/70 font-normal transition-all ease-in-out duration-100">
+                    <ul class="hidden text-sm group-hover:flex-col group-hover:text-base text-cor-4/70 font-normal transition-all ease-in-out duration-100">
                       <li>Engenheiro de Testes</li>
                       <li>Analista de Requisitos</li>
                     </ul>
