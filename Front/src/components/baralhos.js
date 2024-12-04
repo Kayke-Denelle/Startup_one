@@ -53,10 +53,22 @@ const DeckList = () => {
     }
   };
 
-  // Handle Edit Deck
-  const handleEditDeck = (deckId) => {
-    navigate(`/editar-baralho/${deckId}`); // Assuming a route for editing deck
+  const handleEditDeck = (deckId, currentName) => {
+    setEditingDeck(deckId);
+    setEditedDeckName(currentName);
   };
+
+  const handleSaveEdit = async (deckId) => {
+    if (!editedDeckName) return alert('O nome do baralho não pode ser vazio');
+    
+    const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
+      method: 'PUT',
+      headers: { 
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify({ name: editedDeckName })
+    });
 
   // Handle Delete Deck
   const handleDeleteDeck = async (deckId) => {
