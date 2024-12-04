@@ -87,27 +87,12 @@ const DeckList = () => {
     }
   };
 
+  // Delete deck
   const handleDeleteDeck = async (deckId) => {
     const confirmation = window.confirm('Você tem certeza que deseja excluir este baralho?');
     if (!confirmation) return;
   
     try {
-      // Fetch cards for the deck to check if it's empty
-      const cardsResponse = await fetch(`https://volans-api-production.up.railway.app/api/cartas?deckId=${deckId}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-  
-      const cardsData = await cardsResponse.json();
-  
-      if (Array.isArray(cardsData) && cardsData.length > 0) {
-        alert('Não é possível excluir o baralho porque ele contém cartas.');
-        return;
-      }
-  
-      // Proceed to delete the deck if it's empty
       const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
         method: 'DELETE',
         headers: {
