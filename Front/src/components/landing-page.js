@@ -124,7 +124,7 @@ const LandingPage = () => {
                       </Link>
                       <h2 class="text-cor-4 font-title text-4xl sm:text-5xl font-light uppercase tracking-tighter max-w-6xl leading-snug text-g1 sm:leading-snug">Nunca mais <span class="font-bold text-cor-1">esqueça</span> o que aprendeu</h2>
                       <p class="text-cor-4/70 mt-8 text-pretty text-lg font-medium sm:text-xl">Explore flashcards interativos para facilitar a memorização e retenção de conteúdos. Descubra uma maneira divertida e eficaz de estudar e potencializar seu conhecimento!</p>
-                      <div class="flex mt-2 mx-2">
+                      <div class="flex justify-left md:justify-end items-center gap-6">
                       <button class="text-sm md:text-base  lg:text-lg px-8 py-3 bg-cor-3 text-cor-4 font-semibold rounded-md shadow-lg hover:bg-cor-2 md:hover:-translate-y-0.5 hover:text-c1 transition ease-in-out duration-300">
                         Comece agora
                       </button>
