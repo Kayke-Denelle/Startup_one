@@ -7,6 +7,8 @@ const DeckList = () => {
   const { token, logout } = useContext(AuthContext);
   const [decks, setDecks] = useState([]);
   const [newDeckName, setNewDeckName] = useState('');
+  const [editingDeck, setEditingDeck] = useState(null); // Armazenar o deck sendo editado
+  const [editedDeckName, setEditedDeckName] = useState('');
   const navigate = useNavigate();
 
   // Load user's decks
@@ -53,6 +55,7 @@ const DeckList = () => {
     }
   };
 
+  // Edit deck name
   const handleEditDeck = (deckId, currentName) => {
     setEditingDeck(deckId);
     setEditedDeckName(currentName);
@@ -69,33 +72,47 @@ const DeckList = () => {
       },
       body: JSON.stringify({ name: editedDeckName })
     });
+
+    const data = await response.json();
+    if (data._id) {
+      setDecks((prevDecks) =>
+        prevDecks.map((deck) =>
+          deck._id === deckId ? { ...deck, name: editedDeckName } : deck
+        )
+      );
+      setEditingDeck(null);
+      setEditedDeckName('');
+    } else {
+      alert('Erro ao editar baralho');
+    }
   };
 
-  // Handle Delete Deck
+  // Delete deck
   const handleDeleteDeck = async (deckId) => {
-    if (window.confirm('Tem certeza que deseja excluir este baralho?')) {
-      const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
-      });
-      if (response.ok) {
-        setDecks(decks.filter((deck) => deck._id !== deckId));
-        alert('Baralho excluído com sucesso');
-      } else {
-        alert('Erro ao excluir o baralho');
-      }
+    const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    if (response.ok) {
+      setDecks((prevDecks) => prevDecks.filter((deck) => deck._id !== deckId));
+    } else {
+      alert('Erro ao excluir baralho');
     }
   };
 
   return (  
     <div className="flex">
-      <Sidebar/>
+      <Sidebar/> {/* Render the Sidebar component */}
       
       <div className="flex-1 min-h-screen flex flex-col items-center p-5">
         <h2 className="text-3xl font-bold mb-5">Baralhos</h2>
-        
+        <button 
+          onClick={logout} 
+          className="mb-5 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"
+        >
+          Sair
+        </button>
         <div className="mb-5 flex">
           <input
             type="text"
@@ -111,10 +128,10 @@ const DeckList = () => {
             Criar Baralho
           </button>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {decks.map((deck) => (
-            <div key={deck._id} className="relative bg-white shadow-lg rounded-lg p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+            <div key={deck._id} className="relative bg-white shadow-lg rounded-lg p-4 transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
               <div
                 className="absolute inset-0 bg-cover bg-center rounded-lg"
                 style={{
@@ -126,9 +143,20 @@ const DeckList = () => {
                 }}
               ></div>
 
-              <h3 className="text-xl font-bold mb-3 text-center">{deck.name}</h3>
+              <h3 className="text-xl font-bold mb-2 text-center">
+                {editingDeck === deck._id ? (
+                  <input
+                    type="text"
+                    value={editedDeckName}
+                    onChange={(e) => setEditedDeckName(e.target.value)}
+                    className="border border-gray-300 p-2 rounded-md w-full"
+                  />
+                ) : (
+                  deck.name
+                )}
+              </h3>
 
-              <div className="flex justify-between items-center mb-3">
+              <div className="flex justify-between items-center">
                 <Link 
                   to={`/cartas/${deck._id}`} 
                   className="bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
@@ -141,15 +169,22 @@ const DeckList = () => {
                 >
                   Revisar
                 </Link>
-              </div>
-
-              <div className="flex justify-between items-center mt-3">
-                <button
-                  onClick={() => handleEditDeck(deck._id)}
-                  className="bg-yellow-500 text-white py-1 px-4 rounded-lg hover:bg-yellow-600 transition duration-300"
-                >
-                  Editar
-                </button>
+                
+                {editingDeck === deck._id ? (
+                  <button
+                    onClick={() => handleSaveEdit(deck._id)}
+                    className="bg-green-500 text-white py-1 px-4 rounded-lg hover:bg-green-600 transition duration-300"
+                  >
+                    Salvar
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleEditDeck(deck._id, deck.name)}
+                    className="bg-yellow-500 text-white py-1 px-4 rounded-lg hover:bg-yellow-600 transition duration-300"
+                  >
+                    Editar
+                  </button>
+                )}
                 <button
                   onClick={() => handleDeleteDeck(deck._id)}
                   className="bg-red-500 text-white py-1 px-4 rounded-lg hover:bg-red-600 transition duration-300"
