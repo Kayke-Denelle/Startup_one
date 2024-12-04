@@ -7,17 +7,15 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const { login, error } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  const success = await login(email, password);
-  setLoading(false);
-  if (success) {
-    navigate('/baralhos');
-  }
-};
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const success = await login(email, password);
+    if (success) {
+      navigate('/baralhos');
+    }
+  };
 
   const handleRegisterRedirect = () => {
     navigate('/register'); 
