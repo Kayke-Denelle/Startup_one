@@ -8,10 +8,22 @@ const Login = () => {
   const { login, error } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(email, password);
-    navigate('/baralhos');
+
+    // Verifica se os campos estão vazios
+    if (!email || !password) {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    // Tenta fazer o login
+    const success = await login(email, password);
+    
+    // Verifica se o login foi bem-sucedido
+    if (success) {
+      navigate('/baralhos');
+    }
   };
 
   const handleRegisterRedirect = () => {
