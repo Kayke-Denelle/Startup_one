@@ -121,6 +121,12 @@ const DeckList = () => {
       
       <div className="flex-1 min-h-screen flex flex-col items-center p-5">
         <h2 className="text-3xl font-bold mb-5">Baralhos</h2>
+        <button 
+          onClick={logout} 
+          className="mb-5 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"
+        >
+          Sair
+        </button>
         <div className="mb-5 flex">
           <input
             type="text"
@@ -139,7 +145,7 @@ const DeckList = () => {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {decks.map((deck) => (
-            <div key={deck._id} className="relative bg-white shadow-lg rounded-lg p-5 flex flex-col h-[150px]">
+            <div key={deck._id} className="relative bg-white shadow-lg rounded-lg p-5 flex flex-col h-[250px]">
               <div
                 className="absolute inset-0 bg-cover bg-center rounded-lg"
                 style={{
@@ -179,16 +185,17 @@ const DeckList = () => {
                 </Link>
               </div>
 
-              <div className="mt-4 flex justify-between items-center">
+              {/* Flex container para alinhar os botões à direita */}
+              <div className="absolute top-3 right-3 flex space-x-2">
                 {editingDeck === deck._id ? (
                   <button
                     onClick={() => handleSaveEdit(deck._id)}
-                    className="bg-green-500 text-white py-1 px-4 rounded-lg hover:bg-green-600 transition duration-300"
+                    className="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 transition duration-300"
                   >
                     Salvar
                   </button>
                 ) : (
-                  <div className="flex space-x-2">
+                  <>
                     <button
                       onClick={() => handleEditDeck(deck._id, deck.name)}
                       className="bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600 transition duration-300"
@@ -201,7 +208,7 @@ const DeckList = () => {
                     >
                       <FaTrashAlt />
                     </button>
-                  </div>
+                  </>
                 )}
               </div>
             </div>
