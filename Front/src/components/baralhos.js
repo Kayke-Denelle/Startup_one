@@ -89,11 +89,28 @@ const DeckList = () => {
 
   // Delete deck
   const handleDeleteDeck = async (deckId) => {
-    const confirmation = window.confirm('Você tem certeza que deseja excluir este baralho?');
+    const confirmation = window.confirm('Você tem certeza que deseja excluir este baralho? Esta ação não pode ser desfeita.');
+  
     if (!confirmation) return;
   
+    // Verificar se o baralho contém cartas
+    const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}/verificar-cartas`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+  
+    const data = await response.json();
+  
+    if (data.message === 'Este baralho contém cartas. Deseja excluir as cartas também?') {
+      const deleteCards = window.confirm('Este baralho contém cartas. Deseja excluir as cartas também?');
+      if (!deleteCards) return;
+    }
+  
     try {
-      const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
+      const deleteResponse = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -101,12 +118,12 @@ const DeckList = () => {
         }
       });
   
-      if (response.ok) {
+      if (deleteResponse.ok) {
         setDecks((prevDecks) => prevDecks.filter(deck => deck._id !== deckId));
         alert('Baralho excluído com sucesso!');
       } else {
-        const data = await response.json();
-        alert(`Erro: ${data.message || 'Erro desconhecido'}`);
+        const errorData = await deleteResponse.json();
+        alert(`Erro: ${errorData.message}`);
       }
     } catch (error) {
       console.error('Erro ao excluir o baralho:', error);
