@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/sidebar';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa'; // Importando ícones de editar e excluir
 
 const DeckList = () => {
   const { token, logout } = useContext(AuthContext);
@@ -142,74 +143,74 @@ const DeckList = () => {
           </button>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {decks.map((deck) => (
-           <div key={deck._id} className="relative bg-white shadow-lg rounded-lg p-4 flex flex-col h-full">
-           <div
-             className="absolute inset-0 bg-cover bg-center rounded-lg"
-             style={{
-               backgroundImage: 'url(https://path-to-your-deck-image.jpg)', // Substitua pelo caminho da imagem do baralho
-               backgroundSize: 'cover',
-               backgroundPosition: 'center',
-               borderRadius: '12px',
-               zIndex: -1,
-             }}
-           ></div>
-         
-           <div className="flex-grow">
-             <h3 className="text-xl font-bold mb-2 text-center">
-               {editingDeck === deck._id ? (
-                 <input
-                   type="text"
-                   value={editedDeckName}
-                   onChange={(e) => setEditedDeckName(e.target.value)}
-                   className="border border-gray-300 p-2 rounded-md w-full"
-                 />
-               ) : (
-                 deck.name
-               )}
-             </h3>
-           </div>
-         
-           <div className="flex justify-between items-center mt-4">
-             <Link
-               to={`/cartas/${deck._id}`}
-               className="bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
-             >
-               Mural de Cartas
-             </Link>
-             <Link
-               to={`/revisao/${deck._id}`}
-               className="bg-green-500 text-white py-1 px-4 rounded-lg hover:bg-green-600 transition duration-300"
-             >
-               Revisar
-             </Link>
-           </div>
-         
-           <div className="mt-4 flex justify-between">
-             {editingDeck === deck._id ? (
-               <button
-                 onClick={() => handleSaveEdit(deck._id)}
-                 className="bg-green-500 text-white py-1 px-4 rounded-lg hover:bg-green-600 transition duration-300"
-               >
-                 Salvar
-               </button>
-             ) : (
-               <button
-                 onClick={() => handleEditDeck(deck._id, deck.name)}
-                 className="bg-yellow-500 text-white py-1 px-4 rounded-lg hover:bg-yellow-600 transition duration-300"
-               >
-                 Editar
-               </button>
-             )}
-             <button
-               onClick={() => handleDeleteDeck(deck._id)}
-               className="bg-red-500 text-white py-1 px-4 rounded-lg hover:bg-red-600 transition duration-300"
-             >
-               Excluir
-             </button>
-           </div>
-         </div>
+            <div key={deck._id} className="relative bg-white shadow-lg rounded-lg p-5 flex flex-col h-[350px]">
+              <div
+                className="absolute inset-0 bg-cover bg-center rounded-lg"
+                style={{
+                  backgroundImage: 'url(https://path-to-your-deck-image.jpg)', // Substitua pelo caminho da imagem do baralho
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  borderRadius: '12px',
+                  zIndex: -1,
+                }}
+              ></div>
+
+              <h3 className="text-xl font-bold mb-2 text-center">
+                {editingDeck === deck._id ? (
+                  <input
+                    type="text"
+                    value={editedDeckName}
+                    onChange={(e) => setEditedDeckName(e.target.value)}
+                    className="border border-gray-300 p-2 rounded-md w-full"
+                  />
+                ) : (
+                  deck.name
+                )}
+              </h3>
+
+              <div className="flex flex-col items-center mt-4 space-y-2">
+                <Link 
+                  to={`/cartas/${deck._id}`} 
+                  className="bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
+                >
+                  Mural de Cartas
+                </Link>
+                <Link 
+                  to={`/revisao/${deck._id}`} 
+                  className="bg-green-500 text-white py-1 px-4 rounded-lg hover:bg-green-600 transition duration-300"
+                >
+                  Revisar
+                </Link>
+              </div>
+
+              <div className="mt-4 flex justify-between items-center">
+                {editingDeck === deck._id ? (
+                  <button
+                    onClick={() => handleSaveEdit(deck._id)}
+                    className="bg-green-500 text-white py-1 px-4 rounded-lg hover:bg-green-600 transition duration-300"
+                  >
+                    Salvar
+                  </button>
+                ) : (
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => handleEditDeck(deck._id, deck.name)}
+                      className="bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600 transition duration-300"
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteDeck(deck._id)}
+                      className="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 transition duration-300"
+                    >
+                      <FaTrashAlt />
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           ))}
         </div>
       </div>
