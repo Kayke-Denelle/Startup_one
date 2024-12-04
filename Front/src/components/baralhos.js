@@ -89,15 +89,28 @@ const DeckList = () => {
 
   // Delete deck
   const handleDeleteDeck = async (deckId) => {
-    const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
-      method: 'DELETE',
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-
-    if (response.ok) {
-      setDecks((prevDecks) => prevDecks.filter((deck) => deck._id !== deckId));
-    } else {
-      alert('Erro ao excluir baralho');
+    const confirmation = window.confirm('Você tem certeza que deseja excluir este baralho?');
+    if (!confirmation) return;
+  
+    try {
+      const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      if (response.ok) {
+        setDecks((prevDecks) => prevDecks.filter(deck => deck._id !== deckId));
+        alert('Baralho excluído com sucesso!');
+      } else {
+        const data = await response.json();
+        alert(`Erro: ${data.message || 'Erro desconhecido'}`);
+      }
+    } catch (error) {
+      console.error('Erro ao excluir o baralho:', error);
+      alert('Erro ao excluir o baralho');
     }
   };
 
@@ -169,7 +182,7 @@ const DeckList = () => {
                 >
                   Revisar
                 </Link>
-                
+
                 {editingDeck === deck._id ? (
                   <button
                     onClick={() => handleSaveEdit(deck._id)}
