@@ -87,37 +87,52 @@ const DeckList = () => {
     }
   };
 
-
-const handleDeleteDeck = async (req, res) => {
-  const { deckId } = req.params;  // Captura o deckId da URL
-  const userId = req.user.userId;  // O userId vem do middleware auth
-
-  try {
-    // Busca o baralho pelo ID
-    const deck = await Deck.findById(deckId);
-
-    if (!deck) {
-      return res.status(404).json({ message: 'Deck não encontrado' });
+  const handleDeleteDeck = async (deckId) => {
+    // Confirmação do usuário para excluir o baralho
+    const confirmation = window.confirm('Você tem certeza que deseja excluir este baralho?');
+    if (!confirmation) return;
+  
+    try {
+      // Verifique se o baralho contém cartas
+      const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      const deck = await response.json();
+  
+      // Se o baralho tiver cartas, não permite a exclusão
+      if (deck.cards && deck.cards.length > 0) {
+        alert('Não é possível excluir um baralho com cartas associadas.');
+        return;
+      }
+  
+      // Caso contrário, deleta o baralho
+      const deleteResponse = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      if (deleteResponse.ok) {
+        // Atualiza a lista de baralhos após a exclusão
+        setDecks((prevDecks) => prevDecks.filter(deck => deck._id !== deckId));
+        alert('Baralho excluído com sucesso!');
+      } else {
+        const data = await deleteResponse.json();
+        alert(`Erro: ${data.message || 'Erro desconhecido'}`);
+      }
+    } catch (error) {
+      console.error('Erro ao excluir o baralho:', error);
+      alert('Erro ao excluir o baralho');
     }
-
-    // Verifica se o baralho pertence ao usuário
-    if (deck.userId.toString() !== userId) {
-      return res.status(403).json({ message: 'Você não tem permissão para excluir este baralho' });
-    }
-
-    // Verifica se o baralho tem cartas associadas
-    if (deck.cards && deck.cards.length > 0) {
-      return res.status(400).json({ message: 'Não é possível excluir um baralho com cartas associadas.' });
-    }
-
-    // Deleta o baralho
-    await deck.remove();
-
-    res.status(200).json({ message: 'Deck excluído com sucesso' });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
+  };
+  
 
   return (  
     <div className="flex">
