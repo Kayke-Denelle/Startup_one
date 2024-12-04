@@ -7,6 +7,8 @@ const DeckList = () => {
   const { token, logout } = useContext(AuthContext);
   const [decks, setDecks] = useState([]);
   const [newDeckName, setNewDeckName] = useState('');
+  const [editingDeck, setEditingDeck] = useState(null); // Armazenar o deck sendo editado
+  const [editedDeckName, setEditedDeckName] = useState('');
   const navigate = useNavigate();
 
   // Load user's decks
@@ -53,9 +55,50 @@ const DeckList = () => {
     }
   };
 
-  // Start activity
-  const handleStartActivity = (deckId) => {
-    navigate(`/atividade/${deckId}`); // Navigate to the activity page
+  // Edit deck name
+  const handleEditDeck = (deckId, currentName) => {
+    setEditingDeck(deckId);
+    setEditedDeckName(currentName);
+  };
+
+  const handleSaveEdit = async (deckId) => {
+    if (!editedDeckName) return alert('O nome do baralho não pode ser vazio');
+    
+    const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
+      method: 'PUT',
+      headers: { 
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify({ name: editedDeckName })
+    });
+
+    const data = await response.json();
+    if (data._id) {
+      setDecks((prevDecks) =>
+        prevDecks.map((deck) =>
+          deck._id === deckId ? { ...deck, name: editedDeckName } : deck
+        )
+      );
+      setEditingDeck(null);
+      setEditedDeckName('');
+    } else {
+      alert('Erro ao editar baralho');
+    }
+  };
+
+  // Delete deck
+  const handleDeleteDeck = async (deckId) => {
+    const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    if (response.ok) {
+      setDecks((prevDecks) => prevDecks.filter((deck) => deck._id !== deckId));
+    } else {
+      alert('Erro ao excluir baralho');
+    }
   };
 
   return (  
@@ -100,7 +143,18 @@ const DeckList = () => {
                 }}
               ></div>
 
-              <h3 className="text-xl font-bold mb-2 text-center">{deck.name}</h3>
+              <h3 className="text-xl font-bold mb-2 text-center">
+                {editingDeck === deck._id ? (
+                  <input
+                    type="text"
+                    value={editedDeckName}
+                    onChange={(e) => setEditedDeckName(e.target.value)}
+                    className="border border-gray-300 p-2 rounded-md w-full"
+                  />
+                ) : (
+                  deck.name
+                )}
+              </h3>
 
               <div className="flex justify-between items-center">
                 <Link 
@@ -109,12 +163,27 @@ const DeckList = () => {
                 >
                   Mural de Cartas
                 </Link>
-                <Link 
-                  to={`/revisao/${deck._id}`} 
-                  className="bg-green-500 text-white py-1 px-4 rounded-lg hover:bg-green-600 transition duration-300"
+                {editingDeck === deck._id ? (
+                  <button
+                    onClick={() => handleSaveEdit(deck._id)}
+                    className="bg-green-500 text-white py-1 px-4 rounded-lg hover:bg-green-600 transition duration-300"
+                  >
+                    Salvar
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleEditDeck(deck._id, deck.name)}
+                    className="bg-yellow-500 text-white py-1 px-4 rounded-lg hover:bg-yellow-600 transition duration-300"
+                  >
+                    Editar
+                  </button>
+                )}
+                <button
+                  onClick={() => handleDeleteDeck(deck._id)}
+                  className="bg-red-500 text-white py-1 px-4 rounded-lg hover:bg-red-600 transition duration-300"
                 >
-                  Revisar
-                </Link>
+                  Excluir
+                </button>
               </div>
             </div>
           ))}
