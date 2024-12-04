@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from './sidebar';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa'; // Importando ícones
 
 const FlashcardList = () => {
   const { token } = useContext(AuthContext);
@@ -123,12 +124,16 @@ const FlashcardList = () => {
             <div key={card._id} className="relative perspective">
               <div className={`card ${flippedCardIndex === index ? 'flipped' : ''}`} onClick={() => handleCardClick(index)}>
                 <div className="card-inner">
-                  <div className="card-front flex flex-col items-center justify-center bg-white shadow-lg rounded-lg p-4">
+                  <div className="card-front flex flex-col items-center justify-center bg-white shadow-lg rounded-lg p-6">
                     <strong>Pergunta:</strong>
                     <p className="text-center">{card.question}</p>
                     <div className="flex justify-between mt-4 gap-4">
-                      <button onClick={(e) => { e.stopPropagation(); handleEditCard(index); }} className="bg-cor-2 text-white px-2 py-1 rounded-md hover:bg-cor-3">Editar</button>
-                      <button onClick={(e) => { e.stopPropagation(); handleDeleteCard(index); }} className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600">Excluir</button>
+                      <button onClick={(e) => { e.stopPropagation(); handleEditCard(index); }} className="absolute bottom-2 right-2 bg-cor-2 text-white p-2 rounded-md hover:bg-cor-3">
+                        <FaEdit size={18} />
+                      </button>
+                      <button onClick={(e) => { e.stopPropagation(); handleDeleteCard(index); }} className="absolute bottom-2 right-16 bg-red-500 text-white p-2 rounded-md hover:bg-red-600">
+                        <FaTrashAlt size={18} />
+                      </button>
                     </div>
                   </div>
                   <div className="card-back flex items-center justify-center bg-cor-1 text-white shadow-lg rounded-lg p-4">
@@ -217,7 +222,7 @@ const FlashcardList = () => {
           ) : (
             <div className="relative perspective" onClick={() => setIsAddingCard(true)}>
               <div className="card">
-                <div className=" card-inner">
+                <div className="card-inner">
                   <div className="card-front flex items-center justify-center bg-white shadow-lg rounded-lg p-4">
                     <strong className="text-black"><img src={require("../Img/icons8-plus-56.png")} alt="plus--v1"/></strong>
                   </div>
@@ -230,8 +235,8 @@ const FlashcardList = () => {
             perspective: 1000px;
           }
           .card {
-            width: 325px; 
-            height: 225px; 
+            width: 350px; 
+            height: 250px; 
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.6s;
