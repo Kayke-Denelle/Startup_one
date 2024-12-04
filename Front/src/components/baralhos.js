@@ -145,7 +145,7 @@ const DeckList = () => {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {decks.map((deck) => (
-            <div key={deck._id} className="relative bg-white shadow-lg rounded-lg p-5 flex flex-col h-[250px]">
+            <div key={deck._id} className="relative bg-white shadow-lg rounded-lg p-5 flex flex-col h-[220px]">
               <div
                 className="absolute inset-0 bg-cover bg-center rounded-lg"
                 style={{
@@ -185,8 +185,8 @@ const DeckList = () => {
                 </Link>
               </div>
 
-              {/* Flex container para alinhar os botões à direita */}
-              <div className="absolute top-3 right-3 flex space-x-2">
+              {/* Flex container para alinhar os botões à direita, na parte inferior */}
+              <div className="absolute bottom-3 right-3 flex space-x-2">
                 {editingDeck === deck._id ? (
                   <button
                     onClick={() => handleSaveEdit(deck._id)}
