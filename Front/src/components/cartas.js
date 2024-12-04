@@ -244,7 +244,7 @@ const FlashcardList = () => {
           ) : (
             <div className="relative perspective" onClick={() => setIsAddingCard(true)}>
               <div className="card">
-                <div className=" card-inner">
+                <div className="card-inner">
                   <div className="card-front flex items-center justify-center bg-white shadow-lg rounded-lg p-4">
                     <strong className="text-black"><img src={require("../Img/icons8-plus-56.png")} alt="plus--v1"/></strong>
                   </div>
