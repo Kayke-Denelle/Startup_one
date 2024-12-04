@@ -36,15 +36,8 @@ const Login = () => {
       </div>
       <div className="flex items-center justify-center h-screen">
         <div className="w-fit py-40 bg-cor-4/70 px-14 sm:py-14 shadow-md sm:rounded-3xl">
-        <div className="inline mt-3 text-sm text-cor-0/70 hover:text-cor-1 transition ease-in-out duration-300">
-            <button type="button" onClick={handleLandingRedirect}><svg version="1.1" viewBox="0 0 2048 2048" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-<path transform="translate(837,174)" d="m0 0h25l16 3 17 6 16 9 16 12 13 11 46 46 9 11 13 17 11 19 7 21 2 11v24l-5 22-5 12-12 20-8 11-11 13-5 5-6 7h-2l-2 4-6 6h-2v2h-2v2h-2v2h-2l-2 4-6 6h-2v2h-2v2l-4 4h-2l-2 4-13 12-7 8-8 7-8 9-7 6-1 2h-2l-2 4-4 4h-2v2h-2v2l-4 4h-2l-2 4-4 4h-2v2h-2v2l-4 4h-2l-2 4-4 4h-2v2h-2v2l-4 4h-2l-2 4-7 6-5 6h-2l-2 4-4 4h-2v2h-2v2l-4 4h-2l-2 4-6 6h-2v2l-16 16h-2l-2 4-12 12h-2l-2 4-136 136h-2v2h-2v2h-2v2h-2v2h-2v2h-2v2h-2v2h-2v2l-4 4h-2v2h-2v2h-2l-2 4-4 4h-2l-2 4-8 7-14 12-4 5 1 1 15 1 199 1h1132l33 2 15 2 17 6 14 8 13 10 10 9 9 12 8 13 6 10 6 12v2h2v148l-3 1-9 19-10 16-11 13-9 9-14 10-17 8-17 5-20 3-12 1-25 1-1199 1-138 1 1 2-1 2 3 1 12 12 8 7 9 9 8 7 85 85 7 6v2l4 2 8 8v2l4 2 272 272 7 8 11 13 10 14 10 19 5 18 2 20-2 16-5 19-8 16-9 15-12 16-11 12-5 6h-2l-2 4-24 24-8 7-10 9-13 10-18 10-16 7-19 4-10 1h-20l-15-3-15-5-13-7-14-10-10-9-8-7-17-16-21-21v-2l-4-2-8-8v-2h-2l-6-7-4-3v-2h-2l-6-7-8-7v-2h-2l-6-7-6-5v-2h-2v-2h-2l-6-7-6-5v-2h-2v-2h-2l-7-8-5-4-7-8-7-7-6-5-7-8-5-4-7-8-7-7-6-5-7-8-5-4-7-8-7-7-6-5-7-8-5-4-7-8-481-481v-2l-4-2v-2l-4-2-7-8-10-11-12-18-10-18-1-4-2-1 1-2h-2l-1-3v-59l4 1 2-5 8-16 7-11 9-13 9-10 7-8 11-12 656-656 1-2h2l2-4 7-6 1-2h2l2-4 8-8h2l2-4 11-11 8-7 9-8 18-13 16-9 13-5 12-3z"/>
-<path transform="translate(2045,1103)" d="m0 0 3 3v7l-3-1v-4l-2-1z"/>
-<path transform="translate(1,1059)" d="m0 0 5 4-1 4-3-3-2-1z"/>
-<path transform="translate(2047,1098)" d="m0 0"/>
-<path transform="translate(2047,932)" d="m0 0"/>
-<path transform="translate(6,1067)" d="m0 0"/>
-</svg>Voltar ao início</button>
+        <div className="flex mt-3 text-sm text-cor-0/70 hover:text-cor-1 transition ease-in-out duration-300">
+            <button type="button" onClick={handleLandingRedirect}>Voltar ao início</button>
           </div>
           <div className="flex flex-col items-center text-center mb-8 justify-center">
             <svg className="h-auto w-20 flex-none text-cor-0" version="1.1" viewBox="0 0 1080 1080" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
