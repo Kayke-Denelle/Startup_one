@@ -124,7 +124,7 @@ const FlashcardList = () => {
             <div key={card._id} className="relative perspective">
               <div className={`card ${flippedCardIndex === index ? 'flipped' : ''}`} onClick={() => handleCardClick(index)}>
                 <div className="card-inner">
-                  <div className="card-front flex flex-col items-center justify-center bg-cor-1 text-white shadow-lg rounded-lg p-6">
+                  <div className="card-front flex flex-col items-center justify-center bg-white shadow-lg rounded-lg p-6">
                     <strong>Pergunta:</strong>
                     <p className="text-center">{card.question}</p>
                     <div className="flex justify-between mt-4 gap-4">
@@ -136,7 +136,7 @@ const FlashcardList = () => {
                       </button>
                     </div>
                   </div>
-                  <div className="card-back flex items-center justify-center bg-cor-2 text-white shadow-lg rounded-lg p-4">
+                  <div className="card-back flex items-center justify-center bg-cor-1 text-white shadow-lg rounded-lg p-4">
                     <strong>Resposta:</strong>
                     <p className="text-center">{card.answer}</p>
                   </div>
