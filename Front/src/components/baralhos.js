@@ -88,30 +88,27 @@ const DeckList = () => {
   };
 
   const handleDeleteDeck = async (deckId) => {
-    // Confirmação do usuário para excluir o baralho
     const confirmation = window.confirm('Você tem certeza que deseja excluir este baralho?');
     if (!confirmation) return;
   
     try {
-      // Verifique se o baralho contém cartas
-      const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
-        method: 'GET',
+      // Fetch cards for the deck to check if it's empty
+      const cardsResponse = await fetch(`https://volans-api-production.up.railway.app/api/cartas?deckId=${deckId}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
   
-      const deck = await response.json();
+      const cardsData = await cardsResponse.json();
   
-      // Verifique se a resposta contém o campo "cards" e se ele está vazio
-      if (deck.cards && deck.cards.length > 0) {
-        alert('Não é possível excluir um baralho com cartas associadas.');
+      if (Array.isArray(cardsData) && cardsData.length > 0) {
+        alert('Não é possível excluir o baralho porque ele contém cartas.');
         return;
       }
   
-      // Caso contrário, deleta o baralho
-      const deleteResponse = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
+      // Proceed to delete the deck if it's empty
+      const response = await fetch(`https://volans-api-production.up.railway.app/api/baralhos/${deckId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -119,12 +116,11 @@ const DeckList = () => {
         }
       });
   
-      if (deleteResponse.ok) {
-        // Atualiza a lista de baralhos após a exclusão
+      if (response.ok) {
         setDecks((prevDecks) => prevDecks.filter(deck => deck._id !== deckId));
         alert('Baralho excluído com sucesso!');
       } else {
-        const data = await deleteResponse.json();
+        const data = await response.json();
         alert(`Erro: ${data.message || 'Erro desconhecido'}`);
       }
     } catch (error) {
@@ -132,8 +128,6 @@ const DeckList = () => {
       alert('Erro ao excluir o baralho');
     }
   };
-  
-  
 
   return (  
     <div className="flex">
