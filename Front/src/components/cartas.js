@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from './sidebar';
+import { MdArrowForward } from 'react-icons/md'; // Importando a seta do react-icons
 
 const FlashcardList = () => {
   const { token } = useContext(AuthContext);
@@ -130,16 +131,25 @@ const FlashcardList = () => {
                       <button onClick={(e) => { e.stopPropagation(); handleEditCard(index); }} className="bg-cor-2 text-white px-2 py-1 rounded-md hover:bg-cor-3">Editar</button>
                       <button onClick={(e) => { e.stopPropagation(); handleDeleteCard(index); }} className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600">Excluir</button>
                     </div>
+                    {/* Adicionando a seta */}
+                    <button className="flip-arrow" onClick={(e) => { e.stopPropagation(); handleCardClick(index); }}>
+                      <MdArrowForward className={`transition-transform duration-300 ${flippedCardIndex === index ? 'rotate-180' : ''}`} />
+                    </button>
                   </div>
                   <div className="card-back flex items-center justify-center bg-cor-1 text-white shadow-lg rounded-lg p-4">
                     <strong>Resposta:</strong>
                     <p className="text-center">{card.answer}</p>
+                    {/* Adicionando a seta também na parte de trás */}
+                    <button className="flip-arrow" onClick={(e) => { e.stopPropagation(); handleCardClick(index); }}>
+                      <MdArrowForward className={`transition-transform duration-300 ${flippedCardIndex === index ? 'rotate-180' : ''}`} />
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           ))}
-
+          
+          {/* Renderizar novo cartão */}
           {editingCardIndex !== null ? (
             <div className="relative perspective">
               <div className="card">
@@ -217,7 +227,7 @@ const FlashcardList = () => {
           ) : (
             <div className="relative perspective" onClick={() => setIsAddingCard(true)}>
               <div className="card">
-                <div className=" card-inner">
+                <div className="card-inner">
                   <div className="card-front flex items-center justify-center bg-white shadow-lg rounded-lg p-4">
                     <strong className="text-black"><img src={require("../Img/icons8-plus-56.png")} alt="plus--v1"/></strong>
                   </div>
@@ -225,44 +235,6 @@ const FlashcardList = () => {
               </div>
             </div>
           )}
-          <style jsx>{`
-          .perspective {
-            perspective: 1000px;
-          }
-          .card {
-            width: 325px; 
-            height: 225px; 
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-            cursor: pointer;
-          }
-          .card-inner {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-          }
-          .card.flipped .card-inner {
-            transform: rotateY(180deg);
-          }
-          .card-front,
-          .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-          }
-          .card-back {
-            transform: rotateY(180deg);
-          }
-        `}</style>
         </div>
       </div>
     </div>
