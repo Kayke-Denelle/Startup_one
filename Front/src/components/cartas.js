@@ -120,29 +120,41 @@ const FlashcardList = () => {
         <h2 className="text-3xl font-bold mb-5"> Cartas do Baralho</h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 mp:grid-cols-2 xl:grid-cols-3 gap-4">
-          {cards.map((card, index) => (
-            <div key={card._id} className="relative perspective">
-              <div className={`card ${flippedCardIndex === index ? 'flipped' : ''}`} onClick={() => handleCardClick(index)}>
-                <div className="card-inner">
-                  <div className="card-front flex flex-col items-center justify-center bg-white shadow-lg rounded-lg p-6">
-                    <strong>Pergunta:</strong>
-                    <p className="text-center">{card.question}</p>
-                    <div className="flex justify-between mt-4 gap-4">
-                      <button onClick={(e) => { e.stopPropagation(); handleEditCard(index); }} className="absolute bottom-2 right-2 bg-cor-2 text-white p-2 rounded-md hover:bg-cor-3">
-                        <FaEdit size={18} />
-                      </button>
-                      <button onClick={(e) => { e.stopPropagation(); handleDeleteCard(index); }} className="absolute bottom-2 right-16 bg-red-500 text-white p-2 rounded-md hover:bg-red-600">
-                        <FaTrashAlt size={18} />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="card-back flex items-center justify-center bg-cor-1 text-white shadow-lg rounded-lg p-4">
-                    <strong>Resposta:</strong>
-                    <p className="text-center">{card.answer}</p>
-                  </div>
-                </div>
+  {cards.map((card, index) => (
+    <div key={card._id} className="relative perspective">
+      <div className={`card ${flippedCardIndex === index ? 'flipped' : ''}`} onClick={() => handleCardClick(index)}>
+        <div className="card-inner">
+
+          {/* Parte frontal da carta */}
+          <div className="card-front flex flex-col bg-white shadow-lg rounded-lg p-6">
+            <div className="flex flex-col w-full">
+              {/* Título Pergunta */}
+              <div className="flex justify-start mb-2">
+                <strong className="text-lg font-semibold">Pergunta:</strong>
               </div>
+              <p className="text-center">{card.question}</p>
             </div>
+            <div className="flex justify-between mt-4 gap-4">
+              <button onClick={(e) => { e.stopPropagation(); handleEditCard(index); }} className="absolute bottom-2 right-2 bg-cor-2 text-white p-2 rounded-md hover:bg-cor-3">
+                <FaEdit size={18} />
+              </button>
+              <button onClick={(e) => { e.stopPropagation(); handleDeleteCard(index); }} className="absolute bottom-2 right-16 bg-red-500 text-white p-2 rounded-md hover:bg-red-600">
+                <FaTrashAlt size={18} />
+              </button>
+            </div>
+          </div>
+
+          {/* Parte de trás da carta */}
+          <div className="card-back flex flex-col items-start justify-start bg-cor-1 text-white shadow-lg rounded-lg p-6">
+            <div className="flex justify-start mb-2">
+              <strong className="text-lg font-semibold">Resposta:</strong>
+            </div>
+            <p className="text-center">{card.answer}</p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
           ))}
 
           {editingCardIndex !== null ? (
