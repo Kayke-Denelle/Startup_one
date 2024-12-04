@@ -149,7 +149,7 @@ const FlashcardList = () => {
             <div className="relative perspective">
               <div className="card">
                 <div className="card-inner">
-                  <div className="card-front flex flex-col items-center justify-center bg-white shadow-lg rounded-lg p-4">
+                  <div className="card-front flex flex-col items-center justify-center bg-violet-400 shadow-lg rounded-lg p-4">
                     <input
                       type="text"
                       placeholder="Pergunta"
