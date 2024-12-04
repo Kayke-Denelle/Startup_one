@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from './sidebar';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'; // Importando ícones de seta
 
 const FlashcardList = () => {
   const { token } = useContext(AuthContext);
@@ -111,6 +112,14 @@ const FlashcardList = () => {
     setFlippedCardIndex(flippedCardIndex === index ? null : index);
   };
 
+  const handleArrowClick = (direction, index) => {
+    if (direction === 'left') {
+      setFlippedCardIndex(index - 1 < 0 ? cards.length - 1 : index - 1);
+    } else if (direction === 'right') {
+      setFlippedCardIndex(index + 1 >= cards.length ? 0 : index + 1);
+    }
+  };
+
   return (
     <div className="flex">
       <Sidebar/>
@@ -136,6 +145,24 @@ const FlashcardList = () => {
                     <p className="text-center">{card.answer}</p>
                   </div>
                 </div>
+              </div>
+
+              {/* Setas para virar a carta */}
+              <div className="absolute top-1/2 left-0 transform -translate-y-1/2">
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleArrowClick('left', index); }}
+                  className="bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600"
+                >
+                  <FaArrowLeft />
+                </button>
+              </div>
+              <div className="absolute top-1/2 right-0 transform -translate-y-1/2">
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleArrowClick('right', index); }}
+                  className="bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600"
+                >
+                  <FaArrowRight />
+                </button>
               </div>
             </div>
           ))}
@@ -225,44 +252,6 @@ const FlashcardList = () => {
               </div>
             </div>
           )}
-          <style jsx>{`
-          .perspective {
-            perspective: 1000px;
-          }
-          .card {
-            width: 325px; 
-            height: 225px; 
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-            cursor: pointer;
-          }
-          .card-inner {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-          }
-          .card.flipped .card-inner {
-            transform: rotateY(180deg);
-          }
-          .card-front,
-          .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-          }
-          .card-back {
-            transform: rotateY(180deg);
-          }
-        `}</style>
         </div>
       </div>
     </div>
