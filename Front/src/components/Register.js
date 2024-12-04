@@ -58,7 +58,9 @@ const Register = () => {
       </div>
       <div className="flex items-center justify-center h-screen">
         <div className="w-fit py-40 bg-cor-4/70 px-14 sm:py-14 shadow-md sm:rounded-3xl">
-        <button type="button" onClick={handleLoginRedirect}>Voltar ao início</button>
+          <div className="flex mt-3 text-sm text-cor-0/70 hover:text-cor-1 transition ease-in-out duration-300">
+            <button type="button" onClick={handleLoginRedirect}>Voltar ao início</button>
+          </div>
           <div className="flex flex-col items-center text-center mb-8 justify-center">
             <svg className="h-auto w-20 flex-none text-cor-0" version="1.1" viewBox="0 0 1080 1080" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path transform="translate(775,409)" d="m0 0h36l21 2 26 5 21 6 24 10 25 13 22 15 13 11 10 8 19 19 1 5 7-5h6l7 6 2 5-15 30-12 19-10 14-10 13-12 14-12 13-12 11-15 11-17 10-17 6-12 2-14-1-15-7-15-10-14-14-9-14-8-17-5-17-3-15-2-24 2-19 4-14 7-17 12-20 3-4-11 3-13 7-11 9-9 10-9 16-5 14-4 17-2 15-3 2-15-8-20-7-31-8-63-14-25-7-24-10-10-7v-3l26-15 18-10 26-13 30-13 31-11 28-8 31-6zm40 48m95 27-10 2-8 5-5 5-5 10-1 8 2 11 6 10 9 6 5 2 8 1 9-2 8-5 7-8 3-7 1-9-2-10-6-10-9-6-5-2z"/>
