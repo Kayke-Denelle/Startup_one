@@ -85,21 +85,40 @@ const DeckList = () => {
             Criar Baralho
           </button>
         </div>
-        <ul className="w-full max-w-md">
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {decks.map((deck) => (
-            <li key={deck._id} className="mb-2">
-              <Link 
-                to={`/cartas/${deck._id}`} 
-                className="block bg-white shadow-md rounded p-4 hover:bg-gray-200 transition duration-300"
-              >
-                {deck.name}
-              </Link>
-              <Link to={`/revisao/${deck._id}`}>
-              <button>Revisar</button>
-            </Link>
-            </li>
+            <div key={deck._id} className="relative bg-white shadow-lg rounded-lg p-4 transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+              <div
+                className="absolute inset-0 bg-cover bg-center rounded-lg"
+                style={{
+                  backgroundImage: 'url(https://path-to-your-deck-image.jpg)', // Substitua pelo caminho da imagem do baralho
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  borderRadius: '12px',
+                  zIndex: -1,
+                }}
+              ></div>
+
+              <h3 className="text-xl font-bold mb-2 text-center">{deck.name}</h3>
+
+              <div className="flex justify-between items-center">
+                <Link 
+                  to={`/cartas/${deck._id}`} 
+                  className="bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
+                >
+                  Mural de Cartas
+                </Link>
+                <Link 
+                  to={`/revisao/${deck._id}`} 
+                  className="bg-green-500 text-white py-1 px-4 rounded-lg hover:bg-green-600 transition duration-300"
+                >
+                  Revisar
+                </Link>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );
