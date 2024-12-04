@@ -122,11 +122,17 @@ const LandingPage = () => {
                       <Link to="/Login" id="header-texto1" class="group text-cor-4 text-sm sm:text-base flex w-fit px-2 py-2 uppercase rounded-md hover:bg-cor-2 hover:-translate-x-1 transition-all ease-in-out duration-300">Comece agora mesmo sem nenhum custo inicial de assinatura.
                         <svg class="text-cor-4 md:ml-2 w-7 group-hover:md:w-3 md:w-0 h-auto transition-all ease-in-out duration-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
                       </Link>
-                      <h2 class="text-cor-4 font-title text-4xl sm:text-5xl font-light uppercase tracking-tighter max-w-6xl leading-snug text-g1 sm:leading-snug">Crie seus flashcards</h2>
+                      <h2 class="text-cor-4 font-title text-4xl sm:text-5xl font-light uppercase tracking-tighter max-w-6xl leading-snug text-g1 sm:leading-snug">Nunca mais <span class="text-bold text-cor-1">esqueça</span> o que aprendeu</h2>
                       <p class="text-cor-4/70 mt-8 text-pretty text-lg font-medium sm:text-xl">Explore flashcards interativos para facilitar a memorização e retenção de conteúdos. Descubra uma maneira divertida e eficaz de estudar e potencializar seu conhecimento!</p>
-                      <div class="mt-10 flex flex-col items-center md:flex-row">
-                        <a href="/Login" class="mb-3 inline-flex h-12 w-fit items-center justify-center rounded bg-gradient-to-r from-cor-2 bg-cor-1 text-cor-4 px-6 font-medium tracking-wide shadow-md transition ease-in-out hover:bg-cor-3 scale-105 duration-300 focus:outline-none md:mr-4 md:mb-0 md:w-auto">Comece agora</a>
-                      </div>
+                      <button class="text-sm md:text-base  lg:text-lg px-8 py-3 bg-cor-3 text-cor-2 font-semibold rounded-md shadow-lg hover:bg-c4 md:hover:-translate-y-0.5 hover:text-c1 transition ease-in-out duration-300">
+                        Comece agora
+                      </button>
+                      <button class="group text-cor-3 flex items-center gap-1 font-semibold hover:text-cor-1 transition-all ease-in-out duration-100 md:hover:translate-x-1">
+                        Ver mais
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-0 h-auto group-hover:w-5 transition-all ease-in-out duration-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>
