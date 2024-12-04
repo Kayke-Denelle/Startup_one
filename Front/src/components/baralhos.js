@@ -104,7 +104,7 @@ const DeckList = () => {
   
       const deck = await response.json();
   
-      // Se o baralho tiver cartas, não permite a exclusão
+      // Verifique se a resposta contém o campo "cards" e se ele está vazio
       if (deck.cards && deck.cards.length > 0) {
         alert('Não é possível excluir um baralho com cartas associadas.');
         return;
@@ -132,6 +132,7 @@ const DeckList = () => {
       alert('Erro ao excluir o baralho');
     }
   };
+  
   
 
   return (  
