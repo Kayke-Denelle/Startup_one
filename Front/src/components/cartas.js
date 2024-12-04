@@ -133,7 +133,7 @@ const FlashcardList = () => {
                     </div>
                     {/* Adicionando a seta */}
                     <button className="flip-arrow" onClick={(e) => { e.stopPropagation(); handleCardClick(index); }}>
-                      <MdArrowForward className={`transition-transform duration-300 ${flippedCardIndex === index ? 'rotate-180' : ''}`} />
+                      <MdArrowForward className="transition-transform duration-300" />
                     </button>
                   </div>
                   <div className="card-back flex items-center justify-center bg-cor-1 text-white shadow-lg rounded-lg p-4">
@@ -141,7 +141,7 @@ const FlashcardList = () => {
                     <p className="text-center">{card.answer}</p>
                     {/* Adicionando a seta também na parte de trás */}
                     <button className="flip-arrow" onClick={(e) => { e.stopPropagation(); handleCardClick(index); }}>
-                      <MdArrowForward className={`transition-transform duration-300 ${flippedCardIndex === index ? 'rotate-180' : ''}`} />
+                      <MdArrowForward className="transition-transform duration-300" />
                     </button>
                   </div>
                 </div>
