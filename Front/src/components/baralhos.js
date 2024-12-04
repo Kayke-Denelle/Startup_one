@@ -69,6 +69,7 @@ const DeckList = () => {
       },
       body: JSON.stringify({ name: editedDeckName })
     });
+  };
 
   // Handle Delete Deck
   const handleDeleteDeck = async (deckId) => {
