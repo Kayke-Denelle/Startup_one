@@ -228,7 +228,7 @@ const FlashcardList = () => {
               <div className="card">
                 <div className="card-inner">
                   <div className="card-front flex items-center justify-center bg-white shadow-lg rounded-lg p-4">
-                    <strong className="text-black"><img src={require("../Img/icons8-plus-56.png")} alt="plus--v1"/></strong>
+                    <strong className="text-black"><img src={require("../Img/seta-esquerda.png")} alt="plus--v1"/></strong>
                   </div>
                 </div>
               </div>
