@@ -121,12 +121,6 @@ const DeckList = () => {
       
       <div className="flex-1 min-h-screen flex flex-col items-center p-5">
         <h2 className="text-3xl font-bold mb-5">Baralhos</h2>
-        <button 
-          onClick={logout} 
-          className="mb-5 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"
-        >
-          Sair
-        </button>
         <div className="mb-5 flex">
           <input
             type="text"
@@ -145,7 +139,7 @@ const DeckList = () => {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {decks.map((deck) => (
-            <div key={deck._id} className="relative bg-white shadow-lg rounded-lg p-5 flex flex-col h-[350px]">
+            <div key={deck._id} className="relative bg-white shadow-lg rounded-lg p-5 flex flex-col h-[150px]">
               <div
                 className="absolute inset-0 bg-cover bg-center rounded-lg"
                 style={{
