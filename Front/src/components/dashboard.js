@@ -92,7 +92,7 @@ const MonthlyReviewChart = () => {
         borderColor: palette.map(color => `${color}88`), // Transparência leve nas bordas
         borderWidth: 2,
         borderRadius: 8,
-        hoverBackgroundColor: '#ffffff88', // Branco com transparência ao passar o mouse
+        hoverBackgroundColor: '#201533', // Efeito ao passar o mouse
       },
     ],
   };
@@ -103,7 +103,7 @@ const MonthlyReviewChart = () => {
       legend: {
         position: 'top',
         labels: {
-          color: '#ffffff',
+          color: '#203562', // Cor da legenda
           font: {
             size: 14,
             weight: 'bold',
@@ -128,7 +128,7 @@ const MonthlyReviewChart = () => {
     scales: {
       x: {
         ticks: {
-          color: '#ffffff', // Cor do texto no eixo X
+          color: '#203562', // Cor do texto no eixo X
           font: {
             size: 12,
           },
@@ -140,24 +140,24 @@ const MonthlyReviewChart = () => {
       y: {
         beginAtZero: true, // Começa o gráfico no valor zero
         ticks: {
-          color: '#ffffff', // Cor do texto no eixo Y
+          color: '#203562', // Cor do texto no eixo Y
           font: {
             size: 12,
           },
         },
         grid: {
-          color: '#ffffff33', // Linhas horizontais com transparência
+          color: '#e0e0e0', // Linhas horizontais com tom cinza claro
         },
       },
     },
   };
 
   return (
-    <div className="flex flex-col lg:flex-row w-full min-h-screen bg-[#201533]">
+    <div className="flex flex-col lg:flex-row w-full min-h-screen bg-white">
       <Sidebar className="lg:w-1/4 p-4 bg-[#203562] shadow-md" /> {/* Sidebar com Tailwind CSS */}
       <div className="flex-1 p-6">
-        <h2 className="text-3xl font-semibold text-[#ffffff] mb-4">Revisões Mensais</h2>
-        <div className="bg-[#1e579c] shadow-lg rounded-lg p-4">
+        <h2 className="text-3xl font-semibold text-[#203562] mb-4">Revisões Mensais</h2>
+        <div className="bg-white shadow-lg rounded-lg p-4">
           <Bar data={data} options={options} />
         </div>
       </div>
