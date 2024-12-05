@@ -144,7 +144,7 @@ const LandingPage = () => {
                   style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)' }}>
                 </div>
               </div>
-              <div className="mx-auto max-w-7xl px-6 lg:px-8 flex justify-center items-center">
+              <div className="mx-auto max-w-7xl px-6 lg:px-8 flex justify-center items-center gap-60">
                 <div className="mx-auto max-w-2xl lg:mx-0 flex justify-center items-center">
                   <div>
                     <h2 class="text-cor-4 font-title text-4xl sm:text-5xl uppercase font-light text-balance max-w-6xl leading-snug text-g1 sm:leading-snug"><span class="text-cor-4 font-bold">Fortaleça </span>sua base de conhecimento</h2>
@@ -155,7 +155,7 @@ const LandingPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-start items-center ml-10 mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
+              <div className="flex justify-center items-center mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
                   <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="flex flex-col-reverse gap-1">
                       <dt className="text-base text-cor-4/70">Usuários registrados</dt>
