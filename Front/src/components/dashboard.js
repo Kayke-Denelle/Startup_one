@@ -79,39 +79,85 @@ const MonthlyReviewChart = () => {
     fetchMonthlyReviews();
   }, [token, userId]);
 
+  // Paleta de cores (prioridade 4 a 0)
+  const palette = ['#ffffff', '#203562', '#1e579c', '#0098db', '#201533'];
+
   const data = {
     labels: monthlyData.months, // Mês e ano (jan, fev, etc.)
     datasets: [
       {
         label: 'Revisões Mensais',
         data: monthlyData.counts, // Contagem de revisões por mês
-        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
+        backgroundColor: palette, // Aplica as cores na sequência
+        borderColor: palette.map(color => `${color}88`), // Transparência leve nas bordas
+        borderWidth: 2,
+        borderRadius: 8,
+        hoverBackgroundColor: '#201533', // Efeito ao passar o mouse
       },
     ],
   };
 
   const options = {
     responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          color: '#201533', // Cor da legenda
+          font: {
+            size: 14,
+            weight: 'bold',
+          },
+        },
+      },
+      tooltip: {
+        backgroundColor: '#1e579c',
+        titleFont: {
+          size: 16,
+          weight: 'bold',
+          color: '#ffffff',
+        },
+        bodyFont: {
+          size: 14,
+          color: '#ffffff',
+        },
+        borderColor: '#ffffff',
+        borderWidth: 1,
+      },
+    },
     scales: {
       x: {
         ticks: {
-          autoSkip: false, // Não esconder ticks automaticamente
+          color: '#ffffff', // Cor do texto no eixo X
+          font: {
+            size: 12,
+          },
+        },
+        grid: {
+          display: false, // Remove linhas verticais
         },
       },
       y: {
         beginAtZero: true, // Começa o gráfico no valor zero
+        ticks: {
+          color: '#ffffff', // Cor do texto no eixo Y
+          font: {
+            size: 12,
+          },
+        },
+        grid: {
+          color: '#e0e0e0', // Linhas horizontais com tom cinza claro
+        },
       },
     },
   };
 
   return (
-    <div className="flex flex-col lg:flex-row w-full min-h-screen bg-gray-100">
-      <Sidebar className="lg:w-1/4 p-4 bg-white shadow-md" /> {/* Sidebar com Tailwind CSS */}
+    <div className="flex flex-col lg:flex-row w-full min-h-screen bg-white">
+      <Sidebar className="lg:w-1/4 p-4 bg-[#203562] shadow-md" /> {/* Sidebar com Tailwind CSS */}
       <div className="flex-1 p-6">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-4">Revisões Mensais</h2>
-        <div className="bg-white shadow-lg rounded-lg p-4">
+        <h2 className="text-3xl font-semibold text-[#203562] mb-4">Revisões Mensais</h2>
+        <div className="bg-cor-1 shadow-lg rounded-lg p-4">
           <Bar data={data} options={options} />
         </div>
       </div>
