@@ -145,7 +145,7 @@ const LandingPage = () => {
                 </div>
               </div>
               <div className="mx-10 max-w-7xl px-6 lg:px-8 flex justify-center items-center">
-                <div className="mx-auto max-w-2xl lg:mx-0 flex justify-center items-center gap-60">
+                <div className="mx-10 max-w-2xl lg:mx-0 flex justify-center items-center">
                   <div>
                     <h2 class="text-cor-4 font-title text-4xl sm:text-5xl uppercase font-light text-balance max-w-6xl leading-snug text-g1 sm:leading-snug"><span class="text-cor-4 font-bold">Fortaleça </span>sua base de conhecimento</h2>
                     <p className="text-cor-4/70 mt-8 text-pretty text-lg font-medium sm:text-xl">Com o Volans, aprenda de forma eficaz com flashcards e repetição espaçada, fixando informações rapidamente para maximizar seu aprendizado.</p>
