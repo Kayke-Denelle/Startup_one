@@ -10,8 +10,9 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 const MonthlyReviewChart = () => {
   const { token, userId } = useContext(AuthContext);
   const [monthlyData, setMonthlyData] = useState({ months: [], counts: [] });
-  const [stats, setStats] = useState({ decks: 0, cards: 0 }); // Estado para armazenar os números de baralhos e cartas
+  const [decksAndCards, setDecksAndCards] = useState({ decks: 0, cards: 0 }); // Estado para armazenar baralhos e cartas
 
+  // Fetch para revisões mensais
   useEffect(() => {
     const fetchMonthlyReviews = async () => {
       try {
@@ -25,47 +26,36 @@ const MonthlyReviewChart = () => {
           const data = await response.json();
           const reviewsPerMonth = data.reviewsPerMonth;
 
-          // Agrupar as revisões por mês e ano, sem somar os valores entre os anos
           const monthlyCounts = {};
-
           reviewsPerMonth.forEach((item) => {
-            const month = item.month.substring(0, 3); // Extrair o nome do mês (primeiros 3 caracteres)
-            const year = item.year; // Ano
+            const month = item.month.substring(0, 3);
+            const year = item.year;
+            const monthYear = `${month} ${year}`;
 
-            const monthYear = `${month} ${year}`; // Criar chave única para o mês e ano (Ex: "Jan 2023")
-
-            // Se o mês/ano já existe, adiciona as revisões, senão cria um novo
             if (!monthlyCounts[monthYear]) {
               monthlyCounts[monthYear] = 0;
             }
-            monthlyCounts[monthYear] += item.count; // Soma as revisões do mesmo mês e ano
+            monthlyCounts[monthYear] += item.count;
           });
 
-          // Definir todos os meses do ano
           const allMonths = [
-            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
           ];
 
           const months = [];
           const counts = [];
-
-          // Preencher os meses do ano, caso não haja revisões para algum mês, vai inserir 0
           allMonths.forEach((month) => {
             let found = false;
-
-            // Verificar se o mês está presente nos dados
             for (let item of Object.keys(monthlyCounts)) {
-              if (item.startsWith(month)) { // Verifica se o mês corresponde à chave
+              if (item.startsWith(month)) {
                 months.push(item);
                 counts.push(monthlyCounts[item]);
                 found = true;
                 break;
               }
             }
-
-            // Se o mês não foi encontrado, adicionar como 0
             if (!found) {
-              months.push(`${month} ${new Date().getFullYear()}`); // Usa o ano atual
+              months.push(`${month} ${new Date().getFullYear()}`);
               counts.push(0);
             }
           });
@@ -77,9 +67,14 @@ const MonthlyReviewChart = () => {
       }
     };
 
-    const fetchStats = async () => {
+    fetchMonthlyReviews();
+  }, [token, userId]);
+
+  // Fetch para quantidade de baralhos e cartas
+  useEffect(() => {
+    const fetchDecksAndCards = async () => {
       try {
-        const response = await fetch(`https://volans-api-production.up.railway.app/api/stats/${userId}`, {
+        const response = await fetch(`https://volans-api-production.up.railway.app/api/decks/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -87,26 +82,22 @@ const MonthlyReviewChart = () => {
 
         if (response.ok) {
           const data = await response.json();
-          setStats({
-            decks: data.totalDecks || 0,
-            cards: data.totalCards || 0,
-          });
+          setDecksAndCards({ decks: data.decks, cards: data.cards });
         }
       } catch (error) {
-        console.error('Erro ao buscar estatísticas:', error);
+        console.error('Erro ao buscar dados de baralhos e cartas:', error);
       }
     };
 
-    fetchMonthlyReviews();
-    fetchStats();
+    fetchDecksAndCards();
   }, [token, userId]);
 
   const data = {
-    labels: monthlyData.months, // Mês e ano (jan, fev, etc.)
+    labels: monthlyData.months,
     datasets: [
       {
         label: 'Revisões Mensais',
-        data: monthlyData.counts, // Contagem de revisões por mês
+        data: monthlyData.counts,
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
@@ -119,32 +110,27 @@ const MonthlyReviewChart = () => {
     scales: {
       x: {
         ticks: {
-          autoSkip: false, // Não esconder ticks automaticamente
+          autoSkip: false,
         },
       },
       y: {
-        beginAtZero: true, // Começa o gráfico no valor zero
+        beginAtZero: true,
       },
     },
   };
 
   return (
     <div className="flex flex-col lg:flex-row w-full min-h-screen bg-gray-100">
-      <Sidebar className="lg:w-1/4 p-4 bg-white shadow-md" /> {/* Sidebar com Tailwind CSS */}
+      <Sidebar className="lg:w-1/4 p-4 bg-white shadow-md" />
       <div className="flex-1 p-6">
         <h2 className="text-3xl font-semibold text-gray-800 mb-4">Revisões Mensais</h2>
-        <div className="bg-white shadow-lg rounded-lg p-4">
+        <div className="bg-white shadow-lg rounded-lg p-4 mb-6">
           <Bar data={data} options={options} />
         </div>
-        {/* Estatísticas abaixo do gráfico */}
-        <div className="mt-6 bg-white shadow-lg rounded-lg p-4">
-          <h3 className="text-2xl font-semibold text-gray-800">Estatísticas Gerais</h3>
-          <p className="mt-2 text-gray-600">
-            <span className="font-bold">Total de Baralhos:</span> {stats.decks}
-          </p>
-          <p className="mt-2 text-gray-600">
-            <span className="font-bold">Total de Cartas:</span> {stats.cards}
-          </p>
+        <div className="bg-white shadow-lg rounded-lg p-4">
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Suas Estatísticas</h3>
+          <p className="text-gray-600">Baralhos Criados: <span className="font-bold">{decksAndCards.decks}</span></p>
+          <p className="text-gray-600">Cartas Criadas: <span className="font-bold">{decksAndCards.cards}</span></p>
         </div>
       </div>
     </div>
