@@ -57,7 +57,7 @@ const Register = () => {
         </div>
       </div>
       <div className="flex items-center justify-center h-screen">
-        <div className="w-fit py-40 bg-cor-4/70 px-14 sm:py-14 shadow-md sm:rounded-3xl">
+        <div className="w-screen h-screen sm:h-fit sm:w-fit py-20 bg-cor-4/70 px-14 sm:py-14 shadow-md sm:rounded-3xl">
           <div className="flex mt-3 text-sm text-cor-0/70 hover:text-cor-1 transition ease-in-out duration-300">
             <button type="button" onClick={handleLoginRedirect}>Voltar ao login</button>
           </div>
