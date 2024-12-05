@@ -118,7 +118,7 @@ const ReviewPage = () => {
                     <p className="text-center">{card.question}</p>
                   </div>
                 </div>
-                <div className={`back ${isFlipped ? 'block' : 'hidden'} flex items-center justify-center`}>
+                <div className={`back ${isFlipped ? 'block' : 'hidden'} flex items-center justify-center bg-cor-1`}>
                   <div>
                     <h3 className="font-semibold text-xl mb-2 text-center">Resposta:</h3>
                     <p className="text-center">{card.answer}</p>
