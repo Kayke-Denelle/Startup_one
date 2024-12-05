@@ -192,7 +192,7 @@ const LandingPage = () => {
                 <h2 class="text-cor-4 font-title text-4xl sm:text-5xl font-light uppercase max-w-6xl leading-snug text-g1 sm:leading-snug">Conheça nossa <span class="text-cor-1 font-bold"> equipe</span></h2>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-2 rounded-tl-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
                     <img class="rounded-full w-28 h-28" src={require('../Img/TeamImg/carlos.jpg')}/>
                   </div>
@@ -213,7 +213,7 @@ const LandingPage = () => {
                     <p class="text-base text-cor-4/70 font-normal">Analista de Suporte e Manutenção e Especialista em Instalação e Deploy</p>
                   </div>
                 </div>
-                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-2 rounded-tr-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
                     <img class="rounded-full w-28 h-28" src={require('../Img/TeamImg/giovanni.jpeg')}/>
                   </div>
@@ -222,7 +222,7 @@ const LandingPage = () => {
                     <p class="text-base text-cor-4/70 font-normal">Desenvolvedor Front-end e  Consultor de Usabilidade</p>
                   </div>
                 </div>
-                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-2 rounded-bl-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
                     <img class="rounded-full w-28 h-28" src={require('../Img/TeamImg/kayke.jpg')}/>
                   </div>
@@ -240,7 +240,7 @@ const LandingPage = () => {
                     <p class="text-base text-cor-4/70 font-normal">Gestor do Projeto, Scrum Master e Analista de Business Intelligence (BI)</p>
                   </div>
                 </div>
-                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-2 rounded-br-lg p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
                     <img class="bg-cor-0 rounded-full w-28 h-28" src={require('../Img/TeamImg/otavio.png')}/>
                   </div>
