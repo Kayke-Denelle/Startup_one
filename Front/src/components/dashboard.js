@@ -157,7 +157,7 @@ const MonthlyReviewChart = () => {
       <Sidebar className="lg:w-1/4 p-4 bg-[#203562] shadow-md" /> {/* Sidebar com Tailwind CSS */}
       <div className="flex-1 p-6">
         <h2 className="text-3xl font-semibold text-[#203562] mb-4">Revisões Mensais</h2>
-        <div className="bg-white shadow-lg rounded-lg p-4">
+        <div className="bg-cor-1 shadow-lg rounded-lg p-4">
           <Bar data={data} options={options} />
         </div>
       </div>
