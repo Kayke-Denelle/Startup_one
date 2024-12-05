@@ -121,7 +121,7 @@ const MonthlyReviewChart = () => {
           size: 14,
           color: '#ffffff',
         },
-        borderColor: '#ffffff',
+        borderColor: '#201533',
         borderWidth: 1,
       },
     },
