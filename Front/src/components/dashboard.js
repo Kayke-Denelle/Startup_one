@@ -79,16 +79,22 @@ const MonthlyReviewChart = () => {
             'Authorization': `Bearer ${token}`,
           },
         });
-
+  
         if (response.ok) {
           const data = await response.json();
-          setDecksAndCards({ decks: data.decks, cards: data.cards });
+          console.log('Dados de baralhos e cartas retornados pela API:', data); // Log para debug
+          const decks = data?.decks ?? 0;
+          const cards = data?.cards ?? 0;
+  
+          setDecksAndCards({ decks, cards });
+        } else {
+          console.error('Erro na API ao buscar baralhos e cartas:', response.statusText);
         }
       } catch (error) {
         console.error('Erro ao buscar dados de baralhos e cartas:', error);
       }
     };
-
+  
     fetchDecksAndCards();
   }, [token, userId]);
 
