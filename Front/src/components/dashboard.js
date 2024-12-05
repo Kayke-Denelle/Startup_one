@@ -79,33 +79,20 @@ const MonthlyReviewChart = () => {
     fetchMonthlyReviews();
   }, [token, userId]);
 
+  // Paleta de cores (prioridade 4 a 0)
+  const palette = ['#ffffff', '#203562', '#1e579c', '#0098db', '#201533'];
+
   const data = {
     labels: monthlyData.months, // Mês e ano (jan, fev, etc.)
     datasets: [
       {
         label: 'Revisões Mensais',
         data: monthlyData.counts, // Contagem de revisões por mês
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.6)',
-          'rgba(54, 162, 235, 0.6)',
-          'rgba(255, 206, 86, 0.6)',
-          'rgba(75, 192, 192, 0.6)',
-          'rgba(153, 102, 255, 0.6)',
-          'rgba(255, 159, 64, 0.6)',
-          'rgba(199, 199, 199, 0.6)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(199, 199, 199, 1)',
-        ],
+        backgroundColor: palette, // Aplica as cores na sequência
+        borderColor: palette.map(color => `${color}88`), // Transparência leve nas bordas
         borderWidth: 2,
         borderRadius: 8,
-        hoverBackgroundColor: 'rgba(100, 100, 100, 0.8)', // Cor ao passar o mouse
+        hoverBackgroundColor: '#ffffff88', // Branco com transparência ao passar o mouse
       },
     ],
   };
@@ -116,7 +103,7 @@ const MonthlyReviewChart = () => {
       legend: {
         position: 'top',
         labels: {
-          color: '#333',
+          color: '#ffffff',
           font: {
             size: 14,
             weight: 'bold',
@@ -124,22 +111,24 @@ const MonthlyReviewChart = () => {
         },
       },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backgroundColor: '#1e579c',
         titleFont: {
           size: 16,
           weight: 'bold',
+          color: '#ffffff',
         },
         bodyFont: {
           size: 14,
+          color: '#ffffff',
         },
-        borderColor: '#fff',
+        borderColor: '#ffffff',
         borderWidth: 1,
       },
     },
     scales: {
       x: {
         ticks: {
-          color: '#555',
+          color: '#ffffff', // Cor do texto no eixo X
           font: {
             size: 12,
           },
@@ -151,24 +140,24 @@ const MonthlyReviewChart = () => {
       y: {
         beginAtZero: true, // Começa o gráfico no valor zero
         ticks: {
-          color: '#555',
+          color: '#ffffff', // Cor do texto no eixo Y
           font: {
             size: 12,
           },
         },
         grid: {
-          color: '#ddd', // Linhas horizontais cinzas claras
+          color: '#ffffff33', // Linhas horizontais com transparência
         },
       },
     },
   };
 
   return (
-    <div className="flex flex-col lg:flex-row w-full min-h-screen bg-gray-100">
-      <Sidebar className="lg:w-1/4 p-4 bg-white shadow-md" /> {/* Sidebar com Tailwind CSS */}
+    <div className="flex flex-col lg:flex-row w-full min-h-screen bg-[#201533]">
+      <Sidebar className="lg:w-1/4 p-4 bg-[#203562] shadow-md" /> {/* Sidebar com Tailwind CSS */}
       <div className="flex-1 p-6">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-4">Revisões Mensais</h2>
-        <div className="bg-white shadow-lg rounded-lg p-4">
+        <h2 className="text-3xl font-semibold text-[#ffffff] mb-4">Revisões Mensais</h2>
+        <div className="bg-[#1e579c] shadow-lg rounded-lg p-4">
           <Bar data={data} options={options} />
         </div>
       </div>
