@@ -10,6 +10,7 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 const MonthlyReviewChart = () => {
   const { token, userId } = useContext(AuthContext);
   const [monthlyData, setMonthlyData] = useState({ months: [], counts: [] });
+  const [stats, setStats] = useState({ decks: 0, cards: 0 }); // Estado para armazenar os números de baralhos e cartas
 
   useEffect(() => {
     const fetchMonthlyReviews = async () => {
@@ -42,7 +43,7 @@ const MonthlyReviewChart = () => {
 
           // Definir todos os meses do ano
           const allMonths = [
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
           ];
 
           const months = [];
@@ -76,7 +77,28 @@ const MonthlyReviewChart = () => {
       }
     };
 
+    const fetchStats = async () => {
+      try {
+        const response = await fetch(`https://volans-api-production.up.railway.app/api/stats/${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setStats({
+            decks: data.totalDecks || 0,
+            cards: data.totalCards || 0,
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao buscar estatísticas:', error);
+      }
+    };
+
     fetchMonthlyReviews();
+    fetchStats();
   }, [token, userId]);
 
   const data = {
@@ -113,6 +135,16 @@ const MonthlyReviewChart = () => {
         <h2 className="text-3xl font-semibold text-gray-800 mb-4">Revisões Mensais</h2>
         <div className="bg-white shadow-lg rounded-lg p-4">
           <Bar data={data} options={options} />
+        </div>
+        {/* Estatísticas abaixo do gráfico */}
+        <div className="mt-6 bg-white shadow-lg rounded-lg p-4">
+          <h3 className="text-2xl font-semibold text-gray-800">Estatísticas Gerais</h3>
+          <p className="mt-2 text-gray-600">
+            <span className="font-bold">Total de Baralhos:</span> {stats.decks}
+          </p>
+          <p className="mt-2 text-gray-600">
+            <span className="font-bold">Total de Cartas:</span> {stats.cards}
+          </p>
         </div>
       </div>
     </div>
