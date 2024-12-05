@@ -111,7 +111,7 @@ const ReviewPage = () => {
             <div className="relative">
               {/* Cartão */}
               <div
-                className={`card w-[105rem] h-96 bg-white shadow-lg rounded-lg p-4 flex items-center justify-center transform transition-all duration-500 ${isFlipped ? 'rotateY-180' : ''}`}onClick={toggleFlip}>
+                className={`card w-[110rem] h-96 bg-white shadow-lg rounded-lg p-4 flex items-center justify-center transform transition-all duration-500 ${isFlipped ? 'rotateY-180' : ''}`}onClick={toggleFlip}>
                 <div className={`front ${isFlipped ? 'hidden' : 'block'} flex items-center justify-center`}>
                   <div>
                     <h3 className="font-semibold text-xl mb-2 text-center">Pergunta:</h3>
