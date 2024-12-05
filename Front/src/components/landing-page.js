@@ -204,7 +204,7 @@ const LandingPage = () => {
                     </ul>
                   </div>
                 </div>
-                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-2 p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
                     <img class="rounded-full w-28 h-28" src={require('../Img/TeamImg/eduardo.jpg')}/>
                   </div>
@@ -231,7 +231,7 @@ const LandingPage = () => {
                     <p class="text-base text-cor-4/70 font-normal">Desenvolvedor Back-end e Analista de Viabilidade</p>
                   </div>
                 </div>
-                <div class="w-full bg-cor-2 rounded-lg p-12 flex flex-col justify-center items-center">
+                <div class="w-full bg-cor-2 p-12 flex flex-col justify-center items-center">
                   <div class="mb-8">
                     <img class="rounded-full w-28 h-28" src={require('../Img/TeamImg/leonardo.jpg')}/>
                   </div>
