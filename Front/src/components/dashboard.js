@@ -103,7 +103,7 @@ const MonthlyReviewChart = () => {
       legend: {
         position: 'top',
         labels: {
-          color: '#203562', // Cor da legenda
+          color: '#201533', // Cor da legenda
           font: {
             size: 14,
             weight: 'bold',
@@ -121,14 +121,14 @@ const MonthlyReviewChart = () => {
           size: 14,
           color: '#ffffff',
         },
-        borderColor: '#201533',
+        borderColor: '#ffffff',
         borderWidth: 1,
       },
     },
     scales: {
       x: {
         ticks: {
-          color: '#203562', // Cor do texto no eixo X
+          color: '#ffffff', // Cor do texto no eixo X
           font: {
             size: 12,
           },
@@ -140,7 +140,7 @@ const MonthlyReviewChart = () => {
       y: {
         beginAtZero: true, // Começa o gráfico no valor zero
         ticks: {
-          color: '#203562', // Cor do texto no eixo Y
+          color: '#ffffff', // Cor do texto no eixo Y
           font: {
             size: 12,
           },
