@@ -151,7 +151,7 @@ const LandingPage = () => {
                     <p className="text-cor-4/70 mt-8 text-pretty text-lg font-medium sm:text-xl">Com o Volans, aprenda de forma eficaz com flashcards e repetição espaçada, fixando informações rapidamente para maximizar seu aprendizado.</p>
                   </div>
                   <div class="bg-cor-4 w-96 h-32">
-                    Imagem aquia
+                    <img class="rounded-full w-28 h-28" src={require('../Img/ImagemDashboard.png')}/>
                   </div>
                 </div>
               </div>
