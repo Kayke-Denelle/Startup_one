@@ -111,18 +111,22 @@ const ReviewPage = () => {
             <div className="relative">
               {/* Cartão */}
               <div
-                className={`card w-72 h-96 bg-white shadow-lg rounded-lg p-4 transform transition-all duration-500 ${isFlipped ? 'rotateY-180' : ''}`}
-                onClick={toggleFlip}
-              >
-                <div className={`front ${isFlipped ? 'hidden' : 'block'}`}>
-                  <h3 className="font-semibold text-xl mb-2">Pergunta:</h3>
-                  <p>{card.question}</p>
-                </div>
-                <div className={`back ${isFlipped ? 'block' : 'hidden'}`}>
-                  <h3 className="font-semibold text-xl mb-2">Resposta:</h3>
-                  <p>{card.answer}</p>
-                </div>
-              </div>
+  className={`card w-96 h-96 bg-white shadow-lg rounded-lg p-4 flex items-center justify-center transform transition-all duration-500 ${isFlipped ? 'rotateY-180' : ''}`}
+  onClick={toggleFlip}
+>
+  <div className={`front ${isFlipped ? 'hidden' : 'block'} flex items-center justify-center`}>
+    <div>
+      <h3 className="font-semibold text-xl mb-2 text-center">Pergunta:</h3>
+      <p className="text-center">{card.question}</p>
+    </div>
+  </div>
+  <div className={`back ${isFlipped ? 'block' : 'hidden'} flex items-center justify-center`}>
+    <div>
+      <h3 className="font-semibold text-xl mb-2 text-center">Resposta:</h3>
+      <p className="text-center">{card.answer}</p>
+    </div>
+  </div>
+</div>
 
               {/* Navegação das setas */}
               <div className="absolute top-1/2 left-0 right-0 flex justify-between px-4 transform -translate-y-1/2">
