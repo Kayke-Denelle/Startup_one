@@ -148,10 +148,10 @@ const LandingPage = () => {
                 <div className="mx-auto max-w-2xl lg:mx-0">
                   <h2 class="text-cor-4 font-title text-4xl sm:text-5xl uppercase font-light text-balance max-w-6xl leading-snug text-g1 sm:leading-snug"><span class="text-cor-4 font-bold">Fortaleça </span>sua base de conhecimento</h2>
                   <p className="text-cor-4/70 mt-8 text-pretty text-lg font-medium sm:text-xl">Com o Volans, aprenda de forma eficaz com flashcards e repetição espaçada, fixando informações rapidamente para maximizar seu aprendizado.</p>
-                  <div class="bg-cor-4 w-96 h-32">
-
-                  </div>
                 </div>
+                <div class="bg-cor-4 w-96 h-32">
+                    Imagem
+                  </div>
                 <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
                   <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="flex flex-col-reverse gap-1">
