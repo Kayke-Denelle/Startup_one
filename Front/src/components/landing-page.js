@@ -156,7 +156,6 @@ const LandingPage = () => {
                 </div>
               </div>
               <div className="flex justify-center items-center mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
-              <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
                   <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="flex flex-col-reverse gap-1">
                       <dt className="text-base text-cor-4/70">Usuários registrados</dt>
@@ -176,7 +175,6 @@ const LandingPage = () => {
                     </div>
                   </dl>
                 </div>
-              </div>
             </section>
 
             <section class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
